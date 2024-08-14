@@ -30,7 +30,7 @@ const SideInfoBox = ({ content, value, width = 170 }) => (
       transition={{ duration: 0.05, ease: "easeInOut" }}
       className="relative bg-white w-full h-full rounded-2xl p-4 flex flex-col items-center"
     >
-      <div className="text-xl font-medium">{content}</div>
+      <div className="text-xl font-medium pt-1">{content}</div>
       <div className="text-gray-700">{value}</div>
     </motion.div>
   </div>
@@ -51,7 +51,7 @@ const FooterLogo = () => (
 );
 
 const MainLayout = ({ children, title, subtitle }) => (
-  <div className="font-dm pt-8 pb-6 rounded-tl-[60px] mt-1 mr-1 px-10 flex flex-col h-screen w-full bg-white">
+  <div className="font-dm pt-8 pb-6 rounded-tl-[60px] mt-1 mr-1 px-10 flex flex-col h-screen overflow-y-auto w-full bg-white">
     {/* Top Header */}
     <div className="flex justify-between items-center">
       <Header title={title} subtitle={subtitle} />
@@ -64,7 +64,6 @@ const MainLayout = ({ children, title, subtitle }) => (
 
     {/* Main Content with Right Sidebar */}
     <div className="flex-grow flex pt-6">
-      {/* 2x2 Grid for Courses */}
       {children}
 
       {/* Right Sidebar */}

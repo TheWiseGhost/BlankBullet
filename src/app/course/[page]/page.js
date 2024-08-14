@@ -1,24 +1,39 @@
 "use client";
+
+import Dropdown from "@/components/global/Dropdown";
 import React, { useState } from "react";
 import {
   Sidebar,
   SidebarBody,
   SidebarLink,
-} from "../../components/global/Sidebar";
+} from "../../../components/global/Sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
-  IconSettings,
   IconHammer,
+  IconSettings,
   IconReportAnalytics,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import Settings from "@/components/settings/Settings";
 
-export default function SidebarDemo() {
+const DropdownComponent = ({ params }) => {
+  const page = params.page;
+  const capitalizedPage = page.charAt(0).toUpperCase() + page.slice(1);
+
+  return (
+    <div className="font-dm pt-8 pb-6 rounded-tl-[60px] mt-1 mr-1 px-10 flex flex-col h-screen w-full bg-white justify-center items-center">
+      <div className="flex flex-col space-y-2">
+        <h1 className="text-5xl font-medium text-center">{capitalizedPage}</h1>
+        <Dropdown page={page} />
+      </div>
+    </div>
+  );
+};
+
+export default function SidebarDemo({ params }) {
   const links = [
     {
       label: "Dashboard",
@@ -76,7 +91,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Settings />
+      <DropdownComponent params={params} />
     </div>
   );
 }

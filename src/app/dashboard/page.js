@@ -29,14 +29,14 @@ export default function SidebarDemo() {
     },
     {
       label: "Builder",
-      href: "/builder",
+      href: "/course/builder",
       icon: (
         <IconHammer className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Analytics",
-      href: "/analytics",
+      href: "/course/analytics",
       icon: (
         <IconReportAnalytics className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),

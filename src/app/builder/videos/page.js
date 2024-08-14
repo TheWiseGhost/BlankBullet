@@ -4,19 +4,19 @@ import {
   Sidebar,
   SidebarBody,
   SidebarLink,
-} from "../../components/global/Sidebar";
+} from "../../../components/global/Sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
-  IconSettings,
   IconHammer,
+  IconSettings,
   IconReportAnalytics,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import Settings from "@/components/settings/Settings";
+import Videos from "@/components/builder/videos/Videos";
 
 export default function SidebarDemo() {
   const links = [
@@ -76,7 +76,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Settings />
+      <Videos />
     </div>
   );
 }
