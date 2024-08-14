@@ -8,15 +8,15 @@ import {
 import {
   IconArrowLeft,
   IconBrandTabler,
-  IconHammer,
   IconSettings,
+  IconHammer,
   IconReportAnalytics,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import Dashboard from "@/components/dashboard/Dashboard";
+import Settings from "@/components/settings/Settings";
 
 export default function SidebarDemo({ children }) {
   const links = [
@@ -76,7 +76,7 @@ export default function SidebarDemo({ children }) {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Dashboard />
+      <Settings />
     </div>
   );
 }
