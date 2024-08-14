@@ -9,7 +9,7 @@ const SettingsComponent = () => (
 );
 
 const Settings = () => (
-  <MainLayout title={"Settings"} subtitle={"Dashboard"}>
+  <MainLayout title={"My Settings"} subtitle={"Settings"}>
     <SettingsComponent />
   </MainLayout>
 );
