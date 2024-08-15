@@ -1,6 +1,13 @@
 import { DM_Sans, Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 const font = DM_Sans({ subsets: ["latin"], variable: "--font-dm" });
 const inter = Inter({
@@ -21,17 +28,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-        enableSystem
-        disableTransitionOnChange
-      >
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
+      <html lang="en">
         <body className={`${font.variable} ${inter.variable} ${mon.variable}`}>
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </body>
-      </ThemeProvider>
-    </html>
+      </html>
+    </ClerkProvider>
   );
 }

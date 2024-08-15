@@ -46,7 +46,7 @@ const ModulesComponent = () => {
   return (
     <div className="flex w-full h-screen">
       {/* Left Panel */}
-      <div className="w-3/5 p-4 pt-0 flex flex-col items-center">
+      <div className="w-2/3 p-4 pt-0 flex flex-col items-center">
         {activeModule && (
           <div className="flex flex-col w-full">
             <div className="flex flex-row items-center pb-6">
@@ -105,7 +105,7 @@ const ModulesComponent = () => {
       </div>
 
       {/* Right Panel */}
-      <div className="w-2/5 font-dm border-t-4 border-l-4 rounded-tl-[40px] border-blue-400 p-4 pl-0">
+      <div className="w-1/3 font-dm border-t-4 border-l-4 rounded-tl-[40px] border-blue-400 p-4 pl-0">
         <h2 className="text-2xl font-mon text-black font-semibold text-center mb-4">
           Current Modules
         </h2>

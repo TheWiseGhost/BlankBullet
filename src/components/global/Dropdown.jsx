@@ -44,7 +44,7 @@ const Dropdown = ({ page }) => {
 
 const Option = ({ text, page, id }) => {
   let route = "";
-  if ((page = "builder")) {
+  if (page == "builder") {
     route = "/builder/landing";
   } else {
     route = "/" + page;
