@@ -3,8 +3,7 @@ import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
 
 // MongoDB connection string
-const uri =
-  "mongodb+srv://byjuaditya:w5ecBUS2BaCcokh0@coursard.oltmb.mongodb.net/?retryWrites=true&w=majority&appName=Coursard";
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 
 export async function POST(req) {
