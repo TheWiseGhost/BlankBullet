@@ -11,7 +11,9 @@ import {
   IconHammer,
   IconSettings,
   IconReportAnalytics,
+  IconCirclePlus,
 } from "@tabler/icons-react";
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -25,6 +27,13 @@ export default function SidebarDemo() {
       href: "/dashboard",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Add Course",
+      href: "/add_course",
+      icon: (
+        <IconCirclePlus className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
@@ -48,6 +57,7 @@ export default function SidebarDemo() {
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
+
     {
       label: "Logout",
       href: "#",
@@ -73,6 +83,9 @@ export default function SidebarDemo() {
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
+          </div>
+          <div className={`flex flex-row items-center pb-4 pl-3`}>
+            <UserButton />
           </div>
         </SidebarBody>
       </Sidebar>

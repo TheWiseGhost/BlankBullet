@@ -72,6 +72,9 @@ const NavRow = ({ page }) => (
     <NavBox content={"Videos"} page={page} />
     <NavBox content={"Payment"} page={page} />
     <NavBox content={"Publish"} page={page} />
+    <button className="w-1/2 mx-6 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-2 rounded-2xl transition duration-300 font-semibold">
+      Save
+    </button>
   </div>
 );
 
