@@ -8,8 +8,8 @@ import {
 import {
   IconArrowLeft,
   IconBrandTabler,
-  IconSettings,
   IconHammer,
+  IconSettings,
   IconReportAnalytics,
   IconCirclePlus,
 } from "@tabler/icons-react";
@@ -18,7 +18,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import Settings from "@/components/settings/Settings";
+import Add_Course from "@/components/add_course/Add_Course";
 
 export default function SidebarDemo() {
   const links = [
@@ -57,6 +57,7 @@ export default function SidebarDemo() {
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
+
     {
       label: "Logout",
       href: "#",
@@ -88,7 +89,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Settings />
+      <Add_Course />
     </div>
   );
 }
