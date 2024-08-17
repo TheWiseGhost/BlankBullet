@@ -7,11 +7,40 @@ import {
   FiPlusSquare,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
-import { IconType } from "react-icons";
+import { useState, useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
 
 const Dropdown = ({ page }) => {
+  const [courses, setCourses] = useState([]);
   const [open, setOpen] = useState(false);
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      const fetchCourses = async () => {
+        try {
+          const response = await fetch("/api/course_options/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ clerk_id: user.id }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setCourses(data); // Assumes the API returns an array of course objects
+          } else {
+            console.error("Failed to fetch courses");
+          }
+        } catch (error) {
+          console.error("Error fetching courses:", error);
+        }
+      };
+
+      fetchCourses();
+    }
+  }, [user]);
 
   return (
     <div className="p-8 pb-56 flex items-center justify-center bg-white">
@@ -32,10 +61,14 @@ const Dropdown = ({ page }) => {
           style={{ originY: "top", translateX: "-50%" }}
           className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
         >
-          <Option text="Course 1" page={page} id="1" />
-          <Option text="Course 2" page={page} id="1" />
-          <Option text="Course 3" page={page} id="1" />
-          <Option text="Course 4" page={page} id="1" />
+          {courses.map((course) => (
+            <Option
+              key={course.id}
+              text={course.name}
+              page={page}
+              id={course.id}
+            />
+          ))}
         </motion.ul>
       </motion.div>
     </div>
@@ -44,10 +77,10 @@ const Dropdown = ({ page }) => {
 
 const Option = ({ text, page, id }) => {
   let route = "";
-  if (page == "builder") {
+  if (page === "builder") {
     route = "/builder/landing";
   } else {
-    route = "/" + page;
+    route = `/${page}`;
   }
 
   const handleClick = () => {

@@ -4,10 +4,10 @@ import { FileUpload } from "@/components/global/FileUpload";
 import { useUser } from "@clerk/nextjs";
 
 const CourseInfoForm = () => {
-  const { user } = useUser();
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
+  const { user } = useUser();
 
   const handleFileUpload = (file) => {
     setFile(file);
@@ -29,15 +29,12 @@ const CourseInfoForm = () => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("title", title);
-      formData.append("clerk_id", user?.id);
+      formData.append("clerk_id", user.id);
 
       const uploadUrl = "http://127.0.0.1:8000/api/add_course/";
 
       const response = await fetch(uploadUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: formData,
       });
 
@@ -49,8 +46,8 @@ const CourseInfoForm = () => {
       setSelectedFile(null); // Clear selected file after upload
       setTitle(""); // Clear title after upload
     } catch (error) {
-      console.error("Error uploading file:", error);
-      alert("Error uploading file. Please try again.");
+      // console.error("Error uploading file:", error);
+      // alert("Error uploading file. Please try again.");
     }
     setLoading(false);
   };
