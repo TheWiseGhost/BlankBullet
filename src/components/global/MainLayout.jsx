@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const CircleText = ({ text }) => (
   <div className="flex flex-row items-center">
@@ -45,7 +46,9 @@ const TimeDisplay = () => (
 
 const FooterLogo = () => (
   <div className="flex items-center justify-center">
-    <div className="bg-black rounded-full p-2"></div>
+    <div className="bg-black rounded-full">
+      <Image src="/CoursardLogo.png" width={20} height={20} />
+    </div>
     <span className="ml-2 font-dm font-medium">Coursard</span>
   </div>
 );

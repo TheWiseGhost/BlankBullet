@@ -1,11 +1,5 @@
 "use client";
-import {
-  FiEdit,
-  FiChevronDown,
-  FiTrash,
-  FiShare,
-  FiPlusSquare,
-} from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -19,17 +13,18 @@ const Dropdown = ({ page }) => {
     if (user) {
       const fetchCourses = async () => {
         try {
-          const response = await fetch("/api/course_options/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ clerk_id: user.id }),
-          });
+          const response = await fetch(
+            "http://127.0.0.1:8000/api/course_options/",
+            {
+              method: "POST",
+              body: JSON.stringify({ clerk_id: user.id }),
+            }
+          );
 
           if (response.ok) {
             const data = await response.json();
-            setCourses(data); // Assumes the API returns an array of course objects
+            console.log(data.courses);
+            setCourses(data.courses); // Assumes the API returns an array of course objects
           } else {
             console.error("Failed to fetch courses");
           }
@@ -59,16 +54,22 @@ const Dropdown = ({ page }) => {
           initial={wrapperVariants.closed}
           variants={wrapperVariants}
           style={{ originY: "top", translateX: "-50%" }}
-          className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
+          className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-2xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
         >
-          {courses.map((course) => (
-            <Option
-              key={course.id}
-              text={course.name}
-              page={page}
-              id={course.id}
-            />
-          ))}
+          {courses ? (
+            <>
+              {courses.map((course) => (
+                <Option
+                  key={course.id}
+                  text={course.title}
+                  page={page}
+                  id={course.id}
+                />
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
         </motion.ul>
       </motion.div>
     </div>
@@ -78,9 +79,9 @@ const Dropdown = ({ page }) => {
 const Option = ({ text, page, id }) => {
   let route = "";
   if (page === "builder") {
-    route = "/builder/landing";
+    route = `/builder/${id}/landing/`;
   } else {
-    route = `/${page}`;
+    route = `/${page}/${id}`;
   }
 
   const handleClick = () => {

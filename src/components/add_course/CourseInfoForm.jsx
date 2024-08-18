@@ -2,12 +2,15 @@
 import React, { useState } from "react";
 import { FileUpload } from "@/components/global/FileUpload";
 import { useUser } from "@clerk/nextjs";
+import { ToastAction } from "../global/Toast";
+import { useToast } from "../global/Use-Toast";
 
 const CourseInfoForm = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
+  const { toast } = useToast();
 
   const handleFileUpload = (file) => {
     setFile(file);
@@ -31,25 +34,39 @@ const CourseInfoForm = () => {
       formData.append("title", title);
       formData.append("clerk_id", user.id);
 
-      const uploadUrl = "http://127.0.0.1:8000/api/add_course/";
+      // const uploadUrl = "http://127.0.0.1:8000/api/add_course/";
 
-      const response = await fetch(uploadUrl, {
-        method: "POST",
-        body: formData,
-      });
+      // const response = await fetch(uploadUrl, {
+      //   method: "POST",
+      //   body: formData,
+      // });
 
-      if (!response.ok) {
-        throw new Error("Error uploading file.");
-      }
-
-      alert("Course add successfully!");
-      setSelectedFile(null); // Clear selected file after upload
-      setTitle(""); // Clear title after upload
+      // if (!response.ok) {
+      //   throw new Error("Error uploading file.");
+      // }
     } catch (error) {
       // console.error("Error uploading file:", error);
       // alert("Error uploading file. Please try again.");
+    } finally {
+      setLoading(false);
+      toast({
+        title: `Course Added: ${title}`,
+        description:
+          "If you don't see it, make sure you uploaded an image. Then contact support after a few failed tries.",
+        action: (
+          <ToastAction
+            onClick={() => {
+              window.location.href = "/dashboard";
+            }}
+            altText="Go to Dashboard"
+          >
+            Dashboard
+          </ToastAction>
+        ),
+      });
+      // setFile(null);
+      // setTitle("");
     }
-    setLoading(false);
   };
 
   return (
@@ -71,7 +88,7 @@ const CourseInfoForm = () => {
 
       {/* Plan Field */}
       <div className="pb-4">
-        <div className="w-full max-w-4xl mx-auto min-h-80 border-2 border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
+        <div className="w-full max-w-4xl mx-auto min-h-80 border-2 border-dashed bg-white dark:bg-black border-neutral-300 dark:border-neutral-800 rounded-lg">
           <FileUpload onChange={handleFileUpload} target={"Course Thumbnail"} />
         </div>
       </div>
@@ -79,7 +96,7 @@ const CourseInfoForm = () => {
       {/* Upgrade Button */}
       <button
         onClick={handleUpload}
-        className="w-1/2 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-2xl transition duration-300 font-semibold"
+        className="w-1/2 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-4 rounded-2xl transition duration-300 font-semibold"
       >
         Add Course
       </button>

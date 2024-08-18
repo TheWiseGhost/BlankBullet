@@ -91,11 +91,12 @@ const PublishComponent = () => {
   );
 };
 
-const Publish = () => (
+const Publish = ({ id }) => (
   <BuilderLayout
     title={"Web Development Made Simple"}
     subtitle={"Course Builder"}
     page={"publish"}
+    id={id}
   >
     <PublishComponent />
   </BuilderLayout>

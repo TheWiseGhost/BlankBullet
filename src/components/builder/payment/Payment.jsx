@@ -117,11 +117,12 @@ const PaymentComponent = () => {
   );
 };
 
-const Payment = () => (
+const Payment = ({ id }) => (
   <BuilderLayout
     title={"Web Development Made Simple"}
     subtitle={"Course Builder"}
     page={"payment"}
+    id={id}
   >
     <PaymentComponent />
   </BuilderLayout>

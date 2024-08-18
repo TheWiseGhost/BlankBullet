@@ -36,11 +36,11 @@ const SideInfoBox = ({ content, value, width = 170 }) => (
   </div>
 );
 
-const NavBox = ({ content, page }) => {
+const NavBox = ({ content, page, id }) => {
   const capitalizedPage = page.charAt(0).toUpperCase() + page.slice(1);
   const active = capitalizedPage == content;
   const handleClick = () => {
-    window.location.href = "/builder/" + content.toLowerCase();
+    window.location.href = `/builder/${id}/` + content.toLowerCase();
   };
 
   return (
@@ -65,13 +65,13 @@ const NavBox = ({ content, page }) => {
   );
 };
 
-const NavRow = ({ page }) => (
+const NavRow = ({ page, id }) => (
   <div className="justify-center items-center flex flex-row space-x-12">
-    <NavBox content={"Landing"} page={page} />
-    <NavBox content={"Modules"} page={page} />
-    <NavBox content={"Videos"} page={page} />
-    <NavBox content={"Payment"} page={page} />
-    <NavBox content={"Publish"} page={page} />
+    <NavBox content={"Landing"} page={page} id={id} />
+    <NavBox content={"Modules"} page={page} id={id} />
+    <NavBox content={"Videos"} page={page} id={id} />
+    <NavBox content={"Payment"} page={page} id={id} />
+    <NavBox content={"Publish"} page={page} id={id} />
     <button className="w-1/2 mx-6 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-2 rounded-2xl transition duration-300 font-semibold">
       Save
     </button>
@@ -85,7 +85,7 @@ const TimeDisplay = () => (
   </div>
 );
 
-const BuilderLayout = ({ children, title, subtitle, page }) => {
+const BuilderLayout = ({ children, title, subtitle, page, id }) => {
   return (
     <div className="font-dm pt-8 pb-6 rounded-tl-[60px] mt-1 mr-1 px-10 flex flex-col h-screen overflow-y-auto w-full bg-white">
       {/* Top Header */}
@@ -97,7 +97,7 @@ const BuilderLayout = ({ children, title, subtitle, page }) => {
           </div>
           <TimeDisplay />
         </div>
-        <NavRow page={page} />
+        <NavRow page={page} id={id} />
       </div>
 
       {/* Main Content with Right Sidebar */}

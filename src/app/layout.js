@@ -8,6 +8,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { Toaster } from "@/components/global/Toaster";
 
 const font = DM_Sans({ subsets: ["latin"], variable: "--font-dm" });
 const inter = Inter({
@@ -39,8 +40,9 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <main>{children}</main>
           </ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

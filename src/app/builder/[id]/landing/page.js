@@ -4,7 +4,7 @@ import {
   Sidebar,
   SidebarBody,
   SidebarLink,
-} from "../../../components/global/Sidebar";
+} from "../../../../components/global/Sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
@@ -20,7 +20,8 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Landing from "@/components/builder/landing/Landing";
 
-export default function SidebarDemo() {
+export default function SidebarDemo({ params }) {
+  const id = params.id;
   const [open, setOpen] = useState(false);
   const links = [
     {
@@ -89,7 +90,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Landing />
+      <Landing id={id} />
     </div>
   );
 }

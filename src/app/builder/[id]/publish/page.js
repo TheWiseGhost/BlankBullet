@@ -4,7 +4,7 @@ import {
   Sidebar,
   SidebarBody,
   SidebarLink,
-} from "../../../components/global/Sidebar";
+} from "../../../../components/global/Sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
@@ -21,7 +21,8 @@ import { cn } from "@/lib/utils";
 
 import Publish from "@/components/builder/publish/Publish";
 
-export default function SidebarDemo() {
+export default function SidebarDemo({ params }) {
+  const id = params.id;
   const links = [
     {
       label: "Dashboard",
@@ -89,7 +90,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Publish />
+      <Publish id={id} />
     </div>
   );
 }

@@ -70,11 +70,12 @@ const LandingComponent = () => {
   );
 };
 
-const Landing = () => (
+const Landing = ({ id }) => (
   <BuilderLayout
     title={"Web Development Made Simple"}
     subtitle={"Course Builder"}
     page={"landing"}
+    id={id}
   >
     <LandingComponent />
   </BuilderLayout>

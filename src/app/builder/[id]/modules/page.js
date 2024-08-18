@@ -4,7 +4,7 @@ import {
   Sidebar,
   SidebarBody,
   SidebarLink,
-} from "../../../components/global/Sidebar";
+} from "../../../../components/global/Sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
@@ -19,9 +19,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-import Payment from "@/components/builder/payment/Payment";
+import Modules from "@/components/builder/modules/Modules";
 
-export default function SidebarDemo() {
+export default function SidebarDemo({ params }) {
+  const id = params.id;
   const links = [
     {
       label: "Dashboard",
@@ -89,7 +90,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Payment />
+      <Modules id={id} />
     </div>
   );
 }

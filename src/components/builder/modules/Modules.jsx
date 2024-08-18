@@ -125,11 +125,12 @@ const ModulesComponent = () => {
   );
 };
 
-const Modules = () => (
+const Modules = ({ id }) => (
   <BuilderLayout
     title={"Web Development Made Simple"}
     subtitle={"Course Builder"}
     page={"modules"}
+    id={id}
   >
     <ModulesComponent />
   </BuilderLayout>

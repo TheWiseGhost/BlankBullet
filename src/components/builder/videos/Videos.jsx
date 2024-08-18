@@ -114,11 +114,12 @@ const VideosComponent = () => {
   );
 };
 
-const Videos = () => (
+const Videos = ({ id }) => (
   <BuilderLayout
     title={"Web Development Made Simple"}
     subtitle={"Course Builder"}
     page={"videos"}
+    id={id}
   >
     <VideosComponent />
   </BuilderLayout>
