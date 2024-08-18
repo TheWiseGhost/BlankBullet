@@ -4,7 +4,7 @@ import MainLayout from "../global/MainLayout";
 
 const AddCourseComponent = () => {
   return (
-    <div className="w-full h-full pl-4 pt-4">
+    <div className="w-full h-full pl-4 py-4">
       <CourseInfoForm />
     </div>
   );

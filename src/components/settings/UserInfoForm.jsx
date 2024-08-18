@@ -1,13 +1,13 @@
 import React from "react";
 
-const UserInfoForm = () => {
+const UserInfoForm = ({ email, name }) => {
   return (
     <div className="font-dm space-y-4 max-w-md bg-white">
       {/* Email Field */}
       <div className="">
         <div className="text-lg font-medium text-gray-800 mb-2">Email</div>
         <div className="border border-gray-300 rounded-lg p-3 text-gray-700">
-          example@example.com
+          {email}
         </div>
       </div>
 
@@ -15,7 +15,7 @@ const UserInfoForm = () => {
       <div className="">
         <div className="text-lg font-medium text-gray-800 mb-2">Name</div>
         <div className="border border-gray-300 rounded-lg p-3 text-gray-700">
-          John Doe
+          {name}
         </div>
       </div>
 

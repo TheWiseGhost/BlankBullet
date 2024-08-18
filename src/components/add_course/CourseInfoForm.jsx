@@ -96,7 +96,7 @@ const CourseInfoForm = () => {
       {/* Upgrade Button */}
       <button
         onClick={handleUpload}
-        className="w-1/2 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-4 rounded-2xl transition duration-300 font-semibold"
+        className="w-1/2 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-2xl transition duration-300 font-semibold"
       >
         Add Course
       </button>
