@@ -26,13 +26,13 @@ const secondaryVariant = {
 };
 
 export const FileUpload = ({ onChange, target }) => {
-  const [files, setFiles] = useState([]);
+  const [file, setFile] = useState([]);
   const fileInputRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleFileChange = (newFiles) => {
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    onChange && onChange(newFiles);
+  const handleFileChange = (newFile) => {
+    setFile([newFile]);
+    onChange(newFile);
   };
 
   const handleClick = () => {
@@ -61,7 +61,7 @@ export const FileUpload = ({ onChange, target }) => {
           ref={fileInputRef}
           id="file-upload-handle"
           type="file"
-          onChange={(e) => handleFileChange(Array.from(e.target.files || []))}
+          onChange={(e) => handleFileChange(e.target.files[0])}
           className="hidden"
         />
         <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]"></div>
@@ -73,8 +73,8 @@ export const FileUpload = ({ onChange, target }) => {
             Drag or drop your files here or click to upload
           </p>
           <div className="relative w-full mt-10 max-w-xl mx-auto">
-            {files.length > 0 &&
-              files.map((file, idx) => (
+            {file.length > 0 &&
+              file.map((file, idx) => (
                 <motion.div
                   key={"file" + idx}
                   layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
@@ -123,7 +123,7 @@ export const FileUpload = ({ onChange, target }) => {
                   </div>
                 </motion.div>
               ))}
-            {!files.length && (
+            {!file.length && (
               <motion.div
                 layoutId="file-upload"
                 variants={mainVariant}
@@ -154,7 +154,7 @@ export const FileUpload = ({ onChange, target }) => {
               </motion.div>
             )}
 
-            {!files.length && (
+            {!file.length && (
               <motion.div
                 variants={secondaryVariant}
                 className="absolute opacity-0 border border-dashed border-sky-500 inset-0 z-30 bg-transparent flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md"
