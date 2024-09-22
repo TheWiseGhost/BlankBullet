@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -37,13 +37,34 @@ const SideInfoBox = ({ content, value, width = 170 }) => (
   </div>
 );
 
-const TimeDisplay = () => (
-  <div className="font-dm justify-center space-y-2 text-center pr-6">
-    <div className="text-4xl">9:57</div>
-    <div className="text-md text-gray-700">August 9th, 2024</div>
-  </div>
-);
+const TimeDisplay = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, []);
+
+  const formattedTime = currentTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const formattedDate = currentTime.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <div className="font-dm justify-center space-y-2 text-center pr-6">
+      <div className="text-4xl">{formattedTime}</div>
+      <div className="text-md text-gray-700">{formattedDate}</div>
+    </div>
+  );
+};
 const FooterLogo = () => (
   <div className="flex items-center justify-center">
     <div className="bg-black rounded-full">
@@ -58,7 +79,7 @@ const MainLayout = ({ children, title, subtitle }) => (
     {/* Top Header */}
     <div className="flex justify-between items-center">
       <Header title={title} subtitle={subtitle} />
-      <div className="flex items-center gap-16">
+      <div className="flex items-center gap-16 pl-8">
         <SideInfoBox content="4923 / 5000" value="Users" width="200" />
         <SideInfoBox content="215 / 500" value="Storage" width="200" />
       </div>

@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import MainLayout from "../global/MainLayout";
 import { useUser } from "@clerk/nextjs";
 
-const GridItem = ({ title }) => (
+const GridItem = ({ title, thumbnail }) => (
   <div className="flex flex-col space-y-2">
-    <div className="bg-gray-200 rounded-lg flex justify-center items-center h-40"></div>
+    <div className="bg-gray-200 rounded-lg overflow-hidden flex justify-center items-center h-52">
+      {thumbnail ? (
+        <>
+          <img
+            src={thumbnail}
+            className="w-full self-center rounded-2xl"
+            alt="thumbnail"
+          />
+        </>
+      ) : (
+        <></>
+      )}
+    </div>
     <div className="text-lg">{title}</div>
   </div>
 );
@@ -47,7 +60,11 @@ const DashboardComponent = () => {
         <div className="grid grid-cols-2 gap-x-16 gap-y-4 w-full pt-2">
           {courses.map((course) => (
             <>
-              <GridItem key={course.id} title={course.title} />
+              <GridItem
+                key={course.id}
+                title={course.title}
+                thumbnail={course.thumbnail}
+              />
             </>
           ))}
         </div>
