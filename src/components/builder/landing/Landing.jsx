@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BuilderLayout from "../BuilderLayout";
 import { FaCircle } from "react-icons/fa";
 
@@ -15,8 +15,40 @@ const options = [
   { id: 8, name: "Favicon" },
 ];
 
+const TitleComponent = ({ title, handleTitleChange }) => {
+  return (
+    <div className="w-full font-dm flex flex-col space-y-2">
+      <h1>Title</h1>
+      <input
+        type="text"
+        value={title}
+        placeholder="Enter title"
+        onChange={handleTitleChange}
+        className="border w-full border-gray-300 rounded-lg p-3 text-gray-700"
+        maxLength="100"
+      ></input>
+    </div>
+  );
+};
+
 const LandingComponent = () => {
   const [activeOption, setActiveOption] = useState(options[0].id);
+
+  // Fix this NextJS server client error with local storage
+  const course = JSON.parse(localStorage.getItem("course"));
+
+  console.log(course);
+  const [currTitle, setCurrTitle] = useState(course.landing.title);
+
+  const handleTitleChange = (event) => {
+    const updatedTitle = event.target.value.slice(0, 100);
+
+    if (course && course.landing) {
+      course.landing.title = updatedTitle;
+      setCurrTitle(updatedTitle);
+      localStorage.setItem("course", JSON.stringify(course));
+    }
+  };
 
   return (
     <div className="flex w-full h-screen font-dm">
@@ -56,7 +88,14 @@ const LandingComponent = () => {
         <div className="h-0.5 mx-auto bg-gray-300 w-4/5 mb-4"></div>
         <div>
           {/* Render a component based on the active option */}
-          {activeOption === 1 && <div>Title Component</div>}
+          {activeOption === 1 && (
+            <div>
+              <TitleComponent
+                handleTitleChange={handleTitleChange}
+                title={currTitle}
+              />
+            </div>
+          )}
           {activeOption === 2 && <div>CTA Button Component</div>}
           {activeOption === 3 && <div>Banner Image Component</div>}
           {activeOption === 4 && <div>Landing Text Component</div>}

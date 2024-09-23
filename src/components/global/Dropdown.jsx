@@ -77,6 +77,7 @@ const Dropdown = ({ page }) => {
 };
 
 const Option = ({ text, page, id }) => {
+  const { user } = useUser();
   let route = "";
   if (page === "builder") {
     route = `/builder/${id}/landing/`;
@@ -84,8 +85,28 @@ const Option = ({ text, page, id }) => {
     route = `/${page}/${id}`;
   }
 
-  const handleClick = () => {
-    window.location.href = route;
+  const handleClick = async () => {
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/course_details/",
+        {
+          method: "POST",
+          body: JSON.stringify({ clerk_id: user.id, course_id: id }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("course is " + data);
+        localStorage.setItem("course", JSON.stringify(data));
+      } else {
+        console.error("Failed to fetch courses");
+      }
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    } finally {
+      window.location.href = route;
+    }
   };
 
   return (

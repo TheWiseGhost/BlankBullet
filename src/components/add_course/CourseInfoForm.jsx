@@ -52,15 +52,15 @@ const CourseInfoForm = () => {
       toast({
         title: `Course Added: ${title}`,
         description:
-          "If you don't see it, make sure you uploaded an image. Then contact support after a few failed tries.",
+          "Start building your course in the builder when your ready",
         action: (
           <ToastAction
             onClick={() => {
-              window.location.href = "/dashboard";
+              window.location.href = "/course/builder";
             }}
-            altText="Go to Dashboard"
+            altText="Go to Builder"
           >
-            Dashboard
+            Builder
           </ToastAction>
         ),
       });

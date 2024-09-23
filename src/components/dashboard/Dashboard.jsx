@@ -57,7 +57,7 @@ const DashboardComponent = () => {
   return (
     <>
       {courses ? (
-        <div className="grid grid-cols-2 gap-x-16 gap-y-4 w-full pt-2">
+        <div className="grid grid-cols-2 gap-x-16 gap-y-8 w-full pt-2">
           {courses.map((course) => (
             <>
               <GridItem
