@@ -26,6 +26,9 @@ export async function POST(req) {
       created_at: new Date(),
       plan: "free",
       profile_picture: image_url || "", // Profile picture URL from the request body
+      courses: 0,
+      enrolled: 0,
+      storage: 0,
     };
 
     // Insert the user data into the Users collection
