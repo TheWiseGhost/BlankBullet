@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const CircleText = ({ text }) => (
@@ -78,12 +78,34 @@ const NavRow = ({ page, id }) => (
   </div>
 );
 
-const TimeDisplay = () => (
-  <div className="font-dm justify-center space-y-2 text-center pr-6">
-    <div className="text-4xl">9:57</div>
-    <div className="text-md text-gray-700">August 9th, 2024</div>
-  </div>
-);
+const TimeDisplay = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, []);
+
+  const formattedTime = currentTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const formattedDate = currentTime.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <div className="font-dm justify-center space-y-2 text-center pr-6">
+      <div className="text-4xl">{formattedTime}</div>
+      <div className="text-md text-gray-700">{formattedDate}</div>
+    </div>
+  );
+};
 
 const BuilderLayout = ({ children, title, subtitle, page, id }) => {
   return (
