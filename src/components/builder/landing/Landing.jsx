@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import BuilderLayout from "../BuilderLayout";
 import { FaCircle } from "react-icons/fa";
+import { FileUpload } from "@/components/global/FileUpload";
 
 const options = [
   { id: 1, name: "Title" },
@@ -22,11 +23,19 @@ const TitleComponent = ({ title, handleTitleChange }) => {
       <input
         type="text"
         value={title}
-        placeholder="Enter title"
+        placeholder="Enter Title"
         onChange={handleTitleChange}
         className="border w-full border-gray-300 rounded-lg p-3 text-gray-700"
         maxLength="100"
       ></input>
+    </div>
+  );
+};
+
+const ImageUploadComponent = ({ image, handleImageChange, text }) => {
+  return (
+    <div className="w-full font-dm flex flex-col space-y-2">
+      <FileUpload onChange={handleImageChange} target={text} />
     </div>
   );
 };
@@ -152,6 +161,7 @@ const LandingComponent = () => {
 
   console.log(course);
   const [currTitle, setCurrTitle] = useState(course?.landing?.title);
+  console.log(currTitle);
 
   const handleTitleChange = (event) => {
     const updatedTitle = event.target.value.slice(0, 100);
@@ -191,6 +201,46 @@ const LandingComponent = () => {
       course.landing.CTA_color = newCTA.color;
       course.landing.CTA_link = newCTA.link;
       localStorage.setItem("course", JSON.stringify(course)); // Persist the updated course to localStorage
+    }
+  };
+
+  const [currBanner, setCurrBanner] = useState(course?.landing?.banner_img);
+  const handleBannerChange = (file) => {
+    if (course && course.landing) {
+      course.landing.banner_img = file;
+      setCurrBanner(file);
+      localStorage.setItem("course", JSON.stringify(course));
+    }
+  };
+
+  const [currModuleImg, setCurrModuleImg] = useState(
+    course?.landing?.module_img
+  );
+  const handleModuleImgChange = (file) => {
+    if (course && course.landing) {
+      course.landing.module_img = file;
+      setCurrModuleImg(file);
+      localStorage.setItem("course", JSON.stringify(course));
+    }
+  };
+
+  const [currFooterImg, setCurrFooterImg] = useState(
+    course?.landing?.footer_img
+  );
+  const handleFooterImgChange = (file) => {
+    if (course && course.landing) {
+      course.landing.footer_img = file;
+      setCurrFooterImg(file);
+      localStorage.setItem("course", JSON.stringify(course));
+    }
+  };
+
+  const [favicon, setFavicon] = useState(course?.landing?.favicon);
+  const handleFaviconChange = (file) => {
+    if (course && course.landing) {
+      course.landing.favicon = file;
+      setFavicon(file);
+      localStorage.setItem("course", JSON.stringify(course));
     }
   };
 
@@ -260,7 +310,15 @@ const LandingComponent = () => {
               <CTAComponent handleCTAChange={handleCTAChange} CTA={currCTA} />
             </div>
           )}
-          {activeOption === 3 && <div>Banner Image Component</div>}
+          {activeOption === 3 && (
+            <div>
+              <ImageUploadComponent
+                image={currBanner}
+                handleImageChange={handleBannerChange}
+                text={"Banner Image"}
+              />
+            </div>
+          )}
           {activeOption === 4 && (
             <div>
               <LandingTextComponent
@@ -269,8 +327,24 @@ const LandingComponent = () => {
               />
             </div>
           )}
-          {activeOption === 5 && <div>Module Image Component</div>}
-          {activeOption === 6 && <div>Footer Image Component</div>}
+          {activeOption === 5 && (
+            <div>
+              <ImageUploadComponent
+                image={currModuleImg}
+                handleImageChange={handleModuleImgChange}
+                text={"Module Image"}
+              />
+            </div>
+          )}
+          {activeOption === 6 && (
+            <div>
+              <ImageUploadComponent
+                image={currFooterImg}
+                handleImageChange={handleFooterImgChange}
+                text={"Footer Image"}
+              />
+            </div>
+          )}
           {activeOption === 7 && (
             <div>
               <FooterComponent
@@ -279,7 +353,15 @@ const LandingComponent = () => {
               />
             </div>
           )}
-          {activeOption === 8 && <div>Favicon Component</div>}
+          {activeOption === 8 && (
+            <div>
+              <ImageUploadComponent
+                image={favicon}
+                handleImageChange={handleFaviconChange}
+                text={"Favicon"}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

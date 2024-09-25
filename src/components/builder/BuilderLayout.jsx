@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useUser } from "@clerk/nextjs";
 
 const CircleText = ({ text }) => (
   <div className="flex flex-row items-center">
@@ -65,18 +66,50 @@ const NavBox = ({ content, page, id }) => {
   );
 };
 
-const NavRow = ({ page, id }) => (
-  <div className="justify-center items-center flex flex-row space-x-12">
-    <NavBox content={"Landing"} page={page} id={id} />
-    <NavBox content={"Modules"} page={page} id={id} />
-    <NavBox content={"Videos"} page={page} id={id} />
-    <NavBox content={"Payment"} page={page} id={id} />
-    <NavBox content={"Publish"} page={page} id={id} />
-    <button className="w-1/2 mx-6 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-2 rounded-2xl transition duration-300 font-semibold">
-      Save
-    </button>
-  </div>
-);
+const NavRow = ({ page, id }) => {
+  const { user } = useUser();
+  const onSave = () => {
+    const course = JSON.parse(localStorage.getItem("course"));
+    const updateCourse = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/update_landing/",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              clerk_id: user.id,
+              course_id: course._id,
+              course: course,
+              landing: course.landing,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          console.error("Failed to fetch update course");
+        }
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+    updateCourse();
+  };
+  return (
+    <div className="justify-center items-center flex flex-row space-x-12">
+      <NavBox content={"Landing"} page={page} id={id} />
+      <NavBox content={"Modules"} page={page} id={id} />
+      <NavBox content={"Videos"} page={page} id={id} />
+      <NavBox content={"Payment"} page={page} id={id} />
+      <NavBox content={"Publish"} page={page} id={id} />
+      <button
+        onClick={onSave}
+        className="w-1/2 mx-6 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-2 rounded-2xl transition duration-300 font-semibold"
+      >
+        Save
+      </button>
+    </div>
+  );
+};
 
 const TimeDisplay = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
