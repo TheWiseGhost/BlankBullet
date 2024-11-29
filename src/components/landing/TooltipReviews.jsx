@@ -76,7 +76,6 @@ export const TooltipReviews = () => {
 
   return (
     <>
-      <p className="font-dm text-2xl text-center pb-3">100+ ★★★★★ Reviews</p>
       <div className="flex flex-row justify-center">
         {items.map((item, idx) => (
           <div
@@ -127,6 +126,7 @@ export const TooltipReviews = () => {
           </div>
         ))}
       </div>
+      <p className="font-dm text-2xl text-center pt-3">100+ ★★★★★ Reviews</p>
     </>
   );
 };
