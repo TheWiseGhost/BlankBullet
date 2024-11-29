@@ -11,7 +11,7 @@ const AnalyticsComponent = () => (
 );
 
 const Analytics = () => (
-  <MainLayout title={"Course Analytics"} subtitle={"Analytics"}>
+  <MainLayout title={"Bullet Analytics"} subtitle={"Analytics"}>
     <AnalyticsComponent />
   </MainLayout>
 );

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BuilderLayout from "../BuilderLayout";
 
-const PaymentComponent = () => {
+const CheckoutComponent = () => {
   const [price, setPrice] = useState("");
   const [productUrl, setProductUrl] = useState("");
   const [permissionsGranted, setPermissionsGranted] = useState(false);
@@ -117,15 +117,23 @@ const PaymentComponent = () => {
   );
 };
 
-const Payment = ({ id }) => (
-  <BuilderLayout
-    title={"Web Development Made Simple"}
-    subtitle={"Course Builder"}
-    page={"payment"}
-    id={id}
-  >
-    <PaymentComponent />
-  </BuilderLayout>
-);
+const Checkout = ({ id }) => {
+  const [bullet, setBullet] = useState(null);
 
-export default Payment;
+  useEffect(() => {
+    setBullet(JSON.parse(localStorage.getItem("bullet")));
+  }, []);
+
+  return (
+    <BuilderLayout
+      title={bullet ? bullet.bullet?.title : ""}
+      subtitle={"Bullet Builder"}
+      page={"checkout"}
+      id={id}
+    >
+      <CheckoutComponent />
+    </BuilderLayout>
+  );
+};
+
+export default Checkout;

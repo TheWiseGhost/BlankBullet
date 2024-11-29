@@ -52,7 +52,7 @@ const data = [
   },
 ];
 
-export function Add_Course() {
+export function add_bullet() {
   const [goal, setGoal] = React.useState(350);
 
   function onClick(adjustment) {
@@ -65,7 +65,7 @@ export function Add_Course() {
         <div className="w-full h-full justify-center items-center flex flex-col pb-20">
           <DrawerTrigger asChild>
             <button className="w-[140px] h-[55px] bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-md transition duration-300 font-semibold">
-              Add Course
+              Add Bullet
             </button>
           </DrawerTrigger>
         </div>

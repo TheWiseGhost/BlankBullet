@@ -29,7 +29,7 @@ const PublishComponent = () => {
       <div className="flex flex-row w-full">
         <div className="bg-white flex flex-col rounded-lg pl-6 w-full max-w-lg">
           <div className="flex flex-row text-xl items-center font-dm">
-            <h2 className="text-black">Coursard Powered Publish</h2>
+            <h2 className="text-black">BlankBullet Powered Publish</h2>
             <div className="size-4 rounded-full mx-4 bg-gray-400" />
             <h2 className="text-gray-400">Custom Publish</h2>
           </div>
@@ -40,12 +40,12 @@ const PublishComponent = () => {
                 Domain
               </label>
               <div className="font-dm flex flex-row items-center">
-                <p className="text-md mr-2 text-gray-500">coursard.com/</p>
+                <p className="text-md mr-2 text-gray-500">BlankBullet.com/</p>
                 <input
                   type="number"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  placeholder="beautifulcourse"
+                  placeholder="beautifulbullet"
                   className="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
@@ -70,7 +70,7 @@ const PublishComponent = () => {
               />
               <label htmlFor="permissionsGranted" className="text-gray-700">
                 By checking the box, you are responsible for the content of your
-                course and its repercussions
+                bullet and its repercussions
               </label>
             </div>
             <div className="flex justify-center">
@@ -91,15 +91,23 @@ const PublishComponent = () => {
   );
 };
 
-const Publish = ({ id }) => (
-  <BuilderLayout
-    title={"Web Development Made Simple"}
-    subtitle={"Course Builder"}
-    page={"publish"}
-    id={id}
-  >
-    <PublishComponent />
-  </BuilderLayout>
-);
+const Publish = ({ id }) => {
+  const [bullet, setBullet] = useState(null);
+
+  useEffect(() => {
+    setBullet(JSON.parse(localStorage.getItem("bullet")));
+  }, []);
+
+  return (
+    <BuilderLayout
+      title={bullet ? bullet.bullet?.title : ""}
+      subtitle={"Bullet Builder"}
+      page={"publish"}
+      id={id}
+    >
+      <PublishComponent />
+    </BuilderLayout>
+  );
+};
 
 export default Publish;

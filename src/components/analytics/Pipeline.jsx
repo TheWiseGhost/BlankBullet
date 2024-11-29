@@ -23,7 +23,7 @@ function Pipeline() {
     },
     {
       value: "276",
-      label: "Complete Course",
+      label: "Complete Bullet",
       bgColor: "bg-gray-300 text-gray-800",
       color: "black",
     },

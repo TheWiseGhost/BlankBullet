@@ -12,7 +12,7 @@ const CircleText = ({ text }) => (
 const Header = ({ title, subtitle }) => (
   <div className="flex flex-col space-y-6">
     <div className="flex items-center gap-2">
-      <CircleText text="Coursard" />
+      <CircleText text="BlankBullet" />
       <span>/</span>
       <span className="text-black">{subtitle}</span>
     </div>
@@ -68,9 +68,9 @@ const TimeDisplay = () => {
 const FooterLogo = () => (
   <div className="flex items-center justify-center">
     <div className="bg-black rounded-full">
-      <Image src="/CoursardLogo.png" width={20} height={20} />
+      <Image src="/BlankBulletLogo.png" width={20} height={20} />
     </div>
-    <span className="ml-2 font-dm font-medium">Coursard</span>
+    <span className="ml-2 font-dm font-medium">BlankBullet</span>
   </div>
 );
 
@@ -92,7 +92,7 @@ const MainLayout = ({ children, title, subtitle }) => (
 
       {/* Right Sidebar */}
       <div className="w-1/4 items-end flex flex-col pt-6 pb-2 justify-between">
-        <SideInfoBox content="4 / 4" value="Courses" width="170" />
+        <SideInfoBox content="4 / 4" value="Bullets" width="170" />
         <FooterLogo />
       </div>
     </div>

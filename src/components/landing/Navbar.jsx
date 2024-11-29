@@ -4,9 +4,9 @@ import { MenuIcon } from "lucide-react";
 
 const Navbar = async () => {
   return (
-    <header className="fixed font-dm right-0 left-0 top-0 pb-4 pt-8 px-8 bg-white backdrop-blur-lg z-[100] flex items-center border-b-[1px] border-neutral-900 justify-between">
+    <header className="fixed font-dm right-0 left-0 top-0 pb-4 pt-8 px-8 bg-[#fafcfe]  z-[100] flex items-center border-b-[2px] border-[#F1F1F1] justify-between">
       <aside className="flex items-center gap-[2px]">
-        <p className="text-2xl font-bold">Coursard</p>
+        <p className="text-2xl font-bold">BlankBullet</p>
       </aside>
       <nav className="absolute left-[50%] top-[60%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block">
         <ul className="flex items-center gap-8 list-none">
@@ -33,10 +33,10 @@ const Navbar = async () => {
       <aside className="flex justify-end items-center gap-4">
         <a
           href="/dashboard"
-          className="relative inline-flex h-10 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+          className="relative inline-flex h-12 overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
         >
-          <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+          <span className="absolute inset-[-100%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#afaba3_50%,#E2CBFF_100%)]" />
+          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white backdrop-blur-3xl">
             {true ? "Dashboard" : "Get Started"}
           </span>
         </a>

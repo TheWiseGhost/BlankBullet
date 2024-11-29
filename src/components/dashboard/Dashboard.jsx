@@ -4,8 +4,8 @@ import MainLayout from "../global/MainLayout";
 import { useUser } from "@clerk/nextjs";
 
 const GridItem = ({ title, thumbnail }) => (
-  <div className="flex flex-col space-y-2">
-    <div className="bg-gray-200 rounded-lg overflow-hidden flex justify-center items-center h-52">
+  <div className="flex flex-col space-y-2 px-4">
+    <div className="bg-gray-100 rounded-lg overflow-hidden flex justify-center items-center h-52 w-full">
       {thumbnail ? (
         <>
           <img
@@ -18,20 +18,20 @@ const GridItem = ({ title, thumbnail }) => (
         <></>
       )}
     </div>
-    <div className="text-lg">{title}</div>
+    <div className="text-xl text-center pr-2">{title}</div>
   </div>
 );
 
 const DashboardComponent = () => {
-  const [courses, setCourses] = useState([]);
+  const [bullets, setBullets] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
     if (user) {
-      const fetchCourses = async () => {
+      const fetchBullets = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/course_options/",
+            "http://127.0.0.1:8000/api/bullet_options/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),
@@ -40,38 +40,38 @@ const DashboardComponent = () => {
 
           if (response.ok) {
             const data = await response.json();
-            console.log(data.courses);
-            setCourses(data.courses);
+            console.log(data.bullets);
+            setBullets(data.bullets);
           } else {
-            console.error("Failed to fetch courses");
+            console.error("Failed to fetch bullets");
           }
         } catch (error) {
-          console.error("Error fetching courses:", error);
+          console.error("Error fetching bullets:", error);
         }
       };
 
-      fetchCourses();
+      fetchBullets();
     }
   }, [user]);
 
   return (
     <>
-      {courses ? (
-        <div className="grid grid-cols-2 gap-x-16 gap-y-8 w-full pt-2">
-          {courses.map((course) => (
+      {bullets ? (
+        <div className="grid grid-cols-3 gap-x-16 gap-y-8 w-full pt-6">
+          {bullets.map((bullet) => (
             <>
               <GridItem
-                key={course.id}
-                title={course.title}
-                thumbnail={course.thumbnail}
+                key={bullet.id}
+                title={bullet.title}
+                thumbnail={bullet.thumbnail}
               />
             </>
           ))}
         </div>
       ) : (
         <div className="w-full justify-center items-center text-center">
-          <p className="font-dm">
-            Create Your First Course to get started with Coursard
+          <p className="font-dm pt-40">
+            Create Your First Bullet Instance to get started with BlankBullet
           </p>
         </div>
       )}

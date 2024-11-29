@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { ToastAction } from "../global/Toast";
 import { useToast } from "../global/Use-Toast";
 
-const CourseInfoForm = () => {
+const BulletInfoForm = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const CourseInfoForm = () => {
       formData.append("title", title);
       formData.append("clerk_id", user.id);
 
-      const uploadUrl = "http://127.0.0.1:8000/api/add_course/";
+      const uploadUrl = "http://127.0.0.1:8000/api/add_bullet/";
 
       const response = await fetch(uploadUrl, {
         method: "POST",
@@ -50,13 +50,13 @@ const CourseInfoForm = () => {
     } finally {
       setLoading(false);
       toast({
-        title: `Course Added: ${title}`,
+        title: `Bullet Added: ${title}`,
         description:
-          "Start building your course in the builder when your ready",
+          "Start building your bullet in the builder when your ready",
         action: (
           <ToastAction
             onClick={() => {
-              window.location.href = "/course/builder";
+              window.location.href = "/bullet/builder";
             }}
             altText="Go to Builder"
           >
@@ -74,7 +74,7 @@ const CourseInfoForm = () => {
       {/* Name Field */}
       <div className="pb-2">
         <div className="text-lg font-medium text-gray-800 mb-2">
-          Course Title
+          Bullet Instance Title
         </div>
         <input
           type="text"
@@ -89,7 +89,7 @@ const CourseInfoForm = () => {
       {/* Plan Field */}
       <div className="pb-4">
         <div className="w-full max-w-4xl mx-auto min-h-80 border-2 border-dashed bg-white dark:bg-black border-neutral-300 dark:border-neutral-800 rounded-lg">
-          <FileUpload onChange={handleFileUpload} target={"Course Thumbnail"} />
+          <FileUpload onChange={handleFileUpload} target={"Bullet Thumbnail"} />
         </div>
       </div>
 
@@ -98,10 +98,10 @@ const CourseInfoForm = () => {
         onClick={handleUpload}
         className="w-1/2 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-2xl transition duration-300 font-semibold"
       >
-        Add Course
+        Add Bullet
       </button>
     </div>
   );
 };
 
-export default CourseInfoForm;
+export default BulletInfoForm;

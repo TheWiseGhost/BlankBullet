@@ -1,4 +1,4 @@
-import { DM_Sans, Inter, Montserrat } from "next/font/google";
+import { DM_Sans, Inter, Montserrat, Afacad } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import {
@@ -21,6 +21,11 @@ const mon = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-mon",
 });
+const afc = Afacad({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-afc",
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -33,7 +38,9 @@ export default function RootLayout({ children }) {
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html lang="en">
-        <body className={`${font.variable} ${inter.variable} ${mon.variable}`}>
+        <body
+          className={`${font.variable} ${inter.variable} ${mon.variable} ${afc.variable}`}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="light"

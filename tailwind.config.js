@@ -27,6 +27,7 @@ module.exports = {
         dm: ["var(--font-dm)"],
         inter: ["var(--font-inter)"],
         mon: ["var(--font-mon)"],
+        afc: ["var(--font-afc)"],
       },
       colors: {
         border: "hsl(var(--border))",

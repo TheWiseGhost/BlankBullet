@@ -5,16 +5,16 @@ import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 
 const Dropdown = ({ page }) => {
-  const [courses, setCourses] = useState([]);
+  const [bullets, setBullets] = useState([]);
   const [open, setOpen] = useState(false);
   const { user } = useUser();
 
   useEffect(() => {
     if (user) {
-      const fetchCourses = async () => {
+      const fetchBullets = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/course_options/",
+            "http://127.0.0.1:8000/api/bullet_options/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),
@@ -23,17 +23,17 @@ const Dropdown = ({ page }) => {
 
           if (response.ok) {
             const data = await response.json();
-            console.log(data.courses);
-            setCourses(data.courses); // Assumes the API returns an array of course objects
+            console.log(data.bullets);
+            setBullets(data.bullets); // Assumes the API returns an array of bullet objects
           } else {
-            console.error("Failed to fetch courses");
+            console.error("Failed to fetch bullets");
           }
         } catch (error) {
-          console.error("Error fetching courses:", error);
+          console.error("Error fetching bullets:", error);
         }
       };
 
-      fetchCourses();
+      fetchBullets();
     }
   }, [user]);
 
@@ -44,7 +44,7 @@ const Dropdown = ({ page }) => {
           onClick={() => setOpen((pv) => !pv)}
           className="flex items-center gap-2 px-4 py-4 rounded-md text-gray-50 bg-neutral-800 hover:bg-black transition-colors"
         >
-          <span className="font-medium text-sm">Choose a Course</span>
+          <span className="font-medium text-sm">Choose a Bullet</span>
           <motion.span variants={iconVariants}>
             <FiChevronDown />
           </motion.span>
@@ -56,14 +56,14 @@ const Dropdown = ({ page }) => {
           style={{ originY: "top", translateX: "-50%" }}
           className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-2xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
         >
-          {courses ? (
+          {bullets ? (
             <>
-              {courses.map((course) => (
+              {bullets.map((bullet) => (
                 <Option
-                  key={course.id}
-                  text={course.title}
+                  key={bullet.id}
+                  text={bullet.title}
                   page={page}
-                  id={course.id}
+                  id={bullet.id}
                 />
               ))}
             </>
@@ -88,22 +88,23 @@ const Option = ({ text, page, id }) => {
   const handleClick = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/course_details/",
+        "http://127.0.0.1:8000/api/bullet_details/",
         {
           method: "POST",
-          body: JSON.stringify({ clerk_id: user.id, course_id: id }),
+          body: JSON.stringify({ clerk_id: user.id, bullet_id: id }),
         }
       );
 
       if (response.ok) {
         const data = await response.json();
-        console.log("course is " + data);
-        localStorage.setItem("course", JSON.stringify(data));
+        console.log("bullet is " + data);
+        localStorage.setItem("bullet", JSON.stringify(data));
+        localStorage.setItem("formData", JSON.stringify(data.form.form_data));
       } else {
-        console.error("Failed to fetch courses");
+        console.error("Failed to fetch bullets");
       }
     } catch (error) {
-      console.error("Error fetching courses:", error);
+      console.error("Error fetching bullets:", error);
     } finally {
       window.location.href = route;
     }

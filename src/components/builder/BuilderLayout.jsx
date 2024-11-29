@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
+import { ToastAction } from "../global/Toast";
+import { useToast } from "../global/Use-Toast";
 
 const CircleText = ({ text }) => (
   <div className="flex flex-row items-center">
@@ -12,7 +14,7 @@ const CircleText = ({ text }) => (
 const Header = ({ title, subtitle }) => (
   <div className="flex flex-col space-y-6">
     <div className="flex items-center gap-2">
-      <CircleText text="Coursard" />
+      <CircleText text="BlankBullet" />
       <span>/</span>
       <span className="text-black">{subtitle}</span>
     </div>
@@ -68,38 +70,60 @@ const NavBox = ({ content, page, id }) => {
 
 const NavRow = ({ page, id }) => {
   const { user } = useUser();
+  const { toast } = useToast();
   const onSave = () => {
-    const course = JSON.parse(localStorage.getItem("course"));
-    const updateCourse = async () => {
+    const bullet = JSON.parse(localStorage.getItem("bullet"));
+    console.log(bullet);
+    const updateBullet = async () => {
       try {
-        const response = await fetch(
+        const landing_response = await fetch(
           "http://127.0.0.1:8000/api/update_landing/",
           {
             method: "POST",
             body: JSON.stringify({
               clerk_id: user.id,
-              course_id: course._id,
-              course: course,
-              landing: course.landing,
+              bullet_id: bullet.bullet._id,
+              landing_code: String(bullet.landing.code),
             }),
           }
         );
 
-        if (!response.ok) {
-          console.error("Failed to fetch update course");
+        const form_response = await fetch(
+          "http://127.0.0.1:8000/api/update_form/",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              clerk_id: user.id,
+              bullet_id: bullet.bullet._id,
+              form_data: JSON.parse(localStorage.getItem("formData")),
+            }),
+          }
+        );
+
+        if (!landing_response.ok || !form_response.ok) {
+          console.error("Failed to fetch update bullet");
+        } else {
+          toast({
+            title: `Bullet Saved`,
+            description: "Good Progress =)",
+            action: (
+              <ToastAction onClick={() => {}} altText="Close Toast">
+                Close
+              </ToastAction>
+            ),
+          });
         }
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        console.error("Error fetching bullets:", error);
       }
     };
-    updateCourse();
+    updateBullet();
   };
   return (
     <div className="justify-center items-center flex flex-row space-x-12">
       <NavBox content={"Landing"} page={page} id={id} />
-      <NavBox content={"Modules"} page={page} id={id} />
-      <NavBox content={"Videos"} page={page} id={id} />
-      <NavBox content={"Payment"} page={page} id={id} />
+      <NavBox content={"Form"} page={page} id={id} />
+      <NavBox content={"Checkout"} page={page} id={id} />
       <NavBox content={"Publish"} page={page} id={id} />
       <button
         onClick={onSave}

@@ -4,7 +4,7 @@ import {
   Sidebar,
   SidebarBody,
   SidebarLink,
-} from "../../components/global/Sidebar";
+} from "../../../../components/global/Sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
@@ -18,9 +18,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import Add_Course from "@/components/add_course/Add_Course";
 
-export default function SidebarDemo() {
+import Checkout from "@/components/builder/checkout/Checkout";
+
+export default function SidebarDemo({ params }) {
+  const id = params.id;
   const links = [
     {
       label: "Dashboard",
@@ -30,22 +32,22 @@ export default function SidebarDemo() {
       ),
     },
     {
-      label: "Add Course",
-      href: "/add_course",
+      label: "Add Bullet",
+      href: "/add_bullet",
       icon: (
         <IconCirclePlus className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Builder",
-      href: "/course/builder",
+      href: "/bullet/builder",
       icon: (
         <IconHammer className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Analytics",
-      href: "/course/analytics",
+      href: "/bullet/analytics",
       icon: (
         <IconReportAnalytics className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -57,7 +59,6 @@ export default function SidebarDemo() {
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-
     {
       label: "Logout",
       href: "#",
@@ -89,7 +90,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Add_Course />
+      <Checkout id={id} />
     </div>
   );
 }
@@ -105,7 +106,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black text-xl dark:text-white whitespace-pre"
       >
-        Coursard
+        BlankBullet
       </motion.span>
     </Link>
   );

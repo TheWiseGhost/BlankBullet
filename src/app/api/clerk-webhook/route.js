@@ -15,7 +15,7 @@ export async function POST(req) {
 
     // Connect to MongoDB
     await client.connect();
-    const db = client.db("Coursard");
+    const db = client.db("BlankBullet");
     const usersCollection = db.collection("Users");
 
     // Prepare the data to insert
@@ -26,9 +26,8 @@ export async function POST(req) {
       created_at: new Date(),
       plan: "free",
       profile_picture: image_url || "", // Profile picture URL from the request body
-      courses: 0,
-      enrolled: 0,
-      storage: 0,
+      num_bullets: 0,
+      num_active_bullets: 0,
     };
 
     // Insert the user data into the Users collection
