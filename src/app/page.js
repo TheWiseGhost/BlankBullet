@@ -12,6 +12,7 @@ import { FAQs } from "@/components/landing/FAQs";
 import Footer from "@/components/landing/Footer";
 import Hero from "@/components/landing/Hero";
 import { FeaturesSection } from "@/components/landing/FeatureSection";
+import { WorldMapDemo } from "@/components/landing/WorldMapDemo";
 
 export default function Home() {
   return (
@@ -28,13 +29,21 @@ export default function Home() {
         </div>
       </section>
       <section className="my_grid antialiased">
+        <div className="pt-20">
+          <PopulatedBentoGrid />
+        </div>
+      </section>
+      <section className="my_grid antialiased">
         <div className="px-20 pt-4">
           <FeaturesSection />
         </div>
       </section>
-      <section className="my_grid py-12">
-        <PopulatedBentoGrid />
+      <section className="my_grid antialiased">
+        <div className="px-40 pt-4">
+          <WorldMapDemo />
+        </div>
       </section>
+
       <section className="pb-24">
         <PricingCards />
       </section>

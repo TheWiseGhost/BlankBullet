@@ -1,118 +1,172 @@
 import React, { useState, useEffect } from "react";
 import BuilderLayout from "../BuilderLayout";
 
-const CheckoutComponent = () => {
-  const [price, setPrice] = useState("");
-  const [productUrl, setProductUrl] = useState("");
-  const [permissionsGranted, setPermissionsGranted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!permissionsGranted) {
-      alert("Please grant the required permissions.");
-      return;
-    }
-    // Handle form submission here
-    console.log("Price:", price);
-    console.log("Product URL:", productUrl);
-  };
-
+const CheckoutForm = () => {
   return (
-    <div className="flex flex-col items-center w-full h-fit">
-      <div className="flex flex-row w-full">
-        <div className="bg-white rounded-lg pl-6 w-full flex max-w-lg">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-lg text-gray-700 font-medium">
-                Price
-              </label>
-              <div className="font-dm flex flex-row items-center">
-                <p className="text-xl mr-2">$</p>
-                <input
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  placeholder="0.00"
-                  className="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block text-lg text-gray-700 font-medium">
-                Product URL from Stripe
-              </label>
-              <input
-                type="url"
-                value={productUrl}
-                onChange={(e) => setProductUrl(e.target.value)}
-                placeholder="Product URL"
-                className="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div className="flex items-center space-x-4">
-              <input
-                type="checkbox"
-                id="permissionsGranted"
-                checked={permissionsGranted}
-                onChange={(e) => setPermissionsGranted(e.target.checked)}
-                className="w-8 h-8 border-gray-300 rounded focus:ring-0"
-              />
-              <label htmlFor="permissionsGranted" className="text-gray-700">
-                By checking the box, you are responsible for ensuring the proper
-                permissions were granted to avoid error.
-              </label>
-            </div>
-            <div className="flex justify-center">
-              <button className="w-1/3 mt-4 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-2xl transition duration-300 font-semibold">
-                Confirm
-              </button>
-            </div>
-          </form>
+    <div className="max-w-lg bg-white shadow-md rounded-lg p-6">
+      <img
+        src="https://via.placeholder.com/400x100"
+        alt="Company Logo"
+        className="w-32 mx-auto mb-6"
+      />
+      <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">
+        Just one more step!
+      </h2>
+      <p className="text-gray-600 text-center mb-6">
+        Complete your payment details below to finish the checkout.
+      </p>
+      <form className="space-y-6">
+        {/* Full Name */}
+        <div>
+          <label
+            htmlFor="fullName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Full Name
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            placeholder="John Doe"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
         </div>
-        <div className="w-1/5 justify-center items-center">
-          <div className="w-0.5 h-80 my-auto mx-auto bg-gray-200"></div>
+        {/* Email Address */}
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="johndoe@example.com"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
         </div>
-        <div className="w-full flex flex-col space-y-4">
-          <div className="text-3xl -mt-4 flex flex-row font-medium items-center text-gray-800">
-            <h2 className="pr-3">Easy Payments Powered by</h2>{" "}
-            <img src="/StripeLogo.webp" className="w-20 items-center h-20" />
+        {/* Card Details */}
+        <div>
+          <label
+            htmlFor="cardNumber"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Card Number
+          </label>
+          <input
+            type="text"
+            id="cardNumber"
+            placeholder="4242 4242 4242 4242"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
+        </div>
+        <div className="flex gap-4">
+          {/* Expiration Date */}
+          <div className="flex-1">
+            <label
+              htmlFor="expiryDate"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Expiration Date
+            </label>
+            <input
+              type="text"
+              id="expiryDate"
+              placeholder="MM/YY"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
           </div>
-          <ul className="space-y-6 pl-4">
-            <li className="flex items-center space-x-3">
-              <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
-                1
-              </span>
-              <span>Sign Up for a Stripe Account</span>
-            </li>
-            <li className="flex items-center space-x-3">
-              <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
-                2
-              </span>
-              <span>Create a Product and Link</span>
-            </li>
-            <li className="flex items-center space-x-3">
-              <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
-                3
-              </span>
-              <span>Add the link to the left</span>
-            </li>
-            <li className="flex items-center space-x-3">
-              <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
-                4
-              </span>
-              <span>Grant us required permission</span>
-            </li>
-            <li className="flex items-center space-x-3">
-              <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
-                5
-              </span>
-              <span>Choose the correct plan</span>
-            </li>
-          </ul>
+          {/* CVV */}
+          <div className="flex-1">
+            <label
+              htmlFor="cvv"
+              className="block text-sm font-medium text-gray-700"
+            >
+              CVV
+            </label>
+            <input
+              type="text"
+              id="cvv"
+              placeholder="123"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+          </div>
         </div>
-      </div>
+        {/* ZIP Code */}
+        <div>
+          <label
+            htmlFor="zipCode"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Country
+          </label>
+          <input
+            type="text"
+            id="zipCode"
+            placeholder="United States"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
+        </div>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full px-4 py-2 text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Complete Payment
+        </button>
+      </form>
+      <p className="text-gray-500 text-sm text-center mt-4">
+        Payments are processed securely. By completing this payment, you agree
+        to our{" "}
+        <a href="#" className="text-blue-500 hover:underline">
+          Terms
+        </a>{" "}
+        and{" "}
+        <a href="#" className="text-blue-500 hover:underline">
+          Privacy Policy
+        </a>
+        .
+      </p>
+    </div>
+  );
+};
+
+const ArrowDown = () => {
+  return (
+    <div className="pt-12 pb-4 max-w-lg">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFTpufPNqJOUGunsNJn5Af6XsywGDw1dtTcA&s"
+        alt="Down arrow"
+        className="w-10 rounded-md mb-4 justify-center mx-auto"
+      />
+    </div>
+  );
+};
+
+const PostCheckoutComponent = () => {
+  return (
+    <div className="text-center px-6 py-2 max-w-lg">
+      <img
+        src="https://via.placeholder.com/400x200"
+        alt="Checkout Banner"
+        className="w-full rounded-md mb-4"
+      />
+      <p className="mt-4 text-gray-600">
+        Thank you for choosing our service! Currently this product is under
+        development. Here's a 20% discount for when it fully releases.
+        <br /> Nothing has been charged to your card, we hope to see you again!
+      </p>
+    </div>
+  );
+};
+
+const CheckoutComponent = () => {
+  return (
+    <div className="w-full flex flex-col">
+      <CheckoutForm />
+      <ArrowDown />
+      <PostCheckoutComponent />
     </div>
   );
 };
