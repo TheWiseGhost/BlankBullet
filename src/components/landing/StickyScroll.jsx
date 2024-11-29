@@ -43,16 +43,6 @@ export const StickyScroll = () => {
         </div>
       ),
     },
-    {
-      title: "Running out of content",
-      description:
-        "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
-      content: (
-        <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
-          Running out of content
-        </div>
-      ),
-    },
   ];
 
   const [activeCard, setActiveCard] = React.useState(0);
@@ -100,7 +90,7 @@ export const StickyScroll = () => {
       <div className="relative flex items-start px-4">
         <div className="max-w-2xl">
           {content.map((item, index) => (
-            <div key={item.title + index} className="my-20">
+            <div key={item.title + index} className="my-20 min-h-60 pt-10">
               <motion.h2
                 initial={{
                   opacity: 0,
@@ -132,7 +122,7 @@ export const StickyScroll = () => {
         <div
           style={{ background: backgroundGradient }}
           className={cn(
-            "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-40 overflow-hidden"
+            "hidden lg:block h-80 w-96 rounded-md bg-white sticky top-40 overflow-hidden"
           )}
         >
           {content[activeCard].content ?? null}

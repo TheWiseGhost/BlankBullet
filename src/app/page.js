@@ -28,19 +28,28 @@ export default function Home() {
           <TooltipReviews />
         </div>
       </section>
+
       <section className="my_grid antialiased">
-        <div className="pt-20">
+        <div className="pt-28">
           <PopulatedBentoGrid />
         </div>
       </section>
+
+      <section className="my_grid antialiased">
+        <div className="px-20">
+          <ContainerScroll />
+        </div>
+      </section>
+
       <section className="my_grid antialiased">
         <div className="px-20 pt-4">
           <FeaturesSection />
         </div>
       </section>
+
       <section className="my_grid antialiased">
-        <div className="px-40 pt-4">
-          <WorldMapDemo />
+        <div className="px-20 pt-24">
+          <StickyScroll />
         </div>
       </section>
 

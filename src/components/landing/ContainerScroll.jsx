@@ -30,7 +30,7 @@ export const ContainerScroll = ({ titleComponent, children }) => {
 
   return (
     <div
-      className="h-[60rem] md:h-[80rem] -mt-8 flex items-center justify-center relative p-2 md:p-20 pb-2 md:pb-0"
+      className="h-[35rem] md:h-[60rem] -mt-8 flex items-center justify-center relative px-2 md:px-20 pb-2 md:pb-0"
       ref={containerRef}
     >
       <div
@@ -39,7 +39,6 @@ export const ContainerScroll = ({ titleComponent, children }) => {
           perspective: "1000px",
         }}
       >
-        <Header translate={translate} titleComponent={titleComponent} />
         <Card rotate={rotate} translate={translate} scale={scale}>
           {children}
         </Card>
@@ -70,7 +69,7 @@ export const Card = ({ rotate, scale, translate, children }) => {
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="max-w-5xl -mt-12 mx-auto h-[30rem] md:h-[40rem] w-full border-2 border-[#6C6C6C] p-2 md:p-2 bg-[#222222] rounded-[30px] shadow-2xl"
+      className="max-w-5xl mx-auto h-[30rem] md:h-[35rem] w-full border-2 border-[#6C6C6C] p-2 md:p-2 bg-[#222222] rounded-[30px] shadow-2xl"
     >
       <div className="h-full w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-zinc-900 md:rounded-2xl md:p-2">
         {children}
