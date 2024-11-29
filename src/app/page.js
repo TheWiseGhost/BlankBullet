@@ -11,29 +11,28 @@ import PricingCards from "@/components/landing/PricingCards";
 import { FAQs } from "@/components/landing/FAQs";
 import Footer from "@/components/landing/Footer";
 import Hero from "@/components/landing/Hero";
+import { FeaturesSection } from "@/components/landing/FeatureSection";
 
 export default function Home() {
   return (
     <main className="">
       <Navbar />
-      <section className="my_grid antialiased min-h-screen w-full bg-none rounded-md !overflow-visible relative flex flex-col items-center">
+      <section className="my_grid antialiased w-full bg-none rounded-md !overflow-visible relative flex flex-col items-center">
         <div className="absolute inset-0 h-full w-full items-center px-5 py-24"></div>
         <Hero />
       </section>
 
-      <div className="my_grid antialiased">
-        <section className="h-20 w-full mt-[-30px]">
+      <section className="my_grid antialiased !overflow-visible relative flex flex-col">
+        <div className="w-full pt-16">
           <TooltipReviews />
-        </section>
-        <section className="h-60 pt-24 w-full bg-none">
-          <MovingCards items={clients} />
-        </section>
-      </div>
-      <section>
-        <HeroParallax products={products}></HeroParallax>
+        </div>
       </section>
-      <StickyScroll />
-      <section className="py-12">
+      <section className="my_grid antialiased">
+        <div className="px-20 pt-4">
+          <FeaturesSection />
+        </div>
+      </section>
+      <section className="my_grid py-12">
         <PopulatedBentoGrid />
       </section>
       <section className="pb-24">

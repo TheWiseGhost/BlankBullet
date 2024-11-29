@@ -59,7 +59,7 @@ const SkeletonOne = () => {
     <motion.div
       initial="initial"
       whileHover="animate"
-      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-dot-black/[0.2] flex-col space-y-2"
     >
       <motion.div
         variants={variants}
@@ -242,7 +242,7 @@ const SkeletonFour = () => {
 
 const SkeletonFive = () => {
   return (
-    <div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2">
+    <div className="flex flex-1 w-full h-full min-h-[6rem] bg-dot-black/[0.2] flex-col space-y-2">
       <div className="h-1/3 w-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
       <div className="h-1/3 w-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
       <div className="h-1/3 w-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
