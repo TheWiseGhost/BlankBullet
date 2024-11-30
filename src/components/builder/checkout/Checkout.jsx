@@ -1,11 +1,34 @@
 import React, { useState, useEffect } from "react";
 import BuilderLayout from "../BuilderLayout";
+import { FileUpload } from "@/components/global/FileUpload";
+
+const options = [
+  { id: 1, name: "Checkout Image" },
+  { id: 3, name: "Completed Image" },
+  { id: 4, name: "Completed Text" },
+];
+
+const CheckoutImageUploadComponent = ({ handleImageChange, text }) => {
+  return (
+    <div className="w-full font-dm flex flex-col space-y-2">
+      <FileUpload onChange={handleImageChange} target={text} />
+    </div>
+  );
+};
+
+const FinishedImageUploadComponent = ({ handleImageChange, text }) => {
+  return (
+    <div className="w-full font-dm flex flex-col space-y-2">
+      <FileUpload onChange={handleImageChange} target={text} />
+    </div>
+  );
+};
 
 const CheckoutForm = () => {
   return (
-    <div className="max-w-lg bg-white shadow-md rounded-lg p-6">
+    <div className="bg-white shadow-md rounded-lg p-6">
       <img
-        src="https://via.placeholder.com/400x100"
+        src="https://via.placeholder.com/200x200"
         alt="Company Logo"
         className="w-32 mx-auto mb-6"
       />
@@ -134,7 +157,7 @@ const CheckoutForm = () => {
 
 const ArrowDown = () => {
   return (
-    <div className="pt-12 pb-4 max-w-lg">
+    <div className="pt-12 pb-4">
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFTpufPNqJOUGunsNJn5Af6XsywGDw1dtTcA&s"
         alt="Down arrow"
@@ -146,7 +169,7 @@ const ArrowDown = () => {
 
 const PostCheckoutComponent = () => {
   return (
-    <div className="text-center px-6 py-2 max-w-lg">
+    <div className="text-center px-6 py-2">
       <img
         src="https://via.placeholder.com/400x200"
         alt="Checkout Banner"
@@ -161,12 +184,84 @@ const PostCheckoutComponent = () => {
   );
 };
 
-const CheckoutComponent = () => {
+const FinishedTextComponent = ({ text, handleTextChange }) => {
   return (
-    <div className="w-full flex flex-col">
-      <CheckoutForm />
-      <ArrowDown />
-      <PostCheckoutComponent />
+    <div className="w-full font-dm flex flex-col space-y-2">
+      <h1>Final Text</h1>
+      <textarea
+        type="text"
+        value={text}
+        placeholder="Enter text"
+        onChange={handleTextChange}
+        className="border w-full border-gray-300 h-60 rounded-lg p-3 text-gray-700"
+        maxLength="500"
+      ></textarea>
+    </div>
+  );
+};
+
+const CheckoutComponent = () => {
+  const [checkoutImg, setCheckoutImg] = useState(null);
+  const [finishedImg, setFinishedImg] = useState(null);
+  const [finishedText, setFinishedText] = useState("");
+  const [checkout, setCheckout] = useState("");
+
+  // Fix this NextJS server client error with local storage
+  useEffect(() => {
+    setCheckout(JSON.parse(localStorage.getItem("checkout")));
+  }, []);
+
+  const handleCheckoutImgChange = (file) => {
+    if (checkout) {
+      checkout.checkout_img = file;
+      setCheckoutImg(file);
+      localStorage.setItem("checkout", JSON.stringify(checkout));
+    }
+  };
+
+  const handleFinishedImgChange = (file) => {
+    if (checkout) {
+      checkout.finished_img = file;
+      setFinishedImg(file);
+      localStorage.setItem("checkout", JSON.stringify(checkout));
+    }
+  };
+
+  const handleFinishedTextChange = (text) => {
+    if (checkout) {
+      checkout.finished_text = text;
+      setFinishedText(text);
+      localStorage.setItem("checkout", JSON.stringify(checkout));
+    }
+  };
+
+  return (
+    <div className="w-full flex flex-row">
+      <div className="w-1/2 flex flex-col">
+        <CheckoutForm />
+        <ArrowDown />
+        <PostCheckoutComponent />
+      </div>
+      <div className="w-1/2 flex flex-col px-20 space-y-20 pt-12">
+        <div>
+          <CheckoutImageUploadComponent
+            handleImageChange={handleCheckoutImgChange}
+            text={"Checkout Image"}
+          />
+        </div>
+        <div>
+          <FinishedImageUploadComponent
+            handleImageChange={handleFinishedImgChange}
+            text={"Finished Image"}
+          />
+        </div>
+        <div>
+          <FinishedTextComponent
+            handleTextChange={handleFinishedTextChange}
+            text={finishedText}
+          />
+        </div>
+      </div>
     </div>
   );
 };

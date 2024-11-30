@@ -51,6 +51,7 @@ export const FileUpload = ({ onChange, target }) => {
   return (
     <div className="w-full" {...getRootProps()}>
       <motion.div
+        layoutId={target}
         onClick={handleClick}
         whileHover="animate"
         className="p-5 border-dashed group/file block rounded-lg cursor-pointer w-full relative overflow-hidden"
@@ -59,7 +60,7 @@ export const FileUpload = ({ onChange, target }) => {
       >
         <input
           ref={fileInputRef}
-          id="file-upload-handle"
+          id={`file-upload-handle-${target}`}
           type="file"
           onChange={(e) => handleFileChange(e.target.files[0])}
           className="hidden"
@@ -77,7 +78,11 @@ export const FileUpload = ({ onChange, target }) => {
               file.map((file, idx) => (
                 <motion.div
                   key={"file" + idx}
-                  layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
+                  layoutId={
+                    idx === 0
+                      ? "file-upload" + target
+                      : "file-upload-" + idx + target
+                  }
                   className={cn(
                     "relative overflow-hidden z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-full mx-auto rounded-md",
                     "shadow-lg"
@@ -125,7 +130,7 @@ export const FileUpload = ({ onChange, target }) => {
               ))}
             {!file.length && (
               <motion.div
-                layoutId="file-upload"
+                layoutId={`file-upload-${target}`}
                 variants={mainVariant}
                 transition={{
                   type: "spring",
