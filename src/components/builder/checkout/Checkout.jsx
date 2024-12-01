@@ -24,11 +24,11 @@ const FinishedImageUploadComponent = ({ handleImageChange, text }) => {
   );
 };
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ image }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       <img
-        src="https://via.placeholder.com/200x200"
+        src={image || "https://via.placeholder.com/200x200"}
         alt="Company Logo"
         className="w-32 mx-auto mb-6"
       />
@@ -167,19 +167,26 @@ const ArrowDown = () => {
   );
 };
 
-const PostCheckoutComponent = () => {
+const PostCheckoutComponent = ({ image, text }) => {
   return (
     <div className="text-center px-6 py-2">
       <img
-        src="https://via.placeholder.com/400x200"
+        src={image || "https://via.placeholder.com/400x200"}
         alt="Checkout Banner"
         className="w-full rounded-md mb-4"
       />
-      <p className="mt-4 text-gray-600">
-        Thank you for choosing our service! Currently this product is under
-        development. Here's a 20% discount for when it fully releases.
-        <br /> Nothing has been charged to your card, we hope to see you again!
-      </p>
+      {text ? (
+        <p>{text}</p>
+      ) : (
+        <p className="mt-4 text-gray-600">
+          Thank you for choosing our service! Currently this product is under
+          development. Here's a 20% discount code for when it fully releases.
+          <br />
+          -WYNXHA34S-
+          <br /> Nothing has been charged to your card, we hope to see you
+          again!
+        </p>
+      )}
     </div>
   );
 };
@@ -211,7 +218,7 @@ const CheckoutComponent = () => {
     setCheckout(JSON.parse(localStorage.getItem("checkout")));
     setCheckoutImg(checkout.checkout_img);
     setFinishedImg(checkout.finished_img);
-    setFinishedImg(checkout.finished_text);
+    setFinishedText(checkout.finished_text);
   }, []);
 
   useEffect(() => {
@@ -227,35 +234,29 @@ const CheckoutComponent = () => {
   }, [finishedText]);
 
   const handleCheckoutImgChange = (file) => {
-    if (checkout) {
-      checkout.checkout_img = file;
-      setCheckoutImg(file);
-      localStorage.setItem("checkout", JSON.stringify(checkout));
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setCheckoutImg(imageUrl);
     }
   };
 
   const handleFinishedImgChange = (file) => {
-    if (checkout) {
-      checkout.finished_img = file;
-      setFinishedImg(file);
-      localStorage.setItem("checkout", JSON.stringify(checkout));
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setFinishedImg(imageUrl);
     }
   };
 
-  const handleFinishedTextChange = (text) => {
-    if (checkout) {
-      checkout.finished_text = text;
-      setFinishedText(text);
-      localStorage.setItem("checkout", JSON.stringify(checkout));
-    }
+  const handleFinishedTextChange = (e) => {
+    setFinishedText(e.target.value);
   };
 
   return (
     <div className="w-full flex flex-row">
       <div className="w-1/2 flex flex-col">
-        <CheckoutForm />
+        <CheckoutForm image={checkoutImg} />
         <ArrowDown />
-        <PostCheckoutComponent />
+        <PostCheckoutComponent image={finishedImg} text={finishedText} />
       </div>
       <div className="w-1/2 flex flex-col px-20 space-y-20 pt-12">
         <div>
