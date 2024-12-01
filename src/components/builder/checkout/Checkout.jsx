@@ -209,7 +209,22 @@ const CheckoutComponent = () => {
   // Fix this NextJS server client error with local storage
   useEffect(() => {
     setCheckout(JSON.parse(localStorage.getItem("checkout")));
+    setCheckoutImg(checkout.checkout_img);
+    setFinishedImg(checkout.finished_img);
+    setFinishedImg(checkout.finished_text);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("checkoutImg", checkoutImg);
+  }, [checkoutImg]);
+
+  useEffect(() => {
+    localStorage.setItem("finishedImg", finishedImg);
+  }, [finishedImg]);
+
+  useEffect(() => {
+    localStorage.setItem("finishedText", finishedText);
+  }, [finishedText]);
 
   const handleCheckoutImgChange = (file) => {
     if (checkout) {

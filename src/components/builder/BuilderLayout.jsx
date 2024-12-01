@@ -100,6 +100,20 @@ const NavRow = ({ page, id }) => {
           }
         );
 
+        const checkout_response = await fetch(
+          "http://127.0.0.1:8000/api/update_checkout/",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              clerk_id: user.id,
+              bullet_id: bullet.bullet._id,
+              checkout_img: JSON.parse(localStorage.getItem("checkoutImg")),
+              finished_img: JSON.parse(localStorage.getItem("finishedImg")),
+              finished_text: JSON.parse(localStorage.getItem("finishedText")),
+            }),
+          }
+        );
+
         if (!landing_response.ok || !form_response.ok) {
           console.error("Failed to fetch update bullet");
         } else {

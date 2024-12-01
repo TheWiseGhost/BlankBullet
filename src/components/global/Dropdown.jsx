@@ -100,6 +100,7 @@ const Option = ({ text, page, id }) => {
         console.log("bullet is " + data);
         localStorage.setItem("bullet", JSON.stringify(data));
         localStorage.setItem("formData", JSON.stringify(data.form.form_data));
+        localStorage.setItem("checkout", JSON.stringify(data.checkout));
       } else {
         console.error("Failed to fetch bullets");
       }
