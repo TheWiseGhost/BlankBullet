@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import BuilderLayout from "../BuilderLayout";
 import { FileUpload } from "@/components/global/FileUpload";
-
-const options = [
-  { id: 1, name: "Checkout Image" },
-  { id: 3, name: "Completed Image" },
-  { id: 4, name: "Completed Text" },
-];
+import { useUser } from "@clerk/nextjs";
+import { ToastAction } from "../../global/Toast";
+import { useToast } from "../../global/Use-Toast";
 
 const CheckoutImageUploadComponent = ({ handleImageChange, text }) => {
   return (
@@ -215,9 +212,13 @@ const CheckoutComponent = () => {
   const [finishedText, setFinishedText] = useState("");
   const [checkout, setCheckout] = useState("");
 
+  const { user } = useUser();
+  const { toast } = useToast();
+
   // Fix this NextJS server client error with local storage
   useEffect(() => {
     setCheckout(JSON.parse(localStorage.getItem("checkout")));
+    console.log(JSON.stringify(checkout));
     setCheckoutImg(checkout.checkout_img);
     setFinishedImg(checkout.finished_img);
     setFinishedText(checkout.finished_text);
@@ -257,17 +258,30 @@ const CheckoutComponent = () => {
 
   const onSave = async () => {
     try {
+      const formData = new FormData();
+      const bullet = JSON.parse(localStorage.getItem("bullet"));
+
+      // Add the text fields
+      formData.append("clerk_id", user.id);
+      formData.append("bullet_id", bullet.bullet._id);
+      formData.append(
+        "finished_text",
+        localStorage.getItem("finishedText") || ""
+      );
+
+      // Add the files, if available
+      if (checkoutImgFile) {
+        formData.append("checkout_img", checkoutImgFile);
+      }
+      if (finishedImgFile) {
+        formData.append("finished_img", finishedImgFile);
+      }
+
       const checkout_response = await fetch(
         "http://127.0.0.1:8000/api/update_checkout/",
         {
           method: "POST",
-          body: JSON.stringify({
-            clerk_id: user.id,
-            bullet_id: bullet.bullet._id,
-            checkout_img: checkoutImgFile ? JSON.parse(checkoutImgFile) : null,
-            finished_img: finishedImgFile ? JSON.parse(finishedImgFile) : null,
-            finished_text: JSON.parse(localStorage.getItem("finishedText")),
-          }),
+          body: formData,
         }
       );
 
@@ -316,7 +330,7 @@ const CheckoutComponent = () => {
           />
         </div>
         <div className="flex justify-center">
-          <a
+          <button
             onClick={onSave}
             className="relative justify-center inline-flex h-16 overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/2"
           >
@@ -324,7 +338,7 @@ const CheckoutComponent = () => {
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white backdrop-blur-3xl">
               Save Checkout
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
