@@ -209,7 +209,9 @@ const FinishedTextComponent = ({ text, handleTextChange }) => {
 
 const CheckoutComponent = () => {
   const [checkoutImg, setCheckoutImg] = useState(null);
+  const [checkoutImgFile, setCheckoutImgFile] = useState(null);
   const [finishedImg, setFinishedImg] = useState(null);
+  const [finishedImgFile, setFinishedImgFile] = useState(null);
   const [finishedText, setFinishedText] = useState("");
   const [checkout, setCheckout] = useState("");
 
@@ -237,6 +239,7 @@ const CheckoutComponent = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setCheckoutImg(imageUrl);
+      setCheckoutImgFile(file);
     }
   };
 
@@ -244,11 +247,46 @@ const CheckoutComponent = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setFinishedImg(imageUrl);
+      setFinishedImgFile(file);
     }
   };
 
   const handleFinishedTextChange = (e) => {
     setFinishedText(e.target.value);
+  };
+
+  const onSave = async () => {
+    try {
+      const checkout_response = await fetch(
+        "http://127.0.0.1:8000/api/update_checkout/",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            clerk_id: user.id,
+            bullet_id: bullet.bullet._id,
+            checkout_img: checkoutImgFile ? JSON.parse(checkoutImgFile) : null,
+            finished_img: finishedImgFile ? JSON.parse(finishedImgFile) : null,
+            finished_text: JSON.parse(localStorage.getItem("finishedText")),
+          }),
+        }
+      );
+
+      if (!checkout_response.ok) {
+        console.error("Failed to fetch update checkout");
+      } else {
+        toast({
+          title: `Checkout Saved`,
+          description: "Good Progress =)",
+          action: (
+            <ToastAction onClick={() => {}} altText="Close Toast">
+              Close
+            </ToastAction>
+          ),
+        });
+      }
+    } catch (error) {
+      console.error("Error saving checkout:", error);
+    }
   };
 
   return (
@@ -276,6 +314,17 @@ const CheckoutComponent = () => {
             handleTextChange={handleFinishedTextChange}
             text={finishedText}
           />
+        </div>
+        <div className="flex justify-center">
+          <a
+            onClick={onSave}
+            className="relative justify-center inline-flex h-16 overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/2"
+          >
+            <span className="absolute inset-[-1000%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#908894_0%,#edeceb_50%,#908894_100%)]" />
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white backdrop-blur-3xl">
+              Save Checkout
+            </span>
+          </a>
         </div>
       </div>
     </div>

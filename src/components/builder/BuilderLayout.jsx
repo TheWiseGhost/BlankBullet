@@ -100,20 +100,6 @@ const NavRow = ({ page, id }) => {
           }
         );
 
-        const checkout_response = await fetch(
-          "http://127.0.0.1:8000/api/update_checkout/",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              clerk_id: user.id,
-              bullet_id: bullet.bullet._id,
-              checkout_img: JSON.parse(localStorage.getItem("checkoutImg")),
-              finished_img: JSON.parse(localStorage.getItem("finishedImg")),
-              finished_text: JSON.parse(localStorage.getItem("finishedText")),
-            }),
-          }
-        );
-
         if (!landing_response.ok || !form_response.ok) {
           console.error("Failed to fetch update bullet");
         } else {
@@ -141,9 +127,12 @@ const NavRow = ({ page, id }) => {
       <NavBox content={"Publish"} page={page} id={id} />
       <button
         onClick={onSave}
-        className="w-1/2 mx-6 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-2 rounded-2xl transition duration-300 font-semibold"
+        className="relative inline-flex h-12 overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-2/5"
       >
-        Save
+        <span className="absolute inset-[-100%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#908894_0%,#edeceb_50%,#908894_100%)]" />
+        <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white backdrop-blur-3xl">
+          Save
+        </span>
       </button>
     </div>
   );
