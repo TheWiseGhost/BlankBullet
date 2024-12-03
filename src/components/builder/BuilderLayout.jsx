@@ -53,7 +53,7 @@ const NavBox = ({ content, page, id }) => {
     >
       <div
         className={`absolute ${
-          active ? "bg-blue-400" : "bg-gray-200"
+          active ? "bg-gray-500" : "bg-gray-200"
         } w-full h-full rounded-2xl top-2`}
       ></div>
       <motion.div

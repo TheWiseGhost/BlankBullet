@@ -394,6 +394,7 @@ const LiveEditor = () => {
   useEffect(() => {
     const savedBullet = JSON.parse(localStorage.getItem("bullet"));
     setBullet(savedBullet || { landing: { code: "" } });
+    console.log(savedBullet.checkout);
   }, []);
 
   const [htmlCode, setHtmlCode] = useState("");

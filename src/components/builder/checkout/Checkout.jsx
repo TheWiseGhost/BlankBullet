@@ -217,15 +217,17 @@ const CheckoutComponent = () => {
 
   // Fix this NextJS server client error with local storage
   useEffect(() => {
-    setCheckout(JSON.parse(localStorage.getItem("checkout")));
-    console.log(JSON.stringify(checkout));
-    setCheckoutImg(checkout.checkout_img);
-    setFinishedImg(checkout.finished_img);
-    setFinishedText(checkout.finished_text);
+    const savedCheckout = JSON.parse(localStorage.getItem("checkout"));
+    setCheckout(savedCheckout);
+    console.log(savedCheckout);
+    setCheckoutImg(savedCheckout.checkout_img);
+    setFinishedImg(savedCheckout.finished_img);
+    setFinishedText(savedCheckout.finished_text);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("checkoutImg", checkoutImg);
+    console.log(checkoutImg);
   }, [checkoutImg]);
 
   useEffect(() => {
@@ -329,7 +331,7 @@ const CheckoutComponent = () => {
             text={finishedText}
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center pb-12">
           <button
             onClick={onSave}
             className="relative justify-center inline-flex h-16 overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/2"
