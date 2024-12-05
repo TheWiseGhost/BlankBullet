@@ -1,26 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BuilderLayout from "../BuilderLayout";
 
-const GoogleFormClone = () => {
-  const [formData, setFormData] = useState({});
+const FormBuilder = ({ formData, setFormData }) => {
   const [activeQuestion, setActiveQuestion] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false); // Track if data is loaded
-
-  // Load initial data from localStorage
-  useEffect(() => {
-    const storedData = localStorage.getItem("formData");
-    if (storedData) {
-      setFormData(JSON.parse(storedData));
-    }
-    setIsLoaded(true); // Mark as loaded after reading from localStorage
-  }, []);
-
-  // Update localStorage whenever formData changes, but skip the first render
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem("formData", JSON.stringify(formData));
-    }
-  }, [formData, isLoaded]);
 
   // Add a new question
   const addQuestion = () => {
@@ -60,11 +42,11 @@ const GoogleFormClone = () => {
   };
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-4 w-full">
       <div className="flex space-x-4">
         <button
           onClick={addQuestion}
-          className="bg-slate-900 text-white px-4 py-2 rounded hover:bg-black"
+          className="bg-slate-900 text-white px-4 py-2 rounded hover:bg-black transition duration-200"
         >
           Add Question
         </button>
@@ -72,7 +54,7 @@ const GoogleFormClone = () => {
           onClick={addAnswer}
           className={`${
             activeQuestion ? "bg-slate-500" : "bg-gray-200"
-          } text-white px-4 py-2 rounded ${
+          } text-white px-4 py-2 rounded transition duration-200 ${
             activeQuestion ? "hover:bg-slate-600" : "cursor-not-allowed"
           }`}
           disabled={!activeQuestion}
@@ -120,6 +102,76 @@ const GoogleFormClone = () => {
   );
 };
 
+const ArrowDown = () => {
+  return (
+    <div className="pt-8 pb-2">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFTpufPNqJOUGunsNJn5Af6XsywGDw1dtTcA&s"
+        alt="Down arrow"
+        className="w-6 rounded-md mb-4 justify-center mx-auto"
+      />
+    </div>
+  );
+};
+
+const FormDisplay = ({ formData }) => {
+  if (!formData || Object.keys(formData).length === 0) {
+    return <div>No data available to display.</div>;
+  }
+
+  return (
+    <div className="flex flex-col items-center space-y-3 py-12">
+      {Object.keys(formData).map((question, index) => (
+        <React.Fragment key={index}>
+          <div className="border rounded-md shadow-lg px-8 py-12 w-11/12 max-w-lg bg-white text-center">
+            <h3 className="font-bold text-2xl mb-8">{question}</h3>
+            <select className="w-full px-2 py-4 border rounded">
+              {formData[question].map((answer, aIndex) => (
+                <option key={aIndex} value={answer}>
+                  {answer}
+                </option>
+              ))}
+            </select>
+          </div>
+          {index < Object.keys(formData).length - 1 && <ArrowDown />}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
+
+const FormComponent = () => {
+  const [formData, setFormData] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load initial data from localStorage
+  useEffect(() => {
+    const storedData = localStorage.getItem("formData");
+    if (storedData) {
+      setFormData(JSON.parse(storedData));
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // Update localStorage whenever formData changes
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem("formData", JSON.stringify(formData));
+    }
+  }, [formData, isLoaded]);
+
+  return (
+    <div className="w-full flex flex-row space-x-12">
+      <div className="w-1/2 flex flex-col">
+        <FormBuilder formData={formData} setFormData={setFormData} />
+      </div>
+      <div className="w-1/2 flex flex-col">
+        <FormDisplay formData={formData} />
+      </div>
+    </div>
+  );
+};
+
 const Form = ({ id }) => {
   const [bullet, setBullet] = useState(null);
 
@@ -134,7 +186,7 @@ const Form = ({ id }) => {
       page={"form"}
       id={id}
     >
-      <GoogleFormClone />
+      <FormComponent />
     </BuilderLayout>
   );
 };

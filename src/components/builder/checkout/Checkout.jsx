@@ -4,6 +4,7 @@ import { FileUpload } from "@/components/global/FileUpload";
 import { useUser } from "@clerk/nextjs";
 import { ToastAction } from "../../global/Toast";
 import { useToast } from "../../global/Use-Toast";
+import { IconTrash } from "@tabler/icons-react";
 
 const CheckoutImageUploadComponent = ({ handleImageChange, text }) => {
   return (
@@ -21,7 +22,7 @@ const FinishedImageUploadComponent = ({ handleImageChange, text }) => {
   );
 };
 
-const CheckoutForm = ({ image }) => {
+const CheckoutForm = ({ image, products, plans }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       <img
@@ -36,6 +37,46 @@ const CheckoutForm = ({ image }) => {
         Complete your payment details below to finish the checkout.
       </p>
       <form className="space-y-6">
+        <div>
+          <label
+            htmlFor="productDropdown"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Select Product
+          </label>
+          <select
+            id="productDropdown"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          >
+            {products &&
+              products.map((product, index) => (
+                <option key={index} value={product}>
+                  {product}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="productDropdown"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Select Plan
+          </label>
+          <select
+            id="productDropdown"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          >
+            {plans &&
+              plans.map((plan, index) => (
+                <option key={index} value={plan}>
+                  {plan}
+                </option>
+              ))}
+          </select>
+        </div>
+
         {/* Full Name */}
         <div>
           <label
@@ -204,13 +245,102 @@ const FinishedTextComponent = ({ text, handleTextChange }) => {
   );
 };
 
+const ProductManager = ({ products, setProducts }) => {
+  const handleDelete = (index) => {
+    // Filter out the product at the specified index
+    setProducts((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAdd = () => {
+    // Prompt the user for a new product name
+    const newProduct = prompt("Enter the name of the new product:");
+    if (newProduct) {
+      setProducts((prev) => [...prev, newProduct]);
+    }
+  };
+
+  return (
+    <div className="p-4 border border-gray-300 rounded-md shadow-sm">
+      <h2 className="text-lg font-medium mb-4">Manage Products</h2>
+      <ul className="space-y-2">
+        {products &&
+          products.map((product, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center p-2 border border-gray-200 rounded-md"
+            >
+              <span>{product}</span>
+              <button
+                onClick={() => handleDelete(index)}
+                className="text-red-500 hover:text-red-700"
+              >
+                <IconTrash size={18} />
+              </button>
+            </li>
+          ))}
+      </ul>
+      <button
+        onClick={handleAdd}
+        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md shadow-sm hover:bg-blue-400 transition duration-200"
+      >
+        Add Product
+      </button>
+    </div>
+  );
+};
+
+const PlanManager = ({ plans, setPlans }) => {
+  const handleDelete = (index) => {
+    // Filter out the plan at the specified index
+    setPlans((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAdd = () => {
+    // Prompt the user for a new plan name
+    const newPlan = prompt("Enter the name of the new plan:");
+    if (newPlan) {
+      setPlans((prev) => [...prev, newPlan]);
+    }
+  };
+
+  return (
+    <div className="p-4 border border-gray-300 rounded-md shadow-sm">
+      <h2 className="text-lg font-medium mb-4">Manage Plans</h2>
+      <ul className="space-y-2">
+        {plans &&
+          plans.map((plan, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center p-2 border border-gray-200 rounded-md"
+            >
+              <span>{plan}</span>
+              <button
+                onClick={() => handleDelete(index)}
+                className="text-red-500 hover:text-red-700"
+              >
+                <IconTrash size={18} />
+              </button>
+            </li>
+          ))}
+      </ul>
+      <button
+        onClick={handleAdd}
+        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md shadow-sm hover:bg-blue-400 transition duration-200"
+      >
+        Add Plan
+      </button>
+    </div>
+  );
+};
+
 const CheckoutComponent = () => {
   const [checkoutImg, setCheckoutImg] = useState(null);
   const [checkoutImgFile, setCheckoutImgFile] = useState(null);
   const [finishedImg, setFinishedImg] = useState(null);
   const [finishedImgFile, setFinishedImgFile] = useState(null);
   const [finishedText, setFinishedText] = useState("");
-  const [checkout, setCheckout] = useState("");
+  const [products, setProducts] = useState("");
+  const [plans, setPlans] = useState("");
 
   const { user } = useUser();
   const { toast } = useToast();
@@ -218,11 +348,12 @@ const CheckoutComponent = () => {
   // Fix this NextJS server client error with local storage
   useEffect(() => {
     const savedCheckout = JSON.parse(localStorage.getItem("checkout"));
-    setCheckout(savedCheckout);
     console.log(savedCheckout);
     setCheckoutImg(savedCheckout.checkout_img);
     setFinishedImg(savedCheckout.finished_img);
     setFinishedText(savedCheckout.finished_text);
+    setProducts(savedCheckout.products);
+    setPlans(savedCheckout.plans);
   }, []);
 
   useEffect(() => {
@@ -271,6 +402,9 @@ const CheckoutComponent = () => {
         localStorage.getItem("finishedText") || ""
       );
 
+      formData.append("products", JSON.stringify(products));
+      formData.append("plans", JSON.stringify(plans));
+
       // Add the files, if available
       if (checkoutImgFile) {
         formData.append("checkout_img", checkoutImgFile);
@@ -308,7 +442,7 @@ const CheckoutComponent = () => {
   return (
     <div className="w-full flex flex-row">
       <div className="w-1/2 flex flex-col">
-        <CheckoutForm image={checkoutImg} />
+        <CheckoutForm image={checkoutImg} products={products} plans={plans} />
         <ArrowDown />
         <PostCheckoutComponent image={finishedImg} text={finishedText} />
       </div>
@@ -318,6 +452,12 @@ const CheckoutComponent = () => {
             handleImageChange={handleCheckoutImgChange}
             text={"Checkout Image"}
           />
+        </div>
+        <div>
+          <ProductManager products={products} setProducts={setProducts} />
+        </div>
+        <div>
+          <PlanManager plans={plans} setPlans={setPlans} />
         </div>
         <div>
           <FinishedImageUploadComponent
