@@ -92,9 +92,13 @@ const LiveEditor = () => {
 
       {/* Editor Section */}
       <div className="flex-1 flex-col space-y-2">
-        <h1 className="font-dm text-sm text-center">
-          Probably code your website elsewhere and just drop it in here when
-          your ready!
+        <h1 className="font-dm text-md text-center px-4">
+          Code your website and just drop it in here when your ready! <br />{" "}
+          <br />
+          <b>IMPORTANT:</b> Set the button that should track the checkout
+          initated to have an id of checkout. If you have multiple buttons just
+          make sure the id has checkout at the start (Ex. checkout_one,
+          checkout_two, checkout)
         </h1>
         <div className="flex h-full p-2">
           <textarea

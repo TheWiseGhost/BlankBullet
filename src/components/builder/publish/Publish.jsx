@@ -8,7 +8,7 @@ const GridItem = ({ title }) => (
   </div>
 );
 
-const PublishComponent = () => {
+const PublishComponent = ({ id }) => {
   const [price, setPrice] = useState("");
   const [productUrl, setProductUrl] = useState("");
   const [permissionsGranted, setPermissionsGranted] = useState(false);
@@ -81,8 +81,14 @@ const PublishComponent = () => {
           </form>
         </div>
         <div className="w-full pl-20 flex flex-col space-y-4">
-          <div className="text-3xl justify-center flex flex-row font-medium items-center text-gray-800">
-            <h2>Preview</h2>
+          <div className="justify-center flex flex-row font-medium items-center text-gray-800">
+            <a
+              target="_blank"
+              href={`http://localhost:3000/live/${id}/landing/`}
+              className="text-xl underline hover:text-blue-400 transition duration-200 "
+            >
+              Preview
+            </a>
           </div>
           <div className="h-[500px] w-full bg-gray-200"></div>
         </div>
@@ -105,7 +111,7 @@ const Publish = ({ id }) => {
       page={"publish"}
       id={id}
     >
-      <PublishComponent />
+      <PublishComponent id={bullet ? bullet.bullet?._id : ""} />
     </BuilderLayout>
   );
 };
