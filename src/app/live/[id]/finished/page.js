@@ -1,12 +1,12 @@
 "use client";
 
-import CheckoutPage from "@/components/live/CheckoutPage";
+import FinishedPage from "@/components/live/FinishedPage";
 
 const page = ({ params }) => {
   const id = params.id;
   return (
     <div>
-      <CheckoutPage id={id} />
+      <FinishedPage id={id} />
     </div>
   );
 };

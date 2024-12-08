@@ -207,16 +207,16 @@ const ArrowDown = () => {
 
 const PostCheckoutComponent = ({ image, text }) => {
   return (
-    <div className="text-center px-6 py-2">
+    <div className="text-center font-dm px-6 py-2">
       <img
         src={image || "https://via.placeholder.com/400x200"}
         alt="Checkout Banner"
         className="w-full rounded-md mb-4"
       />
       {text ? (
-        <p>{text}</p>
+        <p className="mt-4 text-black">{text}</p>
       ) : (
-        <p className="mt-4 text-gray-600">
+        <p className="mt-4 text-black">
           Thank you for choosing our service! Currently this product is under
           development. Here's a 20% discount code for when it fully releases.
           <br />
