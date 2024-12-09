@@ -51,11 +51,39 @@ const FormPage = ({ id }) => {
     }));
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQuestionIndex < totalQuestions - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // Navigate to checkout page
+      try {
+        const form_response = await fetch(
+          "http://127.0.0.1:8000/api/add_form_response/",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              bullet_id: id,
+              form_response: formResponses,
+            }),
+          }
+        );
+
+        if (!landing_response.ok || !form_response.ok) {
+          console.error("Failed to fetch update bullet");
+        } else {
+          toast({
+            title: `Bullet Saved`,
+            description: "Good Progress =)",
+            action: (
+              <ToastAction onClick={() => {}} altText="Close Toast">
+                Close
+              </ToastAction>
+            ),
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching bullets:", error);
+      }
+
       router.push(`/live/${id}/checkout`);
     }
   };
