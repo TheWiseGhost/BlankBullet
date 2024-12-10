@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation"; // For Next.js navigation
 
 const LandingPage = ({ id }) => {
-  const { user } = useUser();
   const router = useRouter();
   const [code, setCode] = useState("");
 
@@ -17,7 +15,7 @@ const LandingPage = ({ id }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ clerk_id: user.id, bullet_id: id }),
+            body: JSON.stringify({ bullet_id: id }),
           }
         );
 
@@ -32,10 +30,10 @@ const LandingPage = ({ id }) => {
       }
     };
 
-    if (user && id) {
+    if (id) {
       fetchBulletDetails();
     }
-  }, [user, id]);
+  }, [id]);
 
   useEffect(() => {
     const addCheckoutClickHandlers = () => {

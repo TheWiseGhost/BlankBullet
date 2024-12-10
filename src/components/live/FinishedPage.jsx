@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
 
 const PostCheckoutComponent = ({ image, text }) => {
   return (
@@ -26,8 +25,6 @@ const PostCheckoutComponent = ({ image, text }) => {
 };
 
 const FinishedPage = ({ id }) => {
-  const { user } = useUser();
-
   const [finishedImg, setFinishedImg] = useState(null);
   const [finishedText, setFinishedText] = useState("");
 
@@ -41,7 +38,7 @@ const FinishedPage = ({ id }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ clerk_id: user.id, bullet_id: id }),
+            body: JSON.stringify({ bullet_id: id }),
           }
         );
 
@@ -57,10 +54,10 @@ const FinishedPage = ({ id }) => {
       }
     };
 
-    if (user && id) {
+    if (id) {
       fetchBulletDetails();
     }
-  }, [user, id]);
+  }, [id]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">

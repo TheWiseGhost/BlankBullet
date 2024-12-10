@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation"; // For Next.js navigation
 
 const CheckoutForm = ({ image, products, plans, next }) => {
@@ -175,7 +174,6 @@ const CheckoutForm = ({ image, products, plans, next }) => {
 };
 
 const CheckoutPage = ({ id }) => {
-  const { user } = useUser();
   const router = useRouter();
 
   const [checkoutImg, setCheckoutImg] = useState(null);
@@ -192,7 +190,7 @@ const CheckoutPage = ({ id }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ clerk_id: user.id, bullet_id: id }),
+            body: JSON.stringify({ bullet_id: id }),
           }
         );
 
@@ -209,10 +207,10 @@ const CheckoutPage = ({ id }) => {
       }
     };
 
-    if (user && id) {
+    if (id) {
       fetchBulletDetails();
     }
-  }, [user, id]);
+  }, [id]);
 
   const handleNext = (e) => {
     e.preventDefault(); // Prevent default form submission

@@ -67,7 +67,7 @@ const TimeDisplay = () => {
 };
 const FooterLogo = () => (
   <div className="flex items-center justify-center">
-    <div className="bg-black rounded-full">
+    <div className="bg-white rounded-full">
       <Image src="/BlankBulletLogo.png" width={20} height={20} />
     </div>
     <span className="ml-2 font-dm font-medium">BlankBullet</span>

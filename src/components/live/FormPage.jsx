@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation"; // For Next.js navigation
 
 const FormPage = ({ id }) => {
-  const { user } = useUser();
   const router = useRouter();
   const [formData, setFormData] = useState({});
   const [formResponses, setFormResponses] = useState({});
@@ -19,7 +17,7 @@ const FormPage = ({ id }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ clerk_id: user.id, bullet_id: id }),
+            body: JSON.stringify({ bullet_id: id }),
           }
         );
 
@@ -34,10 +32,10 @@ const FormPage = ({ id }) => {
       }
     };
 
-    if (user && id) {
+    if (id) {
       fetchBulletDetails();
     }
-  }, [user, id]);
+  }, [id]);
 
   const questions = Object.keys(formData);
   const totalQuestions = questions.length;

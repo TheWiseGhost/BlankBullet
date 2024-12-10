@@ -91,7 +91,7 @@ const Option = ({ text, page, id }) => {
         "http://127.0.0.1:8000/api/bullet_details/",
         {
           method: "POST",
-          body: JSON.stringify({ clerk_id: user.id, bullet_id: id }),
+          body: JSON.stringify({ bullet_id: id }),
         }
       );
 
