@@ -42,6 +42,14 @@ const FinishedPage = ({ id }) => {
           }
         );
 
+        const update = await fetch("http://127.0.0.1:8000/api/update_data/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bullet_id: id, page: "finished" }),
+        });
+
         if (response.ok) {
           const data = await response.json();
           setFinishedImg(data.checkout.finished_img);

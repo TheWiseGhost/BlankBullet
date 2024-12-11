@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // For Next.js navigation
 
-const CheckoutForm = ({ image, products, plans, next }) => {
+const CheckoutForm = ({ image, products, plans, next, handleInputChange }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       <img
@@ -24,9 +24,11 @@ const CheckoutForm = ({ image, products, plans, next }) => {
             Select Product
           </label>
           <select
-            id="productDropdown"
+            id="product"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleInputChange}
           >
+            <option>Choose an option</option>
             {products &&
               products.map((product, index) => (
                 <option key={index} value={product}>
@@ -38,15 +40,17 @@ const CheckoutForm = ({ image, products, plans, next }) => {
 
         <div>
           <label
-            htmlFor="productDropdown"
+            htmlFor="planDropdown"
             className="block text-sm font-medium text-gray-700"
           >
             Select Plan
           </label>
           <select
-            id="productDropdown"
+            id="plan"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleInputChange}
           >
+            <option>Choose an option</option>
             {plans &&
               plans.map((plan, index) => (
                 <option key={index} value={plan}>
@@ -69,6 +73,7 @@ const CheckoutForm = ({ image, products, plans, next }) => {
             id="fullName"
             placeholder="John Doe"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleInputChange}
           />
         </div>
         {/* Email Address */}
@@ -84,6 +89,7 @@ const CheckoutForm = ({ image, products, plans, next }) => {
             id="email"
             placeholder="johndoe@example.com"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleInputChange}
           />
         </div>
         {/* Card Details */}
@@ -99,6 +105,7 @@ const CheckoutForm = ({ image, products, plans, next }) => {
             id="cardNumber"
             placeholder="4242 4242 4242 4242"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleInputChange}
           />
         </div>
         <div className="flex gap-4">
@@ -115,6 +122,7 @@ const CheckoutForm = ({ image, products, plans, next }) => {
               id="expiryDate"
               placeholder="MM/YY"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={handleInputChange}
             />
           </div>
           {/* CVV */}
@@ -130,6 +138,7 @@ const CheckoutForm = ({ image, products, plans, next }) => {
               id="cvv"
               placeholder="123"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -143,9 +152,10 @@ const CheckoutForm = ({ image, products, plans, next }) => {
           </label>
           <input
             type="text"
-            id="zipCode"
+            id="country"
             placeholder="United States"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            onChange={handleInputChange}
           />
         </div>
         {/* Submit Button */}
@@ -179,6 +189,21 @@ const CheckoutPage = ({ id }) => {
   const [checkoutImg, setCheckoutImg] = useState(null);
   const [products, setProducts] = useState("");
   const [plans, setPlans] = useState("");
+  const [checkoutResponse, setCheckoutResponse] = useState({
+    product: "",
+    plan: "",
+    fullName: "",
+    email: "",
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    country: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setCheckoutResponse((prev) => ({ ...prev, [id]: value }));
+  };
 
   useEffect(() => {
     const fetchBulletDetails = async () => {
@@ -193,6 +218,14 @@ const CheckoutPage = ({ id }) => {
             body: JSON.stringify({ bullet_id: id }),
           }
         );
+
+        const update = await fetch("http://127.0.0.1:8000/api/update_data/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bullet_id: id, page: "checkout" }),
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -212,8 +245,26 @@ const CheckoutPage = ({ id }) => {
     }
   }, [id]);
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault(); // Prevent default form submission
+    try {
+      const add_checkout_data = await fetch(
+        "http://127.0.0.1:8000/api/add_checkout_data/",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            bullet_id: id,
+            checkout_response: checkoutResponse,
+          }),
+        }
+      );
+
+      if (!add_checkout_data.ok) {
+        console.error("Failed to fetch add checkout data");
+      }
+    } catch (error) {
+      console.error("Error adding form response:", error);
+    }
     router.push(`/live/${id}/finished`);
   };
 
@@ -225,6 +276,7 @@ const CheckoutPage = ({ id }) => {
           products={products}
           plans={plans}
           next={handleNext}
+          handleInputChange={handleInputChange}
         />
       </div>
     </div>

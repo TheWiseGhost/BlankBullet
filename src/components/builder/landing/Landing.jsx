@@ -6,15 +6,14 @@ const LiveEditor = () => {
   const [isDragging, setIsDragging] = useState(false);
 
   const [bullet, setBullet] = useState(null);
+  const [htmlCode, setHtmlCode] = useState("");
+  const [typingTimeout, setTypingTimeout] = useState(null); // To handle debounce logic
 
   // Fix this NextJS server-client error with local storage
   useEffect(() => {
     const savedBullet = JSON.parse(localStorage.getItem("bullet"));
     setBullet(savedBullet || { landing: { code: "" } });
-    console.log(savedBullet.checkout);
   }, []);
-
-  const [htmlCode, setHtmlCode] = useState("");
 
   // Synchronize bullet.landing.code with htmlCode
   useEffect(() => {
@@ -23,16 +22,26 @@ const LiveEditor = () => {
     }
   }, [bullet]);
 
-  // Update bullet and save to localStorage whenever htmlCode changes
+  // Debounced update of local storage when htmlCode changes
   useEffect(() => {
-    if (bullet) {
-      const updatedBullet = {
-        ...bullet,
-        landing: { ...bullet.landing, code: htmlCode },
-      };
-      setBullet(updatedBullet);
-      localStorage.setItem("bullet", JSON.stringify(updatedBullet));
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
     }
+
+    const timeout = setTimeout(() => {
+      if (bullet) {
+        const updatedBullet = {
+          ...bullet,
+          landing: { ...bullet.landing, code: htmlCode },
+        };
+        setBullet(updatedBullet);
+        localStorage.setItem("bullet", JSON.stringify(updatedBullet));
+      }
+    }, 1000); // 1 second debounce time
+
+    setTypingTimeout(timeout);
+
+    return () => clearTimeout(timeout);
   }, [htmlCode]);
 
   const previewRef = useRef();
@@ -96,7 +105,7 @@ const LiveEditor = () => {
           Code your website and just drop it in here when your ready! <br />{" "}
           <br />
           <b>IMPORTANT:</b> Set the button that should track the checkout
-          initated to have an id of checkout. If you have multiple buttons just
+          initiated to have an id of checkout. If you have multiple buttons just
           make sure the id has checkout at the start (Ex. checkout_one,
           checkout_two, checkout)
         </h1>

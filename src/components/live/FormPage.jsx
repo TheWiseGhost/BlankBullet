@@ -21,6 +21,14 @@ const FormPage = ({ id }) => {
           }
         );
 
+        const update = await fetch("http://127.0.0.1:8000/api/update_data/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bullet_id: id, page: "form" }),
+        });
+
         if (response.ok) {
           const data = await response.json();
           setFormData(data.form.form_data);
@@ -65,12 +73,12 @@ const FormPage = ({ id }) => {
           }
         );
 
-        if (!landing_response.ok || !form_response.ok) {
-          console.error("Failed to fetch update bullet");
+        if (!form_response.ok) {
+          console.error("Failed to fetch add form response");
         } else {
           toast({
-            title: `Bullet Saved`,
-            description: "Good Progress =)",
+            title: `Thank You!`,
+            description: "We appreciate your time",
             action: (
               <ToastAction onClick={() => {}} altText="Close Toast">
                 Close
@@ -79,7 +87,7 @@ const FormPage = ({ id }) => {
           });
         }
       } catch (error) {
-        console.error("Error fetching bullets:", error);
+        console.error("Error adding form response:", error);
       }
 
       router.push(`/live/${id}/checkout`);
