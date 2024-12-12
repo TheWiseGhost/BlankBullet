@@ -87,22 +87,39 @@ const Option = ({ text, page, id }) => {
 
   const handleClick = async () => {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/bullet_details/",
-        {
-          method: "POST",
-          body: JSON.stringify({ bullet_id: id }),
-        }
-      );
+      if (page === "builder") {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/bullet_details/",
+          {
+            method: "POST",
+            body: JSON.stringify({ bullet_id: id }),
+          }
+        );
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("bullet is " + data);
-        localStorage.setItem("bullet", JSON.stringify(data));
-        localStorage.setItem("formData", JSON.stringify(data.form.form_data));
-        localStorage.setItem("checkout", JSON.stringify(data.checkout));
-      } else {
-        console.error("Failed to fetch bullets");
+        if (response.ok) {
+          const data = await response.json();
+          console.log("bullet is " + data);
+          localStorage.setItem("bullet", JSON.stringify(data));
+          localStorage.setItem("formData", JSON.stringify(data.form.form_data));
+          localStorage.setItem("checkout", JSON.stringify(data.checkout));
+        } else {
+          console.error("Failed to fetch bullets");
+        }
+      } else if (page === "analytics") {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/get_analytics/",
+          {
+            method: "POST",
+            body: JSON.stringify({ bullet_id: id, clerk_id: user.id }),
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem("analytics", JSON.stringify(data));
+        } else {
+          console.error("Failed to fetch analytics");
+        }
       }
     } catch (error) {
       console.error("Error fetching bullets:", error);
