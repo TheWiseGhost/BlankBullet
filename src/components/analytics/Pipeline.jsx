@@ -1,29 +1,30 @@
 import React from "react";
 import ProgressSegments from "./ProgressSegments";
 
-function Pipeline() {
+const Pipeline = ({ analytics }) => {
+  const data = analytics?.bullet_data;
   const segments = [
     {
-      value: "2,126",
-      label: "Enrolled",
+      value: data?.visitors,
+      label: "Visitors",
       bgColor: "bg-gray-900",
       color: "white",
     },
     {
-      value: "1,500",
-      label: "Complete a Video",
+      value: data?.reach_form,
+      label: "Reach Form",
       bgColor: "bg-gray-700",
       color: "white",
     },
     {
-      value: "612",
-      label: "Complete a Module",
+      value: data?.reach_checkout,
+      label: "Reach Checkout",
       bgColor: "bg-gray-500",
       color: "white",
     },
     {
-      value: "276",
-      label: "Complete Bullet",
+      value: data?.complete_checkout,
+      label: "Complete Checkout",
       bgColor: "bg-gray-300 text-gray-800",
       color: "black",
     },
@@ -34,6 +35,6 @@ function Pipeline() {
       <ProgressSegments segments={segments} />
     </div>
   );
-}
+};
 
 export default Pipeline;

@@ -1,26 +1,38 @@
 import React from "react";
 import GraphComponent from "./GraphComponent";
 
-function GraphRow() {
+function GraphRow({ analytics }) {
+  const data = analytics?.bullet_data;
+
+  // Helper function to calculate conversion rate and round it to two decimal places
+  const calculateConversionRate = (numerator, denominator) => {
+    if (!denominator || !numerator) return "0% Conversion Rate";
+    const rate = (numerator / denominator) * 100;
+    return rate.toFixed(2) + "% Conversion Rate";
+  };
+
   return (
     <div className="flex space-x-8">
       <GraphComponent
-        title="Views vs Enrolled"
-        gray={5182}
-        blue={2126}
-        footer="43.01% Conversion Rate"
+        title="Visitors vs Form"
+        gray={data?.visitors}
+        blue={data?.reach_form}
+        footer={calculateConversionRate(data?.reach_form, data?.visitors)}
       />
       <GraphComponent
-        title="Link Click Rate"
-        gray={17682}
-        blue={805}
-        footer="0.0455 Link CTR"
+        title="Visitors vs Checkout"
+        gray={data?.visitors}
+        blue={data?.reach_checkout}
+        footer={calculateConversionRate(data?.reach_checkout, data?.visitors)}
       />
       <GraphComponent
-        title="CTA Click Rate"
-        gray={17682}
-        blue={105}
-        footer="0.0065 CTA CTR"
+        title="Visitors vs Purchase"
+        gray={data?.visitors}
+        blue={data?.complete_checkout}
+        footer={calculateConversionRate(
+          data?.complete_checkout,
+          data?.visitors
+        )}
       />
     </div>
   );
