@@ -22,7 +22,7 @@ const FinishedImageUploadComponent = ({ handleImageChange, text }) => {
   );
 };
 
-const CheckoutForm = ({ image, quantities, varients }) => {
+const CheckoutForm = ({ image, quantities, varients, product, price }) => {
   return (
     <div className="bg-white flex flex-row space-x-4 shadow-md rounded-lg p-6">
       <div className="flex flex-col w-1/2 px-4">
@@ -31,13 +31,24 @@ const CheckoutForm = ({ image, quantities, varients }) => {
           alt="Company Logo"
           className="w-32 mx-auto"
         />
-        <h2 className="text-xl font-semibold text-gray-800 text-center mb-4">
-          Quantity Name
+        <h2 className="text-xl font-mon font-semibold text-gray-800 text-center my-4">
+          {product}
         </h2>
-        <p className="text-gray-600 text-center mb-6">
-          Complete your payment details below to finish the checkout and buy
-          this quantity for $9.99
-        </p>
+        <div className="w-4/5 mx-auto h-0.5 my-2 bg-gray-300"></div>
+        <div className="w-4/5 text-sm font-dm mx-auto flex flex-col space-y-2 py-4">
+          <div className="flex flex-row justify-between">
+            <h2 className="">Product:</h2>
+            <h2 className="">${price}</h2>
+          </div>
+          <div className="flex flex-row justify-between">
+            <h2 className="">Shipping:</h2>
+            <h2 className="">$0.00</h2>
+          </div>
+          <div className="flex flex-row justify-between">
+            <h2 className="">Total:</h2>
+            <h2 className="">${price} * Quantity chosen</h2>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col w-1/2">
@@ -213,20 +224,19 @@ const ArrowDown = () => {
 
 const PostCheckoutComponent = ({ image, text }) => {
   return (
-    <div className="text-center font-dm px-6 py-2">
+    <div className="text-center font-dm px-6 py-12 shadow-2xl w-full mx-auto">
       <img
         src={image || "https://via.placeholder.com/400x200"}
         alt="Checkout Banner"
-        className="w-full rounded-md mb-4"
+        className="w-3/5 mx-auto rounded-md mb-4"
       />
       {text ? (
-        <p className="mt-4 text-black">{text}</p>
+        <p className="mt-4 w-2/3 mx-auto text-sm text-black">{text}</p>
       ) : (
-        <p className="mt-4 text-black">
-          Thank you for choosing our service! Currently this quantity is under
-          development. Here's a 20% discount code for when it fully releases.
-          <br />
-          -WYNXHA34S-
+        <p className="mt-4 w-2/3 mx-auto text-sm text-black">
+          Sorry, this product unfortunately went out of stock in the middle of
+          your checkout. We will be sure to email you when it comes back in
+          stock.
           <br /> Nothing has been charged to your card, we hope to see you
           again!
         </p>
@@ -245,6 +255,38 @@ const FinishedTextComponent = ({ text, handleTextChange }) => {
         placeholder="Enter text"
         onChange={handleTextChange}
         className="border w-full border-gray-300 h-60 rounded-lg p-3 text-gray-700"
+        maxLength="500"
+      ></textarea>
+    </div>
+  );
+};
+
+const ProductComponent = ({ text, handleTextChange }) => {
+  return (
+    <div className="w-full font-dm flex flex-col space-y-2">
+      <h1>Product Name</h1>
+      <textarea
+        type="text"
+        value={text}
+        placeholder="Enter text"
+        onChange={handleTextChange}
+        className="border w-full border-gray-300 rounded-lg p-3 text-gray-700"
+        maxLength="500"
+      ></textarea>
+    </div>
+  );
+};
+
+const PriceComponent = ({ text, handleTextChange }) => {
+  return (
+    <div className="w-full font-dm flex flex-col space-y-2">
+      <h1>Price</h1>
+      <textarea
+        type="text"
+        value={text}
+        placeholder="Enter text"
+        onChange={handleTextChange}
+        className="border w-full border-gray-300 rounded-lg p-3 text-gray-700"
         maxLength="500"
       ></textarea>
     </div>
@@ -345,6 +387,8 @@ const CheckoutComponent = () => {
   const [finishedImg, setFinishedImg] = useState(null);
   const [finishedImgFile, setFinishedImgFile] = useState(null);
   const [finishedText, setFinishedText] = useState("");
+  const [product, setProduct] = useState("");
+  const [price, setPrice] = useState("");
   const [quantities, setQuantities] = useState("");
   const [varients, setVarients] = useState("");
 
@@ -358,6 +402,8 @@ const CheckoutComponent = () => {
     setCheckoutImg(savedCheckout.checkout_img);
     setFinishedImg(savedCheckout.finished_img);
     setFinishedText(savedCheckout.finished_text);
+    setProduct(savedCheckout.product);
+    setPrice(savedCheckout.price);
     setQuantities(savedCheckout.quantities);
     setVarients(savedCheckout.varients);
   }, []);
@@ -374,6 +420,14 @@ const CheckoutComponent = () => {
   useEffect(() => {
     localStorage.setItem("finishedText", finishedText);
   }, [finishedText]);
+
+  useEffect(() => {
+    localStorage.setItem("product", product);
+  }, [product]);
+
+  useEffect(() => {
+    localStorage.setItem("price", price);
+  }, [price]);
 
   const handleCheckoutImgChange = (file) => {
     if (file) {
@@ -395,6 +449,14 @@ const CheckoutComponent = () => {
     setFinishedText(e.target.value);
   };
 
+  const handleProductChange = (e) => {
+    setProduct(e.target.value);
+  };
+
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
+
   const onSave = async () => {
     try {
       const formData = new FormData();
@@ -407,6 +469,8 @@ const CheckoutComponent = () => {
         "finished_text",
         localStorage.getItem("finishedText") || ""
       );
+      formData.append("product", localStorage.getItem("product") || "");
+      formData.append("price", localStorage.getItem("price") || "");
 
       formData.append("quantities", JSON.stringify(quantities));
       formData.append("varients", JSON.stringify(varients));
@@ -453,12 +517,23 @@ const CheckoutComponent = () => {
             image={checkoutImg}
             quantities={quantities}
             varients={varients}
+            product={product}
+            price={price}
           />
           <ArrowDown />
           <PostCheckoutComponent image={finishedImg} text={finishedText} />
         </div>
       </div>
       <div className="w-2/5 flex flex-col px-20 space-y-20 pt-12">
+        <div>
+          <ProductComponent
+            handleTextChange={handleProductChange}
+            text={product}
+          />
+        </div>
+        <div>
+          <PriceComponent handleTextChange={handlePriceChange} text={price} />
+        </div>
         <div>
           <CheckoutImageUploadComponent
             handleImageChange={handleCheckoutImgChange}

@@ -9,13 +9,12 @@ const PostCheckoutComponent = ({ image, text }) => {
         className="w-4/5 mx-auto rounded-md mb-4"
       />
       {text ? (
-        <p className="mt-8 text-xl text-black">{text}</p>
+        <p className="mt-8 text-lg text-black">{text}</p>
       ) : (
-        <p className="mt-8 text-xl text-black">
-          Thank you for choosing our service! Currently this product is under
-          development. Here's a 20% discount code for when it fully releases.
-          <br />
-          -WYNXHA34S-
+        <p className="mt-8 text-lg text-black">
+          Sorry, this product unfortunately went out of stock in the middle of
+          your checkout. We will be sure to email you when it comes back in
+          stock.
           <br /> Nothing has been charged to your card, we hope to see you
           again!
         </p>
