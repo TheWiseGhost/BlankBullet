@@ -10,7 +10,7 @@ const Navbar = async () => {
       </aside>
       <nav className="absolute left-[50%] top-[60%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block">
         <ul className="flex items-center gap-8 list-none">
-          {["Product", "Pricing", "Clients", "Bento", "Docs", "Contact"].map(
+          {["Quantity", "Pricing", "Clients", "Bento", "Docs", "Contact"].map(
             (text) => (
               <li key={text}>
                 <button className="text_button">

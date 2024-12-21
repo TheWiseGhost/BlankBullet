@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // For Next.js navigation
 
-const CheckoutForm = ({ image, products, plans, next, handleInputChange }) => {
+const CheckoutForm = ({
+  image,
+  quantities,
+  varients,
+  next,
+  handleInputChange,
+}) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       <img
@@ -18,21 +24,21 @@ const CheckoutForm = ({ image, products, plans, next, handleInputChange }) => {
       <form className="space-y-6">
         <div>
           <label
-            htmlFor="productDropdown"
+            htmlFor="quantityDropdown"
             className="block text-sm font-medium text-gray-700"
           >
-            Select Product
+            Select Quantity
           </label>
           <select
-            id="product"
+            id="quantity"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={handleInputChange}
           >
             <option>Choose an option</option>
-            {products &&
-              products.map((product, index) => (
-                <option key={index} value={product}>
-                  {product}
+            {quantities &&
+              quantities.map((quantity, index) => (
+                <option key={index} value={quantity}>
+                  {quantity}
                 </option>
               ))}
           </select>
@@ -40,21 +46,21 @@ const CheckoutForm = ({ image, products, plans, next, handleInputChange }) => {
 
         <div>
           <label
-            htmlFor="planDropdown"
+            htmlFor="varientDropdown"
             className="block text-sm font-medium text-gray-700"
           >
-            Select Plan
+            Select Varient
           </label>
           <select
-            id="plan"
+            id="varient"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={handleInputChange}
           >
             <option>Choose an option</option>
-            {plans &&
-              plans.map((plan, index) => (
-                <option key={index} value={plan}>
-                  {plan}
+            {varients &&
+              varients.map((varient, index) => (
+                <option key={index} value={varient}>
+                  {varient}
                 </option>
               ))}
           </select>
@@ -187,11 +193,11 @@ const CheckoutPage = ({ id }) => {
   const router = useRouter();
 
   const [checkoutImg, setCheckoutImg] = useState(null);
-  const [products, setProducts] = useState("");
-  const [plans, setPlans] = useState("");
+  const [quantities, setQuantities] = useState("");
+  const [varients, setVarients] = useState("");
   const [checkoutResponse, setCheckoutResponse] = useState({
-    product: "",
-    plan: "",
+    quantity: "",
+    varient: "",
     fullName: "",
     email: "",
     cardNumber: "",
@@ -230,8 +236,8 @@ const CheckoutPage = ({ id }) => {
         if (response.ok) {
           const data = await response.json();
           setCheckoutImg(data.checkout.checkout_img);
-          setProducts(data.checkout.products);
-          setPlans(data.checkout.plans);
+          setQuantities(data.checkout.quantities);
+          setVarients(data.checkout.varients);
         } else {
           console.error("Failed to fetch bullets");
         }
@@ -273,8 +279,8 @@ const CheckoutPage = ({ id }) => {
       <div className="w-1/2 mx-auto flex flex-col shadow-2xl my-20">
         <CheckoutForm
           image={checkoutImg}
-          products={products}
-          plans={plans}
+          quantities={quantities}
+          varients={varients}
           next={handleNext}
           handleInputChange={handleInputChange}
         />

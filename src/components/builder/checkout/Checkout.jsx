@@ -22,173 +22,179 @@ const FinishedImageUploadComponent = ({ handleImageChange, text }) => {
   );
 };
 
-const CheckoutForm = ({ image, products, plans }) => {
+const CheckoutForm = ({ image, quantities, varients }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-6">
-      <img
-        src={image || "https://via.placeholder.com/200x200"}
-        alt="Company Logo"
-        className="w-32 mx-auto mb-6"
-      />
-      <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">
-        Just one more step!
-      </h2>
-      <p className="text-gray-600 text-center mb-6">
-        Complete your payment details below to finish the checkout.
-      </p>
-      <form className="space-y-6">
-        <div>
-          <label
-            htmlFor="productDropdown"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Select Product
-          </label>
-          <select
-            id="productDropdown"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          >
-            {products &&
-              products.map((product, index) => (
-                <option key={index} value={product}>
-                  {product}
-                </option>
-              ))}
-          </select>
-        </div>
+    <div className="bg-white flex flex-row space-x-4 shadow-md rounded-lg p-6">
+      <div className="flex flex-col w-1/2 px-4">
+        <img
+          src={image || "https://via.placeholder.com/200x200"}
+          alt="Company Logo"
+          className="w-32 mx-auto"
+        />
+        <h2 className="text-xl font-semibold text-gray-800 text-center mb-4">
+          Quantity Name
+        </h2>
+        <p className="text-gray-600 text-center mb-6">
+          Complete your payment details below to finish the checkout and buy
+          this quantity for $9.99
+        </p>
+      </div>
 
-        <div>
-          <label
-            htmlFor="productDropdown"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Select Plan
-          </label>
-          <select
-            id="productDropdown"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          >
-            {plans &&
-              plans.map((plan, index) => (
-                <option key={index} value={plan}>
-                  {plan}
-                </option>
-              ))}
-          </select>
-        </div>
-
-        {/* Full Name */}
-        <div>
-          <label
-            htmlFor="fullName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            placeholder="John Doe"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        {/* Email Address */}
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="johndoe@example.com"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        {/* Card Details */}
-        <div>
-          <label
-            htmlFor="cardNumber"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Card Number
-          </label>
-          <input
-            type="text"
-            id="cardNumber"
-            placeholder="4242 4242 4242 4242"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        <div className="flex gap-4">
-          {/* Expiration Date */}
-          <div className="flex-1">
+      <div className="flex flex-col w-1/2">
+        <form className="space-y-6">
+          <div>
             <label
-              htmlFor="expiryDate"
+              htmlFor="quantityDropdown"
               className="block text-sm font-medium text-gray-700"
             >
-              Expiration Date
+              Select Quantity
+            </label>
+            <select
+              id="quantityDropdown"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            >
+              {quantities &&
+                quantities.map((quantity, index) => (
+                  <option key={index} value={quantity}>
+                    {quantity}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="quantityDropdown"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Select Varient
+            </label>
+            <select
+              id="quantityDropdown"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            >
+              {varients &&
+                varients.map((varient, index) => (
+                  <option key={index} value={varient}>
+                    {varient}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          {/* Full Name */}
+          <div>
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Full Name
             </label>
             <input
               type="text"
-              id="expiryDate"
-              placeholder="MM/YY"
+              id="fullName"
+              placeholder="John Doe"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
-          {/* CVV */}
-          <div className="flex-1">
+          {/* Email Address */}
+          <div>
             <label
-              htmlFor="cvv"
+              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              CVV
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="johndoe@example.com"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+          </div>
+          {/* Card Details */}
+          <div>
+            <label
+              htmlFor="cardNumber"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Card Number
             </label>
             <input
               type="text"
-              id="cvv"
-              placeholder="123"
+              id="cardNumber"
+              placeholder="4242 4242 4242 4242"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
-        </div>
-        {/* ZIP Code */}
-        <div>
-          <label
-            htmlFor="zipCode"
-            className="block text-sm font-medium text-gray-700"
+          <div className="flex gap-4">
+            {/* Expiration Date */}
+            <div className="flex-1">
+              <label
+                htmlFor="expiryDate"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Expiration Date
+              </label>
+              <input
+                type="text"
+                id="expiryDate"
+                placeholder="MM/YY"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+            {/* CVV */}
+            <div className="flex-1">
+              <label
+                htmlFor="cvv"
+                className="block text-sm font-medium text-gray-700"
+              >
+                CVV
+              </label>
+              <input
+                type="text"
+                id="cvv"
+                placeholder="123"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+          </div>
+          {/* ZIP Code */}
+          <div>
+            <label
+              htmlFor="zipCode"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Country
+            </label>
+            <input
+              type="text"
+              id="zipCode"
+              placeholder="United States"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+          </div>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Country
-          </label>
-          <input
-            type="text"
-            id="zipCode"
-            placeholder="United States"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Complete Payment
-        </button>
-      </form>
-      <p className="text-gray-500 text-sm text-center mt-4">
-        Payments are processed securely. By completing this payment, you agree
-        to our{" "}
-        <a href="#" className="text-blue-500 hover:underline">
-          Terms
-        </a>{" "}
-        and{" "}
-        <a href="#" className="text-blue-500 hover:underline">
-          Privacy Policy
-        </a>
-        .
-      </p>
+            Complete Payment
+          </button>
+        </form>
+        <p className="text-gray-500 text-sm text-center mt-4">
+          Payments are processed securely. By completing this payment, you agree
+          to our{" "}
+          <a href="#" className="text-blue-500 hover:underline">
+            Terms
+          </a>{" "}
+          and{" "}
+          <a href="#" className="text-blue-500 hover:underline">
+            Privacy Policy
+          </a>
+          .
+        </p>
+      </div>
     </div>
   );
 };
@@ -217,7 +223,7 @@ const PostCheckoutComponent = ({ image, text }) => {
         <p className="mt-4 text-black">{text}</p>
       ) : (
         <p className="mt-4 text-black">
-          Thank you for choosing our service! Currently this product is under
+          Thank you for choosing our service! Currently this quantity is under
           development. Here's a 20% discount code for when it fully releases.
           <br />
           -WYNXHA34S-
@@ -245,31 +251,31 @@ const FinishedTextComponent = ({ text, handleTextChange }) => {
   );
 };
 
-const ProductManager = ({ products, setProducts }) => {
+const QuantityManager = ({ quantities, setQuantities }) => {
   const handleDelete = (index) => {
-    // Filter out the product at the specified index
-    setProducts((prev) => prev.filter((_, i) => i !== index));
+    // Filter out the quantity at the specified index
+    setQuantities((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleAdd = () => {
-    // Prompt the user for a new product name
-    const newProduct = prompt("Enter the name of the new product:");
-    if (newProduct) {
-      setProducts((prev) => [...prev, newProduct]);
+    // Prompt the user for a new quantity name
+    const newQuantity = prompt("Enter the name of the new quantity:");
+    if (newQuantity) {
+      setQuantities((prev) => [...prev, newQuantity]);
     }
   };
 
   return (
     <div className="p-4 border border-gray-300 rounded-md shadow-sm">
-      <h2 className="text-lg font-medium mb-4">Manage Products</h2>
+      <h2 className="text-lg font-medium mb-4">Manage Quantities</h2>
       <ul className="space-y-2">
-        {products &&
-          products.map((product, index) => (
+        {quantities &&
+          quantities.map((quantity, index) => (
             <li
               key={index}
               className="flex justify-between items-center p-2 border border-gray-200 rounded-md"
             >
-              <span>{product}</span>
+              <span>{quantity}</span>
               <button
                 onClick={() => handleDelete(index)}
                 className="text-red-500 hover:text-red-700"
@@ -283,37 +289,37 @@ const ProductManager = ({ products, setProducts }) => {
         onClick={handleAdd}
         className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md shadow-sm hover:bg-blue-400 transition duration-200"
       >
-        Add Product
+        Add Quantity
       </button>
     </div>
   );
 };
 
-const PlanManager = ({ plans, setPlans }) => {
+const VarientManager = ({ varients, setVarients }) => {
   const handleDelete = (index) => {
-    // Filter out the plan at the specified index
-    setPlans((prev) => prev.filter((_, i) => i !== index));
+    // Filter out the varient at the specified index
+    setVarients((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleAdd = () => {
-    // Prompt the user for a new plan name
-    const newPlan = prompt("Enter the name of the new plan:");
-    if (newPlan) {
-      setPlans((prev) => [...prev, newPlan]);
+    // Prompt the user for a new varient name
+    const newVarient = prompt("Enter the name of the new varient:");
+    if (newVarient) {
+      setVarients((prev) => [...prev, newVarient]);
     }
   };
 
   return (
     <div className="p-4 border border-gray-300 rounded-md shadow-sm">
-      <h2 className="text-lg font-medium mb-4">Manage Plans</h2>
+      <h2 className="text-lg font-medium mb-4">Manage Varients</h2>
       <ul className="space-y-2">
-        {plans &&
-          plans.map((plan, index) => (
+        {varients &&
+          varients.map((varient, index) => (
             <li
               key={index}
               className="flex justify-between items-center p-2 border border-gray-200 rounded-md"
             >
-              <span>{plan}</span>
+              <span>{varient}</span>
               <button
                 onClick={() => handleDelete(index)}
                 className="text-red-500 hover:text-red-700"
@@ -327,7 +333,7 @@ const PlanManager = ({ plans, setPlans }) => {
         onClick={handleAdd}
         className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md shadow-sm hover:bg-blue-400 transition duration-200"
       >
-        Add Plan
+        Add Varient
       </button>
     </div>
   );
@@ -339,8 +345,8 @@ const CheckoutComponent = () => {
   const [finishedImg, setFinishedImg] = useState(null);
   const [finishedImgFile, setFinishedImgFile] = useState(null);
   const [finishedText, setFinishedText] = useState("");
-  const [products, setProducts] = useState("");
-  const [plans, setPlans] = useState("");
+  const [quantities, setQuantities] = useState("");
+  const [varients, setVarients] = useState("");
 
   const { user } = useUser();
   const { toast } = useToast();
@@ -352,8 +358,8 @@ const CheckoutComponent = () => {
     setCheckoutImg(savedCheckout.checkout_img);
     setFinishedImg(savedCheckout.finished_img);
     setFinishedText(savedCheckout.finished_text);
-    setProducts(savedCheckout.products);
-    setPlans(savedCheckout.plans);
+    setQuantities(savedCheckout.quantities);
+    setVarients(savedCheckout.varients);
   }, []);
 
   useEffect(() => {
@@ -402,8 +408,8 @@ const CheckoutComponent = () => {
         localStorage.getItem("finishedText") || ""
       );
 
-      formData.append("products", JSON.stringify(products));
-      formData.append("plans", JSON.stringify(plans));
+      formData.append("quantities", JSON.stringify(quantities));
+      formData.append("varients", JSON.stringify(varients));
 
       // Add the files, if available
       if (checkoutImgFile) {
@@ -441,12 +447,18 @@ const CheckoutComponent = () => {
 
   return (
     <div className="w-full flex flex-row">
-      <div className="w-1/2 flex flex-col">
-        <CheckoutForm image={checkoutImg} products={products} plans={plans} />
-        <ArrowDown />
-        <PostCheckoutComponent image={finishedImg} text={finishedText} />
+      <div className="w-3/5 flex flex-row">
+        <div className="flex flex-col w-full">
+          <CheckoutForm
+            image={checkoutImg}
+            quantities={quantities}
+            varients={varients}
+          />
+          <ArrowDown />
+          <PostCheckoutComponent image={finishedImg} text={finishedText} />
+        </div>
       </div>
-      <div className="w-1/2 flex flex-col px-20 space-y-20 pt-12">
+      <div className="w-2/5 flex flex-col px-20 space-y-20 pt-12">
         <div>
           <CheckoutImageUploadComponent
             handleImageChange={handleCheckoutImgChange}
@@ -454,10 +466,13 @@ const CheckoutComponent = () => {
           />
         </div>
         <div>
-          <ProductManager products={products} setProducts={setProducts} />
+          <QuantityManager
+            quantities={quantities}
+            setQuantities={setQuantities}
+          />
         </div>
         <div>
-          <PlanManager plans={plans} setPlans={setPlans} />
+          <VarientManager varients={varients} setVarients={setVarients} />
         </div>
         <div>
           <FinishedImageUploadComponent

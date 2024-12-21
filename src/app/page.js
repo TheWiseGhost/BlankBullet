@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ContainerScroll } from "@/components/landing/ContainerScroll";
 import Navbar from "@/components/landing/Navbar";
 import { MovingCards } from "@/components/landing/MovingClients";
-import { clients, products } from "@/lib/constants";
+import { clients, quantities } from "@/lib/constants";
 import { TooltipReviews } from "@/components/landing/TooltipReviews";
 import { HeroParallax } from "@/components/landing/HeroParallax";
 import { StickyScroll } from "@/components/landing/StickyScroll";
