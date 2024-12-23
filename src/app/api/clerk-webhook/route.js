@@ -24,7 +24,7 @@ export async function POST(req) {
       name: `${first_name} ${last_name}` || "",
       email: email_addresses[0]?.email_address,
       created_at: new Date(),
-      varient: "free",
+      variant: "free",
       profile_picture: image_url || "", // Profile picture URL from the request body
       num_bullets: 0,
       num_active_bullets: 0,

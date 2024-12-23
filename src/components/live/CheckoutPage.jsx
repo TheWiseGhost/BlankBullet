@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"; // For Next.js navigation
 const CheckoutForm = ({
   image,
   quantities,
-  varients,
+  variants,
   price,
   product,
   next,
@@ -64,21 +64,21 @@ const CheckoutForm = ({
 
           <div>
             <label
-              htmlFor="varientDropdown"
+              htmlFor="variantDropdown"
               className="block text-sm font-medium text-gray-700"
             >
-              Select Varient
+              Select Variant
             </label>
             <select
-              id="varient"
+              id="variant"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               onChange={handleInputChange}
             >
               <option>Choose an option</option>
-              {varients &&
-                varients.map((varient, index) => (
-                  <option key={index} value={varient}>
-                    {varient}
+              {variants &&
+                variants.map((variant, index) => (
+                  <option key={index} value={variant}>
+                    {variant}
                   </option>
                 ))}
             </select>
@@ -213,13 +213,13 @@ const CheckoutPage = ({ id }) => {
 
   const [checkoutImg, setCheckoutImg] = useState(null);
   const [quantities, setQuantities] = useState("");
-  const [varients, setVarients] = useState("");
+  const [variants, setVariants] = useState("");
   const [price, setPrice] = useState("");
   const [product, setProduct] = useState("");
 
   const [checkoutResponse, setCheckoutResponse] = useState({
     quantity: "",
-    varient: "",
+    variant: "",
     fullName: "",
     email: "",
     cardNumber: "",
@@ -251,7 +251,7 @@ const CheckoutPage = ({ id }) => {
           const data = await response.json();
           setCheckoutImg(data.checkout.checkout_img);
           setQuantities(data.checkout.quantities);
-          setVarients(data.checkout.varients);
+          setVariants(data.checkout.variants);
           setPrice(data.checkout.price);
           setProduct(data.checkout.product);
         } else {
@@ -296,7 +296,7 @@ const CheckoutPage = ({ id }) => {
         <CheckoutForm
           image={checkoutImg}
           quantities={quantities}
-          varients={varients}
+          variants={variants}
           next={handleNext}
           price={price}
           product={product}

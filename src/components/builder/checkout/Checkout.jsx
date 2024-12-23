@@ -22,7 +22,7 @@ const FinishedImageUploadComponent = ({ handleImageChange, text }) => {
   );
 };
 
-const CheckoutForm = ({ image, quantities, varients, product, price }) => {
+const CheckoutForm = ({ image, quantities, variants, product, price }) => {
   return (
     <div className="bg-white flex flex-row space-x-4 shadow-md rounded-lg p-6">
       <div className="flex flex-col w-1/2 px-4">
@@ -78,16 +78,16 @@ const CheckoutForm = ({ image, quantities, varients, product, price }) => {
               htmlFor="quantityDropdown"
               className="block text-sm font-medium text-gray-700"
             >
-              Select Varient
+              Select Variant
             </label>
             <select
               id="quantityDropdown"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             >
-              {varients &&
-                varients.map((varient, index) => (
-                  <option key={index} value={varient}>
-                    {varient}
+              {variants &&
+                variants.map((variant, index) => (
+                  <option key={index} value={variant}>
+                    {variant}
                   </option>
                 ))}
             </select>
@@ -337,31 +337,31 @@ const QuantityManager = ({ quantities, setQuantities }) => {
   );
 };
 
-const VarientManager = ({ varients, setVarients }) => {
+const VariantManager = ({ variants, setVariants }) => {
   const handleDelete = (index) => {
-    // Filter out the varient at the specified index
-    setVarients((prev) => prev.filter((_, i) => i !== index));
+    // Filter out the variant at the specified index
+    setVariants((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleAdd = () => {
-    // Prompt the user for a new varient name
-    const newVarient = prompt("Enter the name of the new varient:");
-    if (newVarient) {
-      setVarients((prev) => [...prev, newVarient]);
+    // Prompt the user for a new variant name
+    const newVariant = prompt("Enter the name of the new variant:");
+    if (newVariant) {
+      setVariants((prev) => [...prev, newVariant]);
     }
   };
 
   return (
     <div className="p-4 border border-gray-300 rounded-md shadow-sm">
-      <h2 className="text-lg font-medium mb-4">Manage Varients</h2>
+      <h2 className="text-lg font-medium mb-4">Manage Variants</h2>
       <ul className="space-y-2">
-        {varients &&
-          varients.map((varient, index) => (
+        {variants &&
+          variants.map((variant, index) => (
             <li
               key={index}
               className="flex justify-between items-center p-2 border border-gray-200 rounded-md"
             >
-              <span>{varient}</span>
+              <span>{variant}</span>
               <button
                 onClick={() => handleDelete(index)}
                 className="text-red-500 hover:text-red-700"
@@ -375,7 +375,7 @@ const VarientManager = ({ varients, setVarients }) => {
         onClick={handleAdd}
         className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md shadow-sm hover:bg-blue-400 transition duration-200"
       >
-        Add Varient
+        Add Variant
       </button>
     </div>
   );
@@ -390,7 +390,7 @@ const CheckoutComponent = () => {
   const [product, setProduct] = useState("");
   const [price, setPrice] = useState("");
   const [quantities, setQuantities] = useState("");
-  const [varients, setVarients] = useState("");
+  const [variants, setVariants] = useState("");
 
   const { user } = useUser();
   const { toast } = useToast();
@@ -405,7 +405,7 @@ const CheckoutComponent = () => {
     setProduct(savedCheckout.product);
     setPrice(savedCheckout.price);
     setQuantities(savedCheckout.quantities);
-    setVarients(savedCheckout.varients);
+    setVariants(savedCheckout.variants);
   }, []);
 
   useEffect(() => {
@@ -473,7 +473,7 @@ const CheckoutComponent = () => {
       formData.append("price", localStorage.getItem("price") || "");
 
       formData.append("quantities", JSON.stringify(quantities));
-      formData.append("varients", JSON.stringify(varients));
+      formData.append("variants", JSON.stringify(variants));
 
       // Add the files, if available
       if (checkoutImgFile) {
@@ -516,7 +516,7 @@ const CheckoutComponent = () => {
           <CheckoutForm
             image={checkoutImg}
             quantities={quantities}
-            varients={varients}
+            variants={variants}
             product={product}
             price={price}
           />
@@ -547,7 +547,7 @@ const CheckoutComponent = () => {
           />
         </div>
         <div>
-          <VarientManager varients={varients} setVarients={setVarients} />
+          <VariantManager variants={variants} setVariants={setVariants} />
         </div>
         <div>
           <FinishedImageUploadComponent
