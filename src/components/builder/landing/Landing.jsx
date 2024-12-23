@@ -148,6 +148,8 @@ import React, { act, useEffect, useState } from "react";
 import BuilderLayout from "../BuilderLayout";
 import { FaCircle } from "react-icons/fa";
 import { FileUpload } from "@/components/global/FileUpload";
+import { useUser } from "@clerk/nextjs";
+import { IconTrash } from "@tabler/icons-react";
 
 const options = [
   { id: 1, name: "Brand Name" },
@@ -378,12 +380,72 @@ const LandingComponent = () => {
     setCurrCTA(newCTA);
   };
 
-  const [variants, setVariants] = useState(bullet?.landing?.variants);
+  const onSave = async () => {
+    try {
+      const formData = new FormData();
+      const bullet = JSON.parse(localStorage.getItem("bullet"));
+      const { user } = useUser();
+
+      // Add the text fields
+      formData.append("clerk_id", user.id);
+      formData.append("bullet_id", bullet.bullet._id);
+
+      formData.append("product_title", JSON.stringify(productTitle) || "");
+      formData.append("brand_name", JSON.stringify(brandName) || "");
+      formData.append("price", JSON.stringify(price) || "");
+
+      formData.append("variants", JSON.stringify(variants));
+      formData.append("cta", JSON.stringify(currCTA));
+
+      // Add the files, if available
+      if (logo) {
+        formData.append("logo", logo);
+      }
+      if (primaryImg) {
+        formData.append("primary_img", primaryImg);
+      }
+      if (otherImg1) {
+        formData.append("other_img1", otherImg1);
+      }
+      if (otherImg2) {
+        formData.append("other_img2", otherImg2);
+      }
+      if (otherImg3) {
+        formData.append("other_img3", otherImg3);
+      }
+
+      const landing_response = await fetch(
+        "http://127.0.0.1:8000/api/update_landing/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!landing_response.ok) {
+        console.error("Failed to fetch update lading");
+      } else {
+        toast({
+          title: `Landing Saved`,
+          description: "Good Progress =)",
+          action: (
+            <ToastAction onClick={() => {}} altText="Close Toast">
+              Close
+            </ToastAction>
+          ),
+        });
+      }
+    } catch (error) {
+      console.error("Error saving checkout:", error);
+    }
+  };
+
+  const [variants, setVariants] = useState(bullet?.landing?.variants || []);
 
   return (
     <div className="flex w-full h-screen font-dm">
       {/* Left Panel */}
-      <div className="w-1/6 p-4 mr-6 bg-white">
+      <div className="flex flex-col w-1/6 p-4 mr-6 bg-white">
         <h2 className="mb-6 text-2xl font-medium">Landing Page</h2>
         <ul>
           {options.map((option) => (
@@ -405,6 +467,15 @@ const LandingComponent = () => {
             </li>
           ))}
         </ul>
+        <button
+          onClick={onSave}
+          className="relative mt-6 mx-auto justify-center inline-flex overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/2"
+        >
+          <span className="absolute inset-[-1000%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#908894_0%,#edeceb_50%,#908894_100%)]" />
+          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white backdrop-blur-3xl">
+            Save
+          </span>
+        </button>
       </div>
 
       {/* Middle Panel */}
