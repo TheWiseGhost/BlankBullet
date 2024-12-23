@@ -1,154 +1,12 @@
-// import React, { useRef, useState, useEffect } from "react";
-// import BuilderLayout from "../BuilderLayout";
-
-// const LiveEditor = () => {
-//   const [dividerPosition, setDividerPosition] = useState(50); // Percentage width of the preview section
-//   const [isDragging, setIsDragging] = useState(false);
-
-//   const [bullet, setBullet] = useState(null);
-//   const [htmlCode, setHtmlCode] = useState("");
-//   const [typingTimeout, setTypingTimeout] = useState(null); // To handle debounce logic
-
-//   // Fix this NextJS server-client error with local storage
-//   useEffect(() => {
-//     const savedBullet = JSON.parse(localStorage.getItem("bullet"));
-//     setBullet(savedBullet || { landing: { code: "" } });
-//   }, []);
-
-//   // Synchronize bullet.landing.code with htmlCode
-//   useEffect(() => {
-//     if (bullet) {
-//       setHtmlCode(bullet.landing?.code || "");
-//     }
-//   }, [bullet]);
-
-//   // Debounced update of local storage when htmlCode changes
-//   useEffect(() => {
-//     if (typingTimeout) {
-//       clearTimeout(typingTimeout);
-//     }
-
-//     const timeout = setTimeout(() => {
-//       if (bullet) {
-//         const updatedBullet = {
-//           ...bullet,
-//           landing: { ...bullet.landing, code: htmlCode },
-//         };
-//         setBullet(updatedBullet);
-//         localStorage.setItem("bullet", JSON.stringify(updatedBullet));
-//       }
-//     }, 1000); // 1 second debounce time
-
-//     setTypingTimeout(timeout);
-
-//     return () => clearTimeout(timeout);
-//   }, [htmlCode]);
-
-//   const previewRef = useRef();
-//   const shadowRootRef = useRef(null); // Store reference to the shadow root
-
-//   useEffect(() => {
-//     if (!previewRef.current) return;
-
-//     // Attach shadow DOM if not already attached
-//     if (!shadowRootRef.current) {
-//       shadowRootRef.current = previewRef.current.attachShadow({ mode: "open" });
-//     }
-
-//     // Update shadow root content
-//     shadowRootRef.current.innerHTML = `
-//       <div>
-//         ${htmlCode}
-//       </div>
-//     `;
-//   }, [htmlCode]);
-
-//   const handleMouseDown = () => {
-//     setIsDragging(true);
-//   };
-
-//   const handleMouseMove = (e) => {
-//     if (isDragging) {
-//       const newDividerPosition = (e.clientX / window.innerWidth) * 100; // Calculate percentage
-//       if (newDividerPosition > 10 && newDividerPosition < 90) {
-//         setDividerPosition(newDividerPosition);
-//       }
-//     }
-//   };
-
-//   const handleMouseUp = () => {
-//     setIsDragging(false);
-//   };
-
-//   return (
-//     <div
-//       className="flex w-full min-h-[95vh] font-sans"
-//       onMouseMove={handleMouseMove}
-//       onMouseUp={handleMouseUp}
-//     >
-//       {/* Preview Section */}
-//       <div
-//         ref={previewRef}
-//         className="bg-white border border-gray-300 overflow-auto"
-//         style={{ width: `${dividerPosition}%` }}
-//       ></div>
-
-//       {/* Divider */}
-//       <div
-//         className="w-[5px] bg-gray-300 cursor-col-resize"
-//         onMouseDown={handleMouseDown}
-//       ></div>
-
-//       {/* Editor Section */}
-//       <div className="flex-1 flex-col space-y-2">
-//         <h1 className="font-dm text-md text-center px-4">
-//           Code your website and just drop it in here when your ready! <br />{" "}
-//           <br />
-//           <b>IMPORTANT:</b> Set the button that should track the checkout
-//           initiated to have an id of checkout. If you have multiple buttons just
-//           make sure the id has checkout at the start (Ex. checkout_one,
-//           checkout_two, checkout)
-//         </h1>
-//         <div className="flex h-full p-2">
-//           <textarea
-//             className="w-full h-full text-base p-2 font-mono border border-gray-200 outline-none resize-none"
-//             value={htmlCode}
-//             onChange={(e) => setHtmlCode(e.target.value)}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// const Landing = ({ id }) => {
-//   const [bullet, setBullet] = useState(null);
-
-//   useEffect(() => {
-//     setBullet(JSON.parse(localStorage.getItem("bullet")));
-//   }, []);
-
-//   return (
-//     <BuilderLayout
-//       title={bullet ? bullet.bullet?.title : ""}
-//       subtitle={"Bullet Builder"}
-//       page={"landing"}
-//       id={id}
-//     >
-//       <LiveEditor />
-//     </BuilderLayout>
-//   );
-// };
-
-// export default Landing;
-
 "use client";
 
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BuilderLayout from "../BuilderLayout";
 import { FaCircle } from "react-icons/fa";
 import { FileUpload } from "@/components/global/FileUpload";
 import { useUser } from "@clerk/nextjs";
+import { ToastAction } from "../../global/Toast";
+import { useToast } from "../../global/Use-Toast";
 import { IconTrash } from "@tabler/icons-react";
 
 const options = [
@@ -192,7 +50,11 @@ const FontDropdown = ({ base, handleChange }) => {
         className="w-full px-2 py-3 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
         {fonts.map((font, index) => (
-          <option key={index} value={font.style}>
+          <option
+            key={index}
+            value={font.style}
+            style={{ fontFamily: fonts[index].style }}
+          >
             {font.name}
           </option>
         ))}
@@ -322,60 +184,91 @@ const VariantComponent = ({ variants, setVariants }) => {
 };
 
 const LandingComponent = () => {
-  const [activeOption, setActiveOption] = useState(options[0].id);
-  const [bullet, setBullet] = useState("");
+  const { user } = useUser();
+  const { toast } = useToast();
+  const [bullet, setBullet] = useState(null);
+  const [brandName, setBrandName] = useState({
+    text: "",
+    font: "",
+  });
+  const [productTitle, setProductTitle] = useState({
+    text: "",
+    font: "",
+  });
+  const [price, setPrice] = useState({
+    text: "",
+    font: "",
+  });
+  const [logo, setLogo] = useState(null);
+  const [primaryImg, setPrimaryImg] = useState(null);
+  const [otherImg1, setOtherImg1] = useState(null);
+  const [otherImg2, setOtherImg2] = useState(null);
+  const [otherImg3, setOtherImg3] = useState(null);
+  const [currCTA, setCurrCTA] = useState({
+    text: "",
+    color: "",
+    font: "",
+  });
+  const [variants, setVariants] = useState([]);
 
-  // Fix this NextJS server client error with local storage
+  const [activeOption, setActiveOption] = useState(options[0].id); // You need to define how activeOption is set
+
+  // Load bullet data from localStorage
   useEffect(() => {
-    setBullet(JSON.parse(localStorage.getItem("bullet")));
+    const bulletData = localStorage.getItem("bullet");
+    if (bulletData) {
+      setBullet(JSON.parse(bulletData));
+    }
   }, []);
 
-  console.log(bullet);
-
-  const [brandName, setBrandName] = useState({
-    text: bullet?.landing?.brand_name?.text,
-    font: bullet?.landing?.brand_name?.font,
-  });
-
-  const [productTitle, setProductTitle] = useState({
-    text: bullet?.landing?.product_title?.text,
-    font: bullet?.landing?.product_title?.font,
-  });
-
-  const [price, setPrice] = useState({
-    text: bullet?.landing?.price?.text,
-    font: bullet?.landing?.price?.font,
-  });
+  // When bullet is loaded, set state for different components
+  useEffect(() => {
+    if (bullet) {
+      setBrandName({
+        text: bullet?.landing?.brand_name?.text || "",
+        font: bullet?.landing?.brand_name?.font || "",
+      });
+      console.log(brandName);
+      setProductTitle({
+        text: bullet?.landing?.product_title?.text || "",
+        font: bullet?.landing?.product_title?.font || "",
+      });
+      setPrice({
+        text: bullet?.landing?.price?.text || "",
+        font: bullet?.landing?.price?.font || "",
+      });
+      setLogo(bullet?.landing?.logo || null);
+      setPrimaryImg(bullet?.landing?.primary_img || null);
+      setOtherImg1(bullet?.landing?.other_img1 || null);
+      setOtherImg2(bullet?.landing?.other_img2 || null);
+      setOtherImg3(bullet?.landing?.other_img3 || null);
+      setCurrCTA({
+        text: bullet?.landing?.cta?.text || "",
+        color: bullet?.landing?.cta?.color || "",
+        font: bullet?.landing?.cta?.font || "",
+      });
+      setVariants(bullet?.landing?.variants);
+    }
+  }, [bullet]);
 
   const updateTextComponent = (newName) => {
-    if (activeOption == 1) {
+    if (activeOption === 1) {
       setBrandName(newName);
-    } else if (activeOption == 5) {
+    } else if (activeOption === 5) {
       setProductTitle(newName);
-    } else if (activeOption == 6) {
+    } else if (activeOption === 6) {
       setPrice(newName);
     }
   };
 
-  const [logo, setLogo] = useState(bullet?.landing?.logo);
-  const [primaryImg, setPrimaryImg] = useState(bullet?.landing?.primary_img);
-  const [otherImg1, setOtherImg1] = useState(bullet?.landing?.other_img1);
-  const [otherImg2, setOtherImg2] = useState(bullet?.landing?.other_img2);
-  const [otherImg3, setOtherImg3] = useState(bullet?.landing?.other_img3);
-
   const updateImgComponent = (file) => {
-    if (activeOption == 2) {
+    if (activeOption === 2) {
       setLogo(file);
-    } else if (activeOption == 3) {
+    } else if (activeOption === 3) {
       setPrimaryImg(file);
     }
   };
 
-  const [currCTA, setCurrCTA] = useState({
-    text: bullet?.landing?.cta?.text,
-    color: bullet?.landing?.cta?.color,
-    font: bullet?.landing?.cta?.font,
-  });
   const handleCTAChange = (newCTA) => {
     setCurrCTA(newCTA);
   };
@@ -383,8 +276,6 @@ const LandingComponent = () => {
   const onSave = async () => {
     try {
       const formData = new FormData();
-      const bullet = JSON.parse(localStorage.getItem("bullet"));
-      const { user } = useUser();
 
       // Add the text fields
       formData.append("clerk_id", user.id);
@@ -394,7 +285,7 @@ const LandingComponent = () => {
       formData.append("brand_name", JSON.stringify(brandName) || "");
       formData.append("price", JSON.stringify(price) || "");
 
-      formData.append("variants", JSON.stringify(variants));
+      formData.append("variants", variants);
       formData.append("cta", JSON.stringify(currCTA));
 
       // Add the files, if available
@@ -423,7 +314,7 @@ const LandingComponent = () => {
       );
 
       if (!landing_response.ok) {
-        console.error("Failed to fetch update lading");
+        console.error("Failed to fetch update landing");
       } else {
         toast({
           title: `Landing Saved`,
@@ -436,11 +327,9 @@ const LandingComponent = () => {
         });
       }
     } catch (error) {
-      console.error("Error saving checkout:", error);
+      console.error("Error saving landing:", error);
     }
   };
-
-  const [variants, setVariants] = useState(bullet?.landing?.variants || []);
 
   return (
     <div className="flex w-full h-screen font-dm">
@@ -479,7 +368,7 @@ const LandingComponent = () => {
       </div>
 
       {/* Middle Panel */}
-      <div className="w-3/5 bg-gray-200"></div>
+      <div className="w-3/5 bg-gray-200">{brandName.text}</div>
 
       {/* Right Panel */}
       <div className="w-1/4 p-4 bg-white flex flex-col items-center">
