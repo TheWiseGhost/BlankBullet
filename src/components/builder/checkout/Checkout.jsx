@@ -24,7 +24,7 @@ const FinishedImageUploadComponent = ({ handleImageChange, text }) => {
 
 const CheckoutForm = ({ image, quantities, variants, product, price }) => {
   return (
-    <div className="bg-white flex flex-row space-x-4 shadow-md rounded-lg p-6">
+    <div className="bg-white flex flex-row space-x-4 shadow-md rounded-lg p-6 border-2 border-gray-200">
       <div className="flex flex-col w-1/2 px-4">
         <img
           src={image || "https://via.placeholder.com/200x200"}
@@ -224,7 +224,7 @@ const ArrowDown = () => {
 
 const PostCheckoutComponent = ({ image, text }) => {
   return (
-    <div className="text-center font-dm px-6 py-12 shadow-2xl w-full mx-auto">
+    <div className="text-center font-dm px-6 py-12 border-2 border-gray-200 shadow-lg w-full mx-auto">
       <img
         src={image || "https://via.placeholder.com/400x200"}
         alt="Checkout Banner"
@@ -254,7 +254,7 @@ const FinishedTextComponent = ({ text, handleTextChange }) => {
         value={text}
         placeholder="Enter text"
         onChange={handleTextChange}
-        className="border w-full border-gray-300 h-60 rounded-lg p-3 text-gray-700"
+        className="border w-full border-gray-300 h-40 rounded-lg p-3 text-gray-700"
         maxLength="500"
       ></textarea>
     </div>
@@ -524,14 +524,12 @@ const CheckoutComponent = () => {
           <PostCheckoutComponent image={finishedImg} text={finishedText} />
         </div>
       </div>
-      <div className="w-2/5 flex flex-col px-20 space-y-20 pt-12">
-        <div>
+      <div className="w-2/5 flex flex-col px-20 space-y-12 pt-12">
+        <div className="flex flex-col space-y-8">
           <ProductComponent
             handleTextChange={handleProductChange}
             text={product}
           />
-        </div>
-        <div>
           <PriceComponent handleTextChange={handlePriceChange} text={price} />
         </div>
         <div>

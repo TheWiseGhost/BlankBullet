@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import BuilderLayout from "../BuilderLayout";
+import { useUser } from "@clerk/nextjs";
+import { ToastAction } from "../../global/Toast";
+import { useToast } from "../../global/Use-Toast";
 
 const FormBuilder = ({ formData, setFormData }) => {
   const [activeQuestion, setActiveQuestion] = useState(null);
+  const { user } = useUser();
+  const { toast } = useToast();
 
   // Add a new question
   const addQuestion = () => {
@@ -41,12 +46,45 @@ const FormBuilder = ({ formData, setFormData }) => {
     }
   };
 
+  const onSave = async () => {
+    const bullet = JSON.parse(localStorage.getItem("bullet"));
+    try {
+      const form_response = await fetch(
+        "http://127.0.0.1:8000/api/update_form/",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            clerk_id: user.id,
+            bullet_id: bullet.bullet._id,
+            form_data: JSON.parse(localStorage.getItem("formData")),
+          }),
+        }
+      );
+
+      if (!form_response.ok) {
+        console.error("Failed to fetch update bullet");
+      } else {
+        toast({
+          title: `Form Saved`,
+          description: "Good Progress =)",
+          action: (
+            <ToastAction onClick={() => {}} altText="Close Toast">
+              Close
+            </ToastAction>
+          ),
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching bullets:", error);
+    }
+  };
+
   return (
     <div className="p-4 space-y-4 w-full">
-      <div className="flex space-x-4">
+      <div className="flex flex-row items-center space-x-4">
         <button
           onClick={addQuestion}
-          className="bg-slate-900 text-white px-4 py-2 rounded hover:bg-black transition duration-200"
+          className="bg-slate-900 text-white px-4 py-4 rounded hover:bg-black transition duration-200"
         >
           Add Question
         </button>
@@ -54,12 +92,22 @@ const FormBuilder = ({ formData, setFormData }) => {
           onClick={addAnswer}
           className={`${
             activeQuestion ? "bg-slate-500" : "bg-gray-200"
-          } text-white px-4 py-2 rounded transition duration-200 ${
+          } text-white px-4 py-4 rounded transition duration-200 ${
             activeQuestion ? "hover:bg-slate-600" : "cursor-not-allowed"
           }`}
           disabled={!activeQuestion}
         >
           Add Answer
+        </button>
+        <div className="w-24" />
+        <button
+          onClick={onSave}
+          className="relative justify-center inline-flex overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/6"
+        >
+          <span className="absolute inset-[-1000%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#908894_0%,#edeceb_50%,#908894_100%)]" />
+          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-medium text-white backdrop-blur-3xl">
+            Save
+          </span>
         </button>
       </div>
       <div className="space-y-6">

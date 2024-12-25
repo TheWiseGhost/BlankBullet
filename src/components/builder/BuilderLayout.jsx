@@ -71,61 +71,61 @@ const NavBox = ({ content, page, id }) => {
 const NavRow = ({ page, id }) => {
   const { user } = useUser();
   const { toast } = useToast();
-  const onSave = () => {
-    const bullet = JSON.parse(localStorage.getItem("bullet"));
-    console.log(bullet);
-    const updateBullet = async () => {
-      try {
-        const landing_response = await fetch(
-          "http://127.0.0.1:8000/api/update_landing/",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              clerk_id: user.id,
-              bullet_id: bullet.bullet._id,
-              landing_code: String(bullet.landing.code),
-            }),
-          }
-        );
+  // const onSave = () => {
+  //   const bullet = JSON.parse(localStorage.getItem("bullet"));
+  //   console.log(bullet);
+  //   const updateBullet = async () => {
+  //     try {
+  //       const landing_response = await fetch(
+  //         "http://127.0.0.1:8000/api/update_landing/",
+  //         {
+  //           method: "POST",
+  //           body: JSON.stringify({
+  //             clerk_id: user.id,
+  //             bullet_id: bullet.bullet._id,
+  //             landing_code: String(bullet.landing.code),
+  //           }),
+  //         }
+  //       );
 
-        const form_response = await fetch(
-          "http://127.0.0.1:8000/api/update_form/",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              clerk_id: user.id,
-              bullet_id: bullet.bullet._id,
-              form_data: JSON.parse(localStorage.getItem("formData")),
-            }),
-          }
-        );
+  //       const form_response = await fetch(
+  //         "http://127.0.0.1:8000/api/update_form/",
+  //         {
+  //           method: "POST",
+  //           body: JSON.stringify({
+  //             clerk_id: user.id,
+  //             bullet_id: bullet.bullet._id,
+  //             form_data: JSON.parse(localStorage.getItem("formData")),
+  //           }),
+  //         }
+  //       );
 
-        if (!landing_response.ok || !form_response.ok) {
-          console.error("Failed to fetch update bullet");
-        } else {
-          toast({
-            title: `Bullet Saved`,
-            description: "Good Progress =)",
-            action: (
-              <ToastAction onClick={() => {}} altText="Close Toast">
-                Close
-              </ToastAction>
-            ),
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching bullets:", error);
-      }
-    };
-    updateBullet();
-  };
+  //       if (!landing_response.ok || !form_response.ok) {
+  //         console.error("Failed to fetch update bullet");
+  //       } else {
+  //         toast({
+  //           title: `Bullet Saved`,
+  //           description: "Good Progress =)",
+  //           action: (
+  //             <ToastAction onClick={() => {}} altText="Close Toast">
+  //               Close
+  //             </ToastAction>
+  //           ),
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching bullets:", error);
+  //     }
+  //   };
+  //   updateBullet();
+  // };
   return (
     <div className="justify-center items-center flex flex-row space-x-12">
       <NavBox content={"Landing"} page={page} id={id} />
       <NavBox content={"Form"} page={page} id={id} />
       <NavBox content={"Checkout"} page={page} id={id} />
       <NavBox content={"Publish"} page={page} id={id} />
-      <button
+      {/* <button
         onClick={onSave}
         className="relative inline-flex h-12 overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-2/5"
       >
@@ -133,7 +133,7 @@ const NavRow = ({ page, id }) => {
         <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white backdrop-blur-3xl">
           Save
         </span>
-      </button>
+      </button> */}
     </div>
   );
 };

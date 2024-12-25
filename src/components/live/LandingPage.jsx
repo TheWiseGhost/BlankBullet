@@ -1,102 +1,63 @@
-// import React, { useEffect, useState } from "react";
-// import { useRouter } from "next/navigation"; // For Next.js navigation
-// const LandingPage = ({ id }) => {
-//   const router = useRouter();
-//   const [code, setCode] = useState("");
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 
-//   useEffect(() => {
-//     const fetchBulletDetails = async () => {
-//       try {
-//         const response = await fetch(
-//           "http://127.0.0.1:8000/api/bullet_details/",
-//           {
-//             method: "POST",
-//             headers: {
-//               "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({ bullet_id: id }),
-//           }
-//         );
-
-//         if (response.ok) {
-//           const data = await response.json();
-//           setCode(data.landing.code);
-//         } else {
-//           console.error("Failed to fetch bullets");
-//         }
-//       } catch (error) {
-//         console.error("Error fetching bullets:", error);
-//       }
-//     };
-
-//     if (id) {
-//       fetchBulletDetails();
-//     }
-//   }, [id]);
-
-//   useEffect(() => {
-//     const addCheckoutClickHandlers = () => {
-//       const container = document.getElementById("landing-container");
-
-//       if (container) {
-//         // Find all elements with IDs starting with "checkout"
-//         const checkoutElements = container.querySelectorAll("[id^='checkout']");
-//         checkoutElements.forEach((element) => {
-//           element.addEventListener("click", () => {
-//             router.push(`/live/${id}/form`); // Navigate to the form page
-//           });
-//         });
-//       }
-//     };
-
-//     if (code) {
-//       addCheckoutClickHandlers();
-//     }
-//   }, [code, router, id]);
-
-//   return (
-//     <div
-//       id="landing-container"
-//       dangerouslySetInnerHTML={{
-//         __html: code,
-//       }}
-//     />
-//   );
-// };
-
-// export default LandingPage;
-
-import React, { useState } from "react";
-
-const LandingPage = () => {
+const LandingPage = ({ id }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [activeVariant, setActiveVariant] = useState(0);
 
-  const product = {
-    logo: "https://via.placeholder.com/100x50?text=Logo",
-    brand_name: { text: "Stylish Backpack", font: "Arial, sans-serif" },
-    product_title: { text: "Stylish Backpack", font: "Arial, sans-serif" },
-    price: { text: "$99.99", font: "Arial, serif" },
-    variants: ["R", "G", "B"],
-    images: {
-      primary_img: "https://via.placeholder.com/400x400?text=Primary+Image",
-      other_img1: "https://via.placeholder.com/400x400?text=Image+1",
-      other_img2: "https://via.placeholder.com/400x400?text=Image+2",
-      other_img3: "https://via.placeholder.com/400x400?text=Image+3",
-    },
-  };
+  const [product, setProduct] = useState("");
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchBulletDetails = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/bullet_details/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ bullet_id: id }),
+          }
+        );
+
+        const update = await fetch("http://127.0.0.1:8000/api/update_data/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bullet_id: id, page: "landing" }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setProduct(data.landing);
+        } else {
+          console.error("Failed to fetch bullets");
+        }
+      } catch (error) {
+        console.error("Error fetching bullets:", error);
+      }
+    };
+
+    if (id) {
+      fetchBulletDetails();
+    }
+  }, [id]);
 
   const allImages = [
-    product.images.primary_img,
-    product.images.other_img1,
-    product.images.other_img2,
-    product.images.other_img3,
+    product.primary_img,
+    product.other_img1,
+    product.other_img2,
+    product.other_img3,
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="flex justify-between items-center px-6 py-4 bg-white">
+      <header className="flex justify-between items-center px-6 py-4 bg-white border-b-2 border-gray-300">
         <img src={product?.logo} className="w-10" />
         <h1
           style={{ fontFamily: product?.brand_name?.font }}
@@ -108,10 +69,16 @@ const LandingPage = () => {
       </header>
 
       {/* Product Body */}
-      <div className="max-w-6xl mx-auto mt-10 bg-white rounded-lg overflow-hidden">
+      <div className="max-w-6xl mx-auto mt-6 bg-white rounded-lg pb-20">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4">
           {/* Top Section on Mobile - Product Images */}
           <div className="flex flex-col items-center p-4">
+            <h2
+              style={{ fontFamily: product?.product_title?.font }}
+              className="flex md:hidden text-2xl font-bold pb-6"
+            >
+              {product?.product_title?.text}
+            </h2>
             <img
               src={allImages[selectedImage]}
               alt={`Product ${selectedImage + 1}`}
@@ -144,26 +111,26 @@ const LandingPage = () => {
               {/* Product Title */}
               <h2
                 style={{ fontFamily: product?.product_title?.font }}
-                className="text-2xl font-bold mb-4"
+                className="hidden md:flex text-2xl font-bold pb-6"
               >
                 {product?.product_title?.text}
               </h2>
 
               {/* Rating and Reviews */}
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex text-yellow-400">
-                  {"★".repeat(Math.floor(5))}
-                  {5 % 1 !== 0 && "☆"}
+              <div className="flex flex-row space-x-4 pb-6">
+                <div
+                  style={{ fontFamily: product?.price?.font }}
+                  className="text-2xl font-semibold text-gray-800"
+                >
+                  {product?.price?.text}
                 </div>
-                <span className="text-gray-500 text-sm">26</span>
-              </div>
-
-              {/* Price */}
-              <div
-                style={{ fontFamily: product?.price?.font }}
-                className="text-2xl font-semibold text-gray-800 mb-6"
-              >
-                {product?.price?.text}
+                <div className="flex items-center space-x-2">
+                  <div className="flex font-mon text-yellow-400">
+                    {"★".repeat(Math.floor(5))}
+                    {5 % 1 !== 0 && "☆"}
+                  </div>
+                  <span className="text-gray-500 font-dm">26</span>
+                </div>
               </div>
 
               {/* Variant Options */}
@@ -188,8 +155,15 @@ const LandingPage = () => {
             </div>
 
             {/* Checkout Button */}
-            <button className="w-full md:w-3/5 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700">
-              Add to Cart
+            <button
+              style={{
+                fontFamily: product?.cta?.font,
+                backgroundColor: product?.cta?.color,
+              }}
+              className="w-full px-8 py-4 mt-4 text-lg text-white rounded-md"
+              onClick={() => router.push(`/live/${id}/form`)}
+            >
+              {product?.cta?.text}
             </button>
           </div>
         </div>
