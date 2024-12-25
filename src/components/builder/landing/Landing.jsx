@@ -199,11 +199,11 @@ const LandingComponent = () => {
     text: "",
     font: "",
   });
-  const [logo, setLogo] = useState(null);
-  const [primaryImg, setPrimaryImg] = useState(null);
-  const [otherImg1, setOtherImg1] = useState(null);
-  const [otherImg2, setOtherImg2] = useState(null);
-  const [otherImg3, setOtherImg3] = useState(null);
+  const [logo, setLogo] = useState("");
+  const [primaryImg, setPrimaryImg] = useState("");
+  const [otherImg1, setOtherImg1] = useState("");
+  const [otherImg2, setOtherImg2] = useState("");
+  const [otherImg3, setOtherImg3] = useState("");
   const [currCTA, setCurrCTA] = useState({
     text: "",
     color: "",
@@ -237,17 +237,17 @@ const LandingComponent = () => {
         text: bullet?.landing?.price?.text || "",
         font: bullet?.landing?.price?.font || "",
       });
-      setLogo(bullet?.landing?.logo || null);
-      setPrimaryImg(bullet?.landing?.primary_img || null);
-      setOtherImg1(bullet?.landing?.other_img1 || null);
-      setOtherImg2(bullet?.landing?.other_img2 || null);
-      setOtherImg3(bullet?.landing?.other_img3 || null);
+      setLogo(bullet?.landing?.logo || "");
+      setPrimaryImg(bullet?.landing?.primary_img || "");
+      setOtherImg1(bullet?.landing?.other_img1 || "");
+      setOtherImg2(bullet?.landing?.other_img2 || "");
+      setOtherImg3(bullet?.landing?.other_img3 || "");
       setCurrCTA({
         text: bullet?.landing?.cta?.text || "",
         color: bullet?.landing?.cta?.color || "",
         font: bullet?.landing?.cta?.font || "",
       });
-      setVariants(bullet?.landing?.variants);
+      setVariants(bullet?.landing?.variants || []);
     }
   }, [bullet]);
 
@@ -273,6 +273,10 @@ const LandingComponent = () => {
     setCurrCTA(newCTA);
   };
 
+  const allImages = [primaryImg, otherImg1, otherImg2, otherImg3];
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [activeVariant, setActiveVariant] = useState(0);
+
   const onSave = async () => {
     try {
       const formData = new FormData();
@@ -285,7 +289,7 @@ const LandingComponent = () => {
       formData.append("brand_name", JSON.stringify(brandName) || "");
       formData.append("price", JSON.stringify(price) || "");
 
-      formData.append("variants", variants);
+      formData.append("variants", variants || []);
       formData.append("cta", JSON.stringify(currCTA));
 
       // Add the files, if available
@@ -325,6 +329,22 @@ const LandingComponent = () => {
             </ToastAction>
           ),
         });
+      }
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/bullet_details/",
+        {
+          method: "POST",
+          body: JSON.stringify({ bullet_id: bullet.bullet._id }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("bullet is " + data);
+        localStorage.setItem("bullet", JSON.stringify(data));
+        setBullet(data);
+      } else {
+        console.error("Failed to fetch bullets");
       }
     } catch (error) {
       console.error("Error saving landing:", error);
@@ -368,7 +388,121 @@ const LandingComponent = () => {
       </div>
 
       {/* Middle Panel */}
-      <div className="w-3/5 bg-gray-200">{brandName.text}</div>
+      <div className="min-h-screen w-1/2 mx-10 border-2 border-gray-200 bg-white">
+        {/* Header */}
+        <header className="flex justify-between border-b border-gray-300 items-center px-6 py-4 bg-white">
+          <img
+            src={typeof logo == "string" ? logo : URL.createObjectURL(logo)}
+            className="w-10"
+          />
+          <h1
+            style={{ fontFamily: brandName?.font }}
+            className="text-lg font-semibold text-gray-700"
+          >
+            {brandName?.text}
+          </h1>
+          <div className="w-10"></div>
+        </header>
+
+        {/* Product Body */}
+        <div className="w-full mx-auto mt-10 bg-white rounded-lg h-fit pb-16">
+          <div className="flex flex-col gap-4">
+            {/* Top Section on Mobile - Product Images */}
+            <h2
+              style={{ fontFamily: productTitle?.font }}
+              className="text-2xl text-center font-bold mb-4"
+            >
+              {productTitle?.text}
+            </h2>
+            <div className="flex flex-col justify-center mx-auto items-center p-4">
+              <img
+                src={
+                  typeof allImages[selectedImage] == "string"
+                    ? allImages[selectedImage]
+                    : URL.createObjectURL(allImages[selectedImage])
+                }
+                alt={`Product ${selectedImage + 1}`}
+                className="w-3/5 h-auto rounded-lg"
+              />
+              <div className="flex space-x-2 mt-4">
+                {allImages.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(index)}
+                    className={`w-16 h-16 p-1 border-2 rounded-md ${
+                      selectedImage === index
+                        ? "border-blue-500"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    <img
+                      src={
+                        typeof image == "string"
+                          ? image
+                          : URL.createObjectURL(image)
+                      }
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full h-full rounded-md"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Section on Mobile - Product Details */}
+            <div className="flex flex-col mx-auto">
+              <div>
+                <div className="flex flex-row space-x-4 pb-2">
+                  <div
+                    style={{ fontFamily: price?.font }}
+                    className="text-2xl font-semibold text-gray-800"
+                  >
+                    {price?.text}
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="flex font-mon text-yellow-400">
+                      {"★".repeat(Math.floor(5))}
+                      {5 % 1 !== 0 && "☆"}
+                    </div>
+                    <span className="text-gray-500 font-dm">26</span>
+                  </div>
+                </div>
+
+                {/* Variant Options */}
+                <div className="mb-6">
+                  <h3 className="text-gray-700 font-medium mb-2">
+                    Select Variant:
+                  </h3>
+                  <div className="flex space-x-2">
+                    {variants?.map((variant, index) => (
+                      <button
+                        key={index}
+                        className={`px-4 py-2 border rounded-md bg-gray-100 text-gray-700 ${
+                          activeVariant == index ? "border-2 border-black" : ""
+                        } `}
+                        onClick={() => setActiveVariant(index)}
+                      >
+                        {variant}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Checkout Button */}
+              <button
+                style={{
+                  fontFamily: currCTA?.font,
+                  backgroundColor: currCTA?.color,
+                }}
+                className="w-full px-6 py-3  text-white font-semibold rounded-md shadow-md hover:bg-blue-700"
+              >
+                {currCTA?.text}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Right Panel */}
       <div className="w-1/4 p-4 bg-white flex flex-col items-center">
