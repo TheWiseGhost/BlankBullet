@@ -95,7 +95,7 @@ const FormPage = ({ id }) => {
   };
 
   return (
-    <div className="flex my_grid flex-col items-center min-h-screen">
+    <div className="flex bg-gray-100 flex-col items-center min-h-screen">
       {/* Progress Bar */}
       <div className="pt-20">
         <div className="flex flex-row place-items-center justify-center w-full space-x-4">

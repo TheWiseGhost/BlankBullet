@@ -87,19 +87,23 @@ const Option = ({ text, page, id }) => {
 
   const handleClick = async () => {
     try {
-      if (page === "builder") {
-        const response = await fetch(
-          "http://127.0.0.1:8000/api/bullet_details/",
-          {
-            method: "POST",
-            body: JSON.stringify({ bullet_id: id }),
-          }
-        );
+      const main_response = await fetch(
+        "http://127.0.0.1:8000/api/bullet_details/",
+        {
+          method: "POST",
+          body: JSON.stringify({ bullet_id: id }),
+        }
+      );
+      if (main_response.ok) {
+        const data = await main_response.json();
+        console.log("bullet is " + data);
+        localStorage.setItem("bullet", JSON.stringify(data));
+      } else {
+        console.error("Failed to fetch bullets");
+      }
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log("bullet is " + data);
-          localStorage.setItem("bullet", JSON.stringify(data));
+      if (page === "builder") {
+        if (main_response.ok) {
           localStorage.setItem("formData", JSON.stringify(data.form.form_data));
           localStorage.setItem("checkout", JSON.stringify(data.checkout));
         } else {
