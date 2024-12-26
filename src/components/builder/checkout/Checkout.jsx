@@ -28,7 +28,7 @@ const CheckoutForm = ({ image, quantities, variants, product, price }) => {
       <div className="flex flex-col w-1/2 px-4">
         <img
           src={image || "https://via.placeholder.com/200x200"}
-          alt="Company Logo"
+          alt=""
           className="w-32 mx-auto"
         />
         <h2 className="text-xl font-mon font-semibold text-gray-800 text-center my-4">

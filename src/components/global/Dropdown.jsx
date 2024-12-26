@@ -98,32 +98,27 @@ const Option = ({ text, page, id }) => {
         const data = await main_response.json();
         console.log("bullet is " + data);
         localStorage.setItem("bullet", JSON.stringify(data));
-      } else {
-        console.error("Failed to fetch bullets");
-      }
-
-      if (page === "builder") {
-        if (main_response.ok) {
+        if (page === "builder") {
           localStorage.setItem("formData", JSON.stringify(data.form.form_data));
           localStorage.setItem("checkout", JSON.stringify(data.checkout));
-        } else {
-          console.error("Failed to fetch bullets");
-        }
-      } else if (page === "analytics") {
-        const response = await fetch(
-          "http://127.0.0.1:8000/api/get_analytics/",
-          {
-            method: "POST",
-            body: JSON.stringify({ bullet_id: id, clerk_id: user.id }),
-          }
-        );
+        } else if (page === "analytics") {
+          const response = await fetch(
+            "http://127.0.0.1:8000/api/get_analytics/",
+            {
+              method: "POST",
+              body: JSON.stringify({ bullet_id: id, clerk_id: user.id }),
+            }
+          );
 
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem("analytics", JSON.stringify(data));
-        } else {
-          console.error("Failed to fetch analytics");
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("analytics", JSON.stringify(data));
+          } else {
+            console.error("Failed to fetch analytics");
+          }
         }
+      } else {
+        console.error("Failed to fetch bullets");
       }
     } catch (error) {
       console.error("Error fetching bullets:", error);

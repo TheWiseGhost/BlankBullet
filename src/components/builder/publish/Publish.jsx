@@ -1,27 +1,59 @@
 import React, { useState, useEffect } from "react";
 import BuilderLayout from "../BuilderLayout";
+import { useUser } from "@clerk/nextjs";
+import { ToastAction } from "../../global/Toast";
+import { useToast } from "../../global/Use-Toast";
 
-const GridItem = ({ title }) => (
-  <div className="flex flex-col space-y-2">
-    <div className="bg-gray-200 rounded-lg flex justify-center items-center h-40"></div>
-    <div className="text-lg">{title}</div>
-  </div>
-);
-
-const PublishComponent = ({ id }) => {
-  const [price, setPrice] = useState("");
-  const [productUrl, setProductUrl] = useState("");
+const PublishComponent = ({ id, prevDomain }) => {
+  const [domain, setDomain] = useState(prevDomain);
   const [permissionsGranted, setPermissionsGranted] = useState(false);
+  const [status, setStatus] = useState("");
+  const { user } = useUser();
+  const { toast } = useToast();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!permissionsGranted) {
       alert("Please grant the required permissions.");
       return;
     }
-    // Handle form submission here
-    console.log("Price:", price);
-    console.log("Product URL:", productUrl);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/add_domain/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bullet_id: id,
+          clerk_id: user.id,
+          domain: domain,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        const storedBullet = JSON.parse(localStorage.getItem("bullet"));
+        if (storedBullet) {
+          storedBullet.bullet.domain = domain;
+          localStorage.setItem("bullet", JSON.stringify(storedBullet));
+        }
+        // Update status and show toast notification
+        setStatus("");
+        toast({
+          title: `Domain Added`,
+          description: "Follow the rest of the instructions",
+          action: (
+            <ToastAction onClick={() => {}} altText="Close Toast">
+              Close
+            </ToastAction>
+          ),
+        });
+      } else {
+        setStatus(data.error || "Failed to map domain. Please try again.");
+      }
+    } catch (error) {
+      setStatus("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -29,9 +61,9 @@ const PublishComponent = ({ id }) => {
       <div className="flex flex-row w-full">
         <div className="bg-white flex flex-col rounded-lg pl-6 w-full max-w-lg">
           <div className="flex flex-row text-xl items-center font-dm">
-            <h2 className="text-black">BlankBullet Powered Publish</h2>
+            <h2 className="text-black">Publish</h2>
             <div className="size-4 rounded-full mx-4 bg-gray-400" />
-            <h2 className="text-gray-400">Custom Publish</h2>
+            <h2 className="text-gray-400">Custom Domain</h2>
           </div>
           <div className="h-0.5 w-full bg-gray-200 mt-4 mb-6 mx-auto" />
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -39,25 +71,22 @@ const PublishComponent = ({ id }) => {
               <label className="block text-xl text-gray-900 font-medium">
                 Domain
               </label>
-              <div className="font-dm flex flex-row items-center">
-                <p className="text-md mr-2 text-gray-500">BlankBullet.com/</p>
-                <input
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  placeholder="beautifulbullet"
-                  className="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
+              <input
+                type="text"
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                placeholder={prevDomain}
+                className="w-full border border-gray-300 rounded-lg py-2 px-4 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
             </div>
-            <div>
-              <label className="block text-lg text-gray-900 font-medium">
+            <div className="py-2">
+              <label className="block text-lg text-gray-700 font-medium">
                 Consider Upgrading Your Plan
               </label>
               <div className="w-full font-dm flex flex-row items-center border border-gray-300 rounded-lg p-2 mt-1">
-                <div className="w-4 h-4 mx-3 bg-black rounded-full" />
-                <p>Pro Plan</p>
+                <div className="w-4 h-4 mx-3 bg-gray-700 rounded-full" />
+                <p className="text-gray-700">2 remaining bullets</p>
               </div>
             </div>
             <div className="flex items-center space-x-4 pt-4">
@@ -70,7 +99,7 @@ const PublishComponent = ({ id }) => {
               />
               <label htmlFor="permissionsGranted" className="text-gray-700">
                 By checking the box, you are responsible for the content of your
-                bullet and its repercussions
+                bullet and its repercussions.
               </label>
             </div>
             <div className="flex justify-center">
@@ -79,6 +108,7 @@ const PublishComponent = ({ id }) => {
               </button>
             </div>
           </form>
+          {status && <p className="text-center text-red-500 mt-4">{status}</p>}
         </div>
         <div className="w-full pl-20 flex flex-col space-y-4">
           <div className="justify-center flex flex-row font-medium items-center text-gray-800">
@@ -111,7 +141,10 @@ const Publish = ({ id }) => {
       page={"publish"}
       id={id}
     >
-      <PublishComponent id={bullet ? bullet.bullet?._id : ""} />
+      <PublishComponent
+        id={id}
+        prevDomain={bullet ? bullet.bullet?.domain : ""}
+      />
     </BuilderLayout>
   );
 };
