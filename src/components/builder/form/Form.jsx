@@ -81,33 +81,32 @@ const FormBuilder = ({ formData, setFormData }) => {
 
   return (
     <div className="p-4 space-y-4 w-full">
-      <div className="flex flex-row items-center space-x-4">
-        <button
-          onClick={addQuestion}
-          className="bg-slate-900 text-white px-4 py-4 rounded hover:bg-black transition duration-200"
-        >
-          Add Question
-        </button>
-        <button
-          onClick={addAnswer}
-          className={`${
-            activeQuestion ? "bg-slate-500" : "bg-gray-200"
-          } text-white px-4 py-4 rounded transition duration-200 ${
-            activeQuestion ? "hover:bg-slate-600" : "cursor-not-allowed"
-          }`}
-          disabled={!activeQuestion}
-        >
-          Add Answer
-        </button>
-        <div className="w-24" />
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center space-x-4">
+          <button
+            onClick={addQuestion}
+            className="bg-slate-900 text-white px-4 py-4 rounded hover:bg-black transition duration-200"
+          >
+            Add Question
+          </button>
+          <button
+            onClick={addAnswer}
+            className={`${
+              activeQuestion ? "bg-slate-500" : "bg-gray-200"
+            } text-white px-4 py-4 rounded transition duration-200 ${
+              activeQuestion ? "hover:bg-slate-600" : "cursor-not-allowed"
+            }`}
+            disabled={!activeQuestion}
+          >
+            Add Answer
+          </button>
+        </div>
+
         <button
           onClick={onSave}
-          className="relative justify-center inline-flex overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/6"
+          className="px-6 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-xl transition duration-300 font-dm font-medium"
         >
-          <span className="absolute inset-[-1000%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#908894_0%,#edeceb_50%,#908894_100%)]" />
-          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-medium text-white backdrop-blur-3xl">
-            Save
-          </span>
+          Save
         </button>
       </div>
       <div className="space-y-6">

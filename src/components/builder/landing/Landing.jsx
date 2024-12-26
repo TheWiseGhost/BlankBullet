@@ -378,12 +378,9 @@ const LandingComponent = () => {
         </ul>
         <button
           onClick={onSave}
-          className="relative mt-6 mx-auto justify-center inline-flex overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/2"
+          className="w-1/2 mt-4 mx-auto bg-black border-black border-2 text-white hover:bg-white hover:text-black py-2 rounded-xl transition duration-300 font-dm font-medium"
         >
-          <span className="absolute inset-[-1000%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#908894_0%,#edeceb_50%,#908894_100%)]" />
-          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-medium text-white backdrop-blur-3xl">
-            Save
-          </span>
+          Save
         </button>
       </div>
 

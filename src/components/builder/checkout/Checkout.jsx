@@ -562,12 +562,9 @@ const CheckoutComponent = () => {
         <div className="flex justify-center pb-12">
           <button
             onClick={onSave}
-            className="relative justify-center inline-flex h-16 overflow-hidden rounded-full p-[4px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 w-1/2"
+            className="w-1/2 mt-2 mx-auto bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-xl transition duration-300 font-dm font-medium"
           >
-            <span className="absolute inset-[-1000%] animate-[spin_1s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#908894_0%,#edeceb_50%,#908894_100%)]" />
-            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white backdrop-blur-3xl">
-              Save Checkout
-            </span>
+            Save
           </button>
         </div>
       </div>
