@@ -64,8 +64,7 @@ const ExportCheckoutData = ({ checkoutData }) => {
           <strong>Total Rows:</strong> {stats.totalRows}
         </p>
         <p className="text-md">
-          <strong>Date Range:</strong> {stats.dateRange.start} -{" "}
-          {stats.dateRange.end}
+          <strong>Last Updated:</strong> {stats.dateRange.end}
         </p>
       </div>
 

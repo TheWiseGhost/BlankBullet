@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useUser } from "@clerk/nextjs";
-import { ToastAction } from "../global/Toast";
-import { useToast } from "../global/Use-Toast";
+// import { useUser } from "@clerk/nextjs";
+// import { ToastAction } from "../global/Toast";
+// import { useToast } from "../global/Use-Toast";
 
 const CircleText = ({ text }) => (
   <div className="flex flex-row items-center">
@@ -69,8 +69,8 @@ const NavBox = ({ content, page, id }) => {
 };
 
 const NavRow = ({ page, id }) => {
-  const { user } = useUser();
-  const { toast } = useToast();
+  // const { user } = useUser();
+  // const { toast } = useToast();
   // const onSave = () => {
   //   const bullet = JSON.parse(localStorage.getItem("bullet"));
   //   console.log(bullet);
@@ -174,9 +174,9 @@ const BuilderLayout = ({ children, title, subtitle, page, id }) => {
       <div className="flex flex-col space-y-6">
         <div className="flex justify-between items-center">
           <Header title={title} subtitle={subtitle} />
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <SideInfoBox content="215 / 500" value="Storage" width="170" />
-          </div>
+          </div> */}
           <TimeDisplay />
         </div>
         <NavRow page={page} id={id} />

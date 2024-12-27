@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FileUpload } from "@/components/global/FileUpload";
 import { useUser } from "@clerk/nextjs";
 import { ToastAction } from "../global/Toast";
@@ -8,9 +8,37 @@ import { useToast } from "../global/Use-Toast";
 const BulletInfoForm = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const { toast } = useToast();
+
+  const [userDetails, setUserDetails] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      const fetchBullets = async () => {
+        try {
+          const response = await fetch(
+            "http://127.0.0.1:8000/api/user_details/",
+            {
+              method: "POST",
+              body: JSON.stringify({ clerk_id: user.id }),
+            }
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            setUserDetails(data.user);
+          } else {
+            console.error("Failed to fetch bullets");
+          }
+        } catch (error) {
+          console.error("Error fetching bullets:", error);
+        }
+      };
+
+      fetchBullets();
+    }
+  }, [user]);
 
   const handleFileUpload = (file) => {
     setFile(file);
@@ -22,9 +50,26 @@ const BulletInfoForm = () => {
   };
 
   const handleUpload = async () => {
-    setLoading(true);
     if (!file || !title) {
       alert("Please fill all fields and select a file.");
+      return;
+    }
+
+    if (userDetails?.num_bullets - userDetails?.num_active_bullets <= 0) {
+      toast({
+        title: `Not Enough Bullets`,
+        description: "You have no bullets left",
+        action: (
+          <ToastAction
+            onClick={() => {
+              window.location.href = "/settings/";
+            }}
+            altText="Go to Settings"
+          >
+            Buy More
+          </ToastAction>
+        ),
+      });
       return;
     }
 

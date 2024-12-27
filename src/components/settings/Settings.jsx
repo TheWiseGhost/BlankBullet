@@ -5,7 +5,6 @@ import { useUser } from "@clerk/nextjs";
 
 const SettingsComponent = () => {
   const { user } = useUser();
-  console.log(user);
   return (
     <div className="w-full justify-start pt-4 pl-6">
       <UserInfoForm

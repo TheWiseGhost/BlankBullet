@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
 
 const CircleText = ({ text }) => (
   <div className="flex flex-row items-center">
@@ -74,29 +75,69 @@ const FooterLogo = () => (
   </div>
 );
 
-const MainLayout = ({ children, title, subtitle }) => (
-  <div className="font-dm pt-8 pb-6 rounded-tl-[60px] mt-1 mr-1 px-10 flex flex-col h-screen overflow-y-auto w-full bg-white">
-    {/* Top Header */}
-    <div className="flex justify-between items-center">
-      <Header title={title} subtitle={subtitle} />
-      <div className="flex items-center gap-16 pl-8">
-        <SideInfoBox content="4923 / 5000" value="Users" width="200" />
-        <SideInfoBox content="215 / 500" value="Storage" width="200" />
-      </div>
-      <TimeDisplay />
-    </div>
+const MainLayout = ({ children, title, subtitle }) => {
+  const [userDetails, setUserDetails] = useState("");
+  const { user } = useUser();
 
-    {/* Main Content with Right Sidebar */}
-    <div className="flex-grow flex pt-6">
-      {children}
+  useEffect(() => {
+    if (user) {
+      const fetchBullets = async () => {
+        try {
+          const response = await fetch(
+            "http://127.0.0.1:8000/api/user_details/",
+            {
+              method: "POST",
+              body: JSON.stringify({ clerk_id: user.id }),
+            }
+          );
 
-      {/* Right Sidebar */}
-      <div className="w-1/4 items-end flex flex-col pt-6 pb-2 justify-between">
-        <SideInfoBox content="4 / 4" value="Bullets" width="170" />
-        <FooterLogo />
+          if (response.ok) {
+            const data = await response.json();
+            setUserDetails(data.user);
+          } else {
+            console.error("Failed to fetch bullets");
+          }
+        } catch (error) {
+          console.error("Error fetching bullets:", error);
+        }
+      };
+
+      fetchBullets();
+    }
+  }, [user]);
+
+  return (
+    <div className="font-dm pt-8 pb-6 rounded-tl-[60px] mt-1 mr-1 px-10 flex flex-col h-screen overflow-y-auto w-full bg-white">
+      {/* Top Header */}
+      <div className="flex justify-between items-center">
+        <Header title={title} subtitle={subtitle} />
+        <div className="flex items-center gap-16 pl-8">
+          <SideInfoBox
+            content={userDetails?.num_active_bullets}
+            value="Active Bullets"
+            width="200"
+          />
+          <SideInfoBox
+            content={userDetails?.num_bullets - userDetails?.num_active_bullets}
+            value="Remaining Bullets"
+            width="200"
+          />
+        </div>
+        <TimeDisplay />
+      </div>
+
+      {/* Main Content with Right Sidebar */}
+      <div className="flex-grow flex pt-6">
+        {children}
+
+        {/* Right Sidebar */}
+        <div className="w-1/4 items-end flex flex-col pt-6 pb-2 justify-between">
+          <SideInfoBox content="50% Sale" value="Claim now" width="170" />
+          <FooterLogo />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default MainLayout;

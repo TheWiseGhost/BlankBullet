@@ -24,7 +24,7 @@ const Dropdown = ({ page }) => {
           if (response.ok) {
             const data = await response.json();
             console.log(data.bullets);
-            setBullets(data.bullets); // Assumes the API returns an array of bullet objects
+            setBullets(data.bullets);
           } else {
             console.error("Failed to fetch bullets");
           }
