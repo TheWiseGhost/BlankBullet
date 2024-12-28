@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { MenuIcon } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = async () => {
   return (
@@ -10,10 +11,10 @@ const Navbar = async () => {
       </aside>
       <nav className="absolute left-[50%] top-[60%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block">
         <ul className="flex items-center gap-8 list-none">
-          {["Quantity", "Pricing", "Clients", "Bento", "Docs", "Contact"].map(
-            (text) => (
-              <li key={text}>
-                <button className="text_button">
+          {["Product", "Pricing", "Clients", "Demo", "Contact"].map((text) => (
+            <li key={text}>
+              <Link href={`#${text}`}>
+                <span className="text_button">
                   <span className="span-mother">
                     {[...text].map((char, index) => (
                       <span key={index}>{char}</span>
@@ -24,10 +25,10 @@ const Navbar = async () => {
                       <span key={index}>{char}</span>
                     ))}
                   </span>
-                </button>
-              </li>
-            )
-          )}
+                </span>
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
       <aside className="flex justify-end items-center gap-4">

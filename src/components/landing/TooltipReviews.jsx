@@ -118,7 +118,7 @@ export const TooltipReviews = () => {
 
   return (
     <>
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-row justify-center" id="reviews">
         {items.map((item, idx) => (
           <div
             className="-mr-4 relative group"

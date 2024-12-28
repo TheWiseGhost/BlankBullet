@@ -11,7 +11,10 @@ const PricingCards = () => {
   return (
     <>
       <LampComponent />
-      <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-64">
+      <div
+        className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-64"
+        id="pricing"
+      >
         <CardContainer className="inter-var ">
           <CardBody className="relative group/card border-black/[0.3] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
             <CardItem

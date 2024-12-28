@@ -155,7 +155,7 @@ const PublishComponent = ({ id, prevDomain }) => {
                       <li>
                         <code>userdomain.com</code> -&gt;{" "}
                         <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
-                          104.72.96.21
+                          76.76.21.21
                         </code>
                       </li>
                     </ul>
@@ -179,11 +179,11 @@ const PublishComponent = ({ id, prevDomain }) => {
                   access your content hosted on{" "}
                   <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
                     {" "}
-                    blankdrop.com/live/${"id"}/
+                    blankdrop.com/live/{"Preview_id"}/
                   </code>{" "}
                   under{" "}
                   <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
-                    userdomain.com/live/${"id"}/
+                    userdomain.com/live/{"Preview_id"}/
                   </code>
                   .
                 </p>
