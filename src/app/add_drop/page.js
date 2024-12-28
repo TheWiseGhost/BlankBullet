@@ -18,7 +18,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import AddBullet from "@/components/add_bullet/AddBullet";
+import AddDrop from "@/components/add_drop/AddDrop";
 
 export default function SidebarDemo() {
   const links = [
@@ -30,22 +30,22 @@ export default function SidebarDemo() {
       ),
     },
     {
-      label: "Add Bullet",
-      href: "/add_bullet",
+      label: "Add Drop",
+      href: "/add_drop",
       icon: (
         <IconCirclePlus className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Builder",
-      href: "/bullet/builder",
+      href: "/drop/builder",
       icon: (
         <IconHammer className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Analytics",
-      href: "/bullet/analytics",
+      href: "/drop/analytics",
       icon: (
         <IconReportAnalytics className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -89,7 +89,7 @@ export default function SidebarDemo() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <AddBullet />
+      <AddDrop />
     </div>
   );
 }
@@ -105,7 +105,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black text-xl dark:text-white whitespace-pre"
       >
-        BlankBullet
+        BlankDrop
       </motion.span>
     </Link>
   );

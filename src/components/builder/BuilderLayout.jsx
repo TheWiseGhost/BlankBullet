@@ -14,7 +14,7 @@ const CircleText = ({ text }) => (
 const Header = ({ title, subtitle }) => (
   <div className="flex flex-col space-y-6">
     <div className="flex items-center gap-2">
-      <CircleText text="BlankBullet" />
+      <CircleText text="BlankDrop" />
       <span>/</span>
       <span className="text-black">{subtitle}</span>
     </div>
@@ -72,9 +72,9 @@ const NavRow = ({ page, id }) => {
   // const { user } = useUser();
   // const { toast } = useToast();
   // const onSave = () => {
-  //   const bullet = JSON.parse(localStorage.getItem("bullet"));
-  //   console.log(bullet);
-  //   const updateBullet = async () => {
+  //   const drop = JSON.parse(localStorage.getItem("drop"));
+  //   console.log(drop);
+  //   const updateDrop = async () => {
   //     try {
   //       const landing_response = await fetch(
   //         "http://127.0.0.1:8000/api/update_landing/",
@@ -82,8 +82,8 @@ const NavRow = ({ page, id }) => {
   //           method: "POST",
   //           body: JSON.stringify({
   //             clerk_id: user.id,
-  //             bullet_id: bullet.bullet._id,
-  //             landing_code: String(bullet.landing.code),
+  //             drop_id: drop.drop._id,
+  //             landing_code: String(drop.landing.code),
   //           }),
   //         }
   //       );
@@ -94,17 +94,17 @@ const NavRow = ({ page, id }) => {
   //           method: "POST",
   //           body: JSON.stringify({
   //             clerk_id: user.id,
-  //             bullet_id: bullet.bullet._id,
+  //             drop_id: drop.drop._id,
   //             form_data: JSON.parse(localStorage.getItem("formData")),
   //           }),
   //         }
   //       );
 
   //       if (!landing_response.ok || !form_response.ok) {
-  //         console.error("Failed to fetch update bullet");
+  //         console.error("Failed to fetch update drop");
   //       } else {
   //         toast({
-  //           title: `Bullet Saved`,
+  //           title: `Drop Saved`,
   //           description: "Good Progress =)",
   //           action: (
   //             <ToastAction onClick={() => {}} altText="Close Toast">
@@ -114,10 +114,10 @@ const NavRow = ({ page, id }) => {
   //         });
   //       }
   //     } catch (error) {
-  //       console.error("Error fetching bullets:", error);
+  //       console.error("Error fetching drops:", error);
   //     }
   //   };
-  //   updateBullet();
+  //   updateDrop();
   // };
   return (
     <div className="justify-center items-center flex flex-row space-x-12">

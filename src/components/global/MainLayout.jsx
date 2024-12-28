@@ -13,7 +13,7 @@ const CircleText = ({ text }) => (
 const Header = ({ title, subtitle }) => (
   <div className="flex flex-col space-y-6">
     <div className="flex items-center gap-2">
-      <CircleText text="BlankBullet" />
+      <CircleText text="BlankDrop" />
       <span>/</span>
       <span className="text-black">{subtitle}</span>
     </div>
@@ -69,9 +69,9 @@ const TimeDisplay = () => {
 const FooterLogo = () => (
   <div className="flex items-center justify-center">
     <div className="bg-white rounded-full">
-      <Image src="/BlankBulletLogo.png" width={20} height={20} />
+      <Image src="/BlankDropLogo.png" width={20} height={20} />
     </div>
-    <span className="ml-2 font-dm font-medium">BlankBullet</span>
+    <span className="ml-2 font-dm font-medium">BlankDrop</span>
   </div>
 );
 
@@ -81,7 +81,7 @@ const MainLayout = ({ children, title, subtitle }) => {
 
   useEffect(() => {
     if (user) {
-      const fetchBullets = async () => {
+      const fetchDrops = async () => {
         try {
           const response = await fetch(
             "http://127.0.0.1:8000/api/user_details/",
@@ -95,14 +95,14 @@ const MainLayout = ({ children, title, subtitle }) => {
             const data = await response.json();
             setUserDetails(data.user);
           } else {
-            console.error("Failed to fetch bullets");
+            console.error("Failed to fetch drops");
           }
         } catch (error) {
-          console.error("Error fetching bullets:", error);
+          console.error("Error fetching drops:", error);
         }
       };
 
-      fetchBullets();
+      fetchDrops();
     }
   }, [user]);
 
@@ -113,13 +113,13 @@ const MainLayout = ({ children, title, subtitle }) => {
         <Header title={title} subtitle={subtitle} />
         <div className="flex items-center gap-16 pl-8">
           <SideInfoBox
-            content={userDetails?.num_active_bullets}
-            value="Active Bullets"
+            content={userDetails?.num_active_drops}
+            value="Active Drops"
             width="200"
           />
           <SideInfoBox
-            content={userDetails?.num_bullets - userDetails?.num_active_bullets}
-            value="Remaining Bullets"
+            content={userDetails?.num_drops - userDetails?.num_active_drops}
+            value="Remaining Drops"
             width="200"
           />
         </div>

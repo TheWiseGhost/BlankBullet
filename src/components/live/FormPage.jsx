@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // For Next.js navigation
+import { useToast } from "../global/Use-Toast";
+import { ToastAction } from "../global/Toast";
 
 const FormPage = ({ id }) => {
   const router = useRouter();
   const [formData, setFormData] = useState({});
   const [formResponses, setFormResponses] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { toast } = useToast();
 
   useEffect(() => {
-    const fetchBulletDetails = async () => {
+    const fetchDropDetails = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/bullet_details/",
+          "http://127.0.0.1:8000/api/drop_details/",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ bullet_id: id }),
+            body: JSON.stringify({ drop_id: id }),
           }
         );
 
@@ -26,22 +29,22 @@ const FormPage = ({ id }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ bullet_id: id, page: "form" }),
+          body: JSON.stringify({ drop_id: id, page: "form" }),
         });
 
         if (response.ok) {
           const data = await response.json();
           setFormData(data.form.form_data);
         } else {
-          console.error("Failed to fetch bullets");
+          console.error("Failed to fetch drops");
         }
       } catch (error) {
-        console.error("Error fetching bullets:", error);
+        console.error("Error fetching drops:", error);
       }
     };
 
     if (id) {
-      fetchBulletDetails();
+      fetchDropDetails();
     }
   }, [id]);
 
@@ -67,7 +70,7 @@ const FormPage = ({ id }) => {
           {
             method: "POST",
             body: JSON.stringify({
-              bullet_id: id,
+              drop_id: id,
               form_response: formResponses,
             }),
           }

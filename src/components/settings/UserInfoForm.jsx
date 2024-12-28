@@ -25,7 +25,7 @@ const UserInfoForm = ({ email, name }) => {
         <div className="border border-gray-300 rounded-lg p-3 text-gray-700">
           <div className="flex flex-row items-center space-x-3">
             <div className="w-4 h-4 rounded-full bg-neutral-700"></div>
-            <span>2 Bullets Remaining</span>
+            <span>2 Drops Remaining</span>
           </div>
         </div>
       </div>

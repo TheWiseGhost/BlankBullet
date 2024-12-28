@@ -186,7 +186,7 @@ const VariantComponent = ({ variants, setVariants }) => {
 const LandingComponent = () => {
   const { user } = useUser();
   const { toast } = useToast();
-  const [bullet, setBullet] = useState(null);
+  const [drop, setDrop] = useState(null);
   const [brandName, setBrandName] = useState({
     text: "",
     font: "",
@@ -213,43 +213,42 @@ const LandingComponent = () => {
 
   const [activeOption, setActiveOption] = useState(options[0].id); // You need to define how activeOption is set
 
-  // Load bullet data from localStorage
+  // Load drop data from localStorage
   useEffect(() => {
-    const bulletData = localStorage.getItem("bullet");
-    if (bulletData) {
-      setBullet(JSON.parse(bulletData));
+    const dropData = localStorage.getItem("drop");
+    if (dropData) {
+      setDrop(JSON.parse(dropData));
     }
   }, []);
 
-  // When bullet is loaded, set state for different components
+  // When drop is loaded, set state for different components
   useEffect(() => {
-    if (bullet) {
+    if (drop) {
       setBrandName({
-        text: bullet?.landing?.brand_name?.text || "",
-        font: bullet?.landing?.brand_name?.font || "",
+        text: drop?.landing?.brand_name?.text || "",
+        font: drop?.landing?.brand_name?.font || "",
       });
-      console.log(brandName);
       setProductTitle({
-        text: bullet?.landing?.product_title?.text || "",
-        font: bullet?.landing?.product_title?.font || "",
+        text: drop?.landing?.product_title?.text || "",
+        font: drop?.landing?.product_title?.font || "",
       });
       setPrice({
-        text: bullet?.landing?.price?.text || "",
-        font: bullet?.landing?.price?.font || "",
+        text: drop?.landing?.price?.text || "",
+        font: drop?.landing?.price?.font || "",
       });
-      setLogo(bullet?.landing?.logo || "");
-      setPrimaryImg(bullet?.landing?.primary_img || "");
-      setOtherImg1(bullet?.landing?.other_img1 || "");
-      setOtherImg2(bullet?.landing?.other_img2 || "");
-      setOtherImg3(bullet?.landing?.other_img3 || "");
+      setLogo(drop?.landing?.logo || "");
+      setPrimaryImg(drop?.landing?.primary_img || "");
+      setOtherImg1(drop?.landing?.other_img1 || "");
+      setOtherImg2(drop?.landing?.other_img2 || "");
+      setOtherImg3(drop?.landing?.other_img3 || "");
       setCurrCTA({
-        text: bullet?.landing?.cta?.text || "",
-        color: bullet?.landing?.cta?.color || "",
-        font: bullet?.landing?.cta?.font || "",
+        text: drop?.landing?.cta?.text || "",
+        color: drop?.landing?.cta?.color || "",
+        font: drop?.landing?.cta?.font || "",
       });
-      setVariants(bullet?.landing?.variants || []);
+      setVariants(drop?.landing?.variants || []);
     }
-  }, [bullet]);
+  }, [drop]);
 
   const updateTextComponent = (newName) => {
     if (activeOption === 1) {
@@ -283,7 +282,7 @@ const LandingComponent = () => {
 
       // Add the text fields
       formData.append("clerk_id", user.id);
-      formData.append("bullet_id", bullet.bullet._id);
+      formData.append("drop_id", drop.drop._id);
 
       formData.append("product_title", JSON.stringify(productTitle) || "");
       formData.append("brand_name", JSON.stringify(brandName) || "");
@@ -330,21 +329,17 @@ const LandingComponent = () => {
           ),
         });
       }
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/bullet_details/",
-        {
-          method: "POST",
-          body: JSON.stringify({ bullet_id: bullet.bullet._id }),
-        }
-      );
+      const response = await fetch("http://127.0.0.1:8000/api/drop_details/", {
+        method: "POST",
+        body: JSON.stringify({ drop_id: drop.drop._id }),
+      });
 
       if (response.ok) {
         const data = await response.json();
-        console.log("bullet is " + data);
-        localStorage.setItem("bullet", JSON.stringify(data));
-        setBullet(data);
+        localStorage.setItem("drop", JSON.stringify(data));
+        setDrop(data);
       } else {
-        console.error("Failed to fetch bullets");
+        console.error("Failed to fetch drops");
       }
     } catch (error) {
       console.error("Error saving landing:", error);
@@ -587,16 +582,16 @@ const LandingComponent = () => {
 };
 
 const Landing = ({ id }) => {
-  const [bullet, setBullet] = useState(null);
+  const [drop, setDrop] = useState(null);
 
   useEffect(() => {
-    setBullet(JSON.parse(localStorage.getItem("bullet")));
+    setDrop(JSON.parse(localStorage.getItem("drop")));
   }, []);
 
   return (
     <BuilderLayout
-      title={bullet ? bullet.bullet?.title : ""}
-      subtitle={"Bullet Builder"}
+      title={drop ? drop.drop?.title : ""}
+      subtitle={"Drop Builder"}
       page={"landing"}
       id={id}
     >

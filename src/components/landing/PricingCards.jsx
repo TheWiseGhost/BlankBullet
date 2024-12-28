@@ -11,33 +11,33 @@ const PricingCards = () => {
   return (
     <>
       <LampComponent />
-      <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-72">
+      <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-64">
         <CardContainer className="inter-var ">
-          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
+          <CardBody className="relative group/card border-black/[0.3] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
             <CardItem
               translateZ="50"
-              className="text-xl font-bold text-neutral-600 dark:text-white font-dm "
+              className="text-3xl font-bold text-neutral-600 font-afc"
             >
-              Hobby
+              New Year's Offer
               <h2 className="text-6xl font-dm py-2 ">$0</h2>
             </CardItem>
             <CardItem
               translateZ="60"
               className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
             >
-              Get a glimpse of what our software is capable of. Just a heads up{" "}
-              {"you'll"} never leave us after this!
+              Trust us, you won't ever go back to the old way of testing
+              products.
               <ul className="my-4 flex flex-col gap-2">
                 <li className="flex items-center gap-2">
-                  <CheckIcon />3 Free automations
+                  <CheckIcon />3 Free Drops
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckIcon />
-                  100 tasks per month
+                  $15 of value for free
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckIcon />
-                  Two-step Actions
+                  All features of a regular drop
                 </li>
               </ul>
             </CardItem>
@@ -47,7 +47,55 @@ const PricingCards = () => {
                 as="button"
                 className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
               >
-                It's Free
+                Limited Time
+              </CardItem>
+              <CardItem
+                translateZ={20}
+                as="button"
+                className="px-4 py-3 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold font-dm"
+              >
+                <a href="/dashboard">Get Started Now</a>
+              </CardItem>
+            </div>
+          </CardBody>
+        </CardContainer>
+        <CardContainer className="inter-var ">
+          <CardBody className="relative group/card  border-black/[0.3] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
+            <CardItem
+              translateZ="50"
+              className="text-3xl font-bold text-neutral-600 font-afc"
+            >
+              One Drop
+              <h2 className="text-6xl font-dm py-2 ">$5</h2>
+            </CardItem>
+            <CardItem
+              translateZ="60"
+              className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+            >
+              Standard quick way to test a product in minutes. Save yourself a
+              lot of time and money
+              <ul className="my-4 flex flex-col gap-2">
+                <li className="flex items-center gap-2">
+                  <CheckIcon />
+                  Custom Domain
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckIcon />
+                  Set Up in Minutes Store
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckIcon />
+                  Full Analytics dashboard
+                </li>
+              </ul>
+            </CardItem>
+            <div className="flex justify-between items-center mt-8">
+              <CardItem
+                translateZ={20}
+                as="button"
+                className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+              >
+                The Base
               </CardItem>
               <CardItem
                 translateZ={20}
@@ -60,31 +108,31 @@ const PricingCards = () => {
           </CardBody>
         </CardContainer>
         <CardContainer className="inter-var ">
-          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black dark:border-[#E2CBFF] border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
+          <CardBody className="relative group/card  dark:hover:shadow-2xl border-black/[1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
             <CardItem
               translateZ="50"
-              className="text-xl font-bold text-neutral-600 dark:text-white font-dm "
+              className="text-3xl font-bold text-neutral-600 font-afc"
             >
-              Pro Plan
-              <h2 className="text-6xl font-dm py-2 ">$29</h2>
+              Drop Bundle
+              <h2 className="text-6xl font-dm py-2 ">$15</h2>
             </CardItem>
             <CardItem
               translateZ="60"
               className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
             >
-              Get a glimpse of what our software is capable of. Just a heads up{" "}
-              {"you'll"} never leave us after this!
+              Get the most value out of testing by doing high volume to take out
+              the luck factor
               <ul className="my-4 flex flex-col gap-2">
                 <li className="flex items-center gap-2">
-                  <CheckIcon />3 Free automations
+                  <CheckIcon />6 Drops
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckIcon />
-                  100 tasks per month
+                  Get 2x the Value
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckIcon />
-                  Two-step Actions
+                  All features of a regular drop
                 </li>
               </ul>
             </CardItem>
@@ -95,53 +143,6 @@ const PricingCards = () => {
                 className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
               >
                 Most Popular
-              </CardItem>
-              <CardItem
-                translateZ={20}
-                as="button"
-                className="px-4 py-3 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold font-dm"
-              >
-                Get Started Now
-              </CardItem>
-            </div>
-          </CardBody>
-        </CardContainer>
-        <CardContainer className="inter-var ">
-          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
-            <CardItem
-              translateZ="50"
-              className="text-xl font-bold text-neutral-600 dark:text-white font-dm "
-            >
-              Unlimited
-              <h2 className="text-6xl font-dm py-2 ">$99</h2>
-            </CardItem>
-            <CardItem
-              translateZ="60"
-              className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
-            >
-              Get a glimpse of what our software is capable of. Just a heads up{" "}
-              {"you'll"} never leave us after this!
-              <ul className="my-4 flex flex-col gap-2">
-                <li className="flex items-center gap-2">
-                  <CheckIcon />3 Free automations
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckIcon />
-                  100 tasks per month
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckIcon />
-                  Two-step Actions
-                </li>
-              </ul>
-            </CardItem>
-            <div className="flex justify-between items-center mt-8">
-              <CardItem
-                translateZ={20}
-                as="button"
-                className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
-              >
-                Best Bullets
               </CardItem>
               <CardItem
                 translateZ={20}

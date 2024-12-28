@@ -4,9 +4,9 @@ import { MenuIcon } from "lucide-react";
 
 const Navbar = async () => {
   return (
-    <header className="fixed bg-opacity-90 font-dm right-0 left-0 top-0 pb-4 pt-6 px-8 bg-[#fbfbfd]  z-[100] flex items-center border-b-[2px] border-[#F1F1F1] justify-between">
+    <header className="fixed bg-opacity-95 font-dm right-0 left-0 top-0 pb-4 pt-6 px-8 bg-[#fbfbfd]  z-[100] flex items-center border-b-[2px] border-[#F1F1F1] justify-between">
       <aside className="flex items-center gap-[2px]">
-        <p className="text-2xl font-bold">BlankBullet</p>
+        <p className="text-2xl font-bold">BlankDrop</p>
       </aside>
       <nav className="absolute left-[50%] top-[60%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block">
         <ul className="flex items-center gap-8 list-none">

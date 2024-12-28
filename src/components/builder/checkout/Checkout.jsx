@@ -398,7 +398,6 @@ const CheckoutComponent = () => {
   // Fix this NextJS server client error with local storage
   useEffect(() => {
     const savedCheckout = JSON.parse(localStorage.getItem("checkout"));
-    console.log(savedCheckout);
     setCheckoutImg(savedCheckout.checkout_img);
     setFinishedImg(savedCheckout.finished_img);
     setFinishedText(savedCheckout.finished_text);
@@ -410,7 +409,6 @@ const CheckoutComponent = () => {
 
   useEffect(() => {
     localStorage.setItem("checkoutImg", checkoutImg);
-    console.log(checkoutImg);
   }, [checkoutImg]);
 
   useEffect(() => {
@@ -460,11 +458,11 @@ const CheckoutComponent = () => {
   const onSave = async () => {
     try {
       const formData = new FormData();
-      const bullet = JSON.parse(localStorage.getItem("bullet"));
+      const drop = JSON.parse(localStorage.getItem("drop"));
 
       // Add the text fields
       formData.append("clerk_id", user.id);
-      formData.append("bullet_id", bullet.bullet._id);
+      formData.append("drop_id", drop.drop._id);
       formData.append(
         "finished_text",
         localStorage.getItem("finishedText") || ""
@@ -573,16 +571,16 @@ const CheckoutComponent = () => {
 };
 
 const Checkout = ({ id }) => {
-  const [bullet, setBullet] = useState(null);
+  const [drop, setDrop] = useState(null);
 
   useEffect(() => {
-    setBullet(JSON.parse(localStorage.getItem("bullet")));
+    setDrop(JSON.parse(localStorage.getItem("drop")));
   }, []);
 
   return (
     <BuilderLayout
-      title={bullet ? bullet.bullet?.title : ""}
-      subtitle={"Bullet Builder"}
+      title={drop ? drop.drop?.title : ""}
+      subtitle={"Drop Builder"}
       page={"checkout"}
       id={id}
     >

@@ -19,7 +19,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="wrapper pt-8">
-        <a className="cta font-dm font-semibold" href="#">
+        <a className="cta font-dm font-semibold" href="/dashboard">
           <span>Launch</span>
           <span className="pt-2">
             <svg

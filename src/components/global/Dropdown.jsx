@@ -5,16 +5,16 @@ import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 
 const Dropdown = ({ page }) => {
-  const [bullets, setBullets] = useState([]);
+  const [drops, setDrops] = useState([]);
   const [open, setOpen] = useState(false);
   const { user } = useUser();
 
   useEffect(() => {
     if (user) {
-      const fetchBullets = async () => {
+      const fetchDrops = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/bullet_options/",
+            "http://127.0.0.1:8000/api/drop_options/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),
@@ -23,17 +23,16 @@ const Dropdown = ({ page }) => {
 
           if (response.ok) {
             const data = await response.json();
-            console.log(data.bullets);
-            setBullets(data.bullets);
+            setDrops(data.drops);
           } else {
-            console.error("Failed to fetch bullets");
+            console.error("Failed to fetch drops");
           }
         } catch (error) {
-          console.error("Error fetching bullets:", error);
+          console.error("Error fetching drops:", error);
         }
       };
 
-      fetchBullets();
+      fetchDrops();
     }
   }, [user]);
 
@@ -44,7 +43,7 @@ const Dropdown = ({ page }) => {
           onClick={() => setOpen((pv) => !pv)}
           className="flex items-center gap-2 px-4 py-4 rounded-md text-gray-50 bg-neutral-800 hover:bg-black transition-colors"
         >
-          <span className="font-medium text-sm">Choose a Bullet</span>
+          <span className="font-medium text-sm">Choose a Drop</span>
           <motion.span variants={iconVariants}>
             <FiChevronDown />
           </motion.span>
@@ -56,14 +55,14 @@ const Dropdown = ({ page }) => {
           style={{ originY: "top", translateX: "-50%" }}
           className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-2xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
         >
-          {bullets ? (
+          {drops ? (
             <>
-              {bullets.map((bullet) => (
+              {drops.map((drop) => (
                 <Option
-                  key={bullet.id}
-                  text={bullet.title}
+                  key={drop.id}
+                  text={drop.title}
                   page={page}
-                  id={bullet.id}
+                  id={drop.id}
                 />
               ))}
             </>
@@ -88,16 +87,15 @@ const Option = ({ text, page, id }) => {
   const handleClick = async () => {
     try {
       const main_response = await fetch(
-        "http://127.0.0.1:8000/api/bullet_details/",
+        "http://127.0.0.1:8000/api/drop_details/",
         {
           method: "POST",
-          body: JSON.stringify({ bullet_id: id }),
+          body: JSON.stringify({ drop_id: id }),
         }
       );
       if (main_response.ok) {
         const data = await main_response.json();
-        console.log("bullet is " + data);
-        localStorage.setItem("bullet", JSON.stringify(data));
+        localStorage.setItem("drop", JSON.stringify(data));
         if (page === "builder") {
           localStorage.setItem("formData", JSON.stringify(data.form.form_data));
           localStorage.setItem("checkout", JSON.stringify(data.checkout));
@@ -106,7 +104,7 @@ const Option = ({ text, page, id }) => {
             "http://127.0.0.1:8000/api/get_analytics/",
             {
               method: "POST",
-              body: JSON.stringify({ bullet_id: id, clerk_id: user.id }),
+              body: JSON.stringify({ drop_id: id, clerk_id: user.id }),
             }
           );
 
@@ -118,10 +116,10 @@ const Option = ({ text, page, id }) => {
           }
         }
       } else {
-        console.error("Failed to fetch bullets");
+        console.error("Failed to fetch drops");
       }
     } catch (error) {
-      console.error("Error fetching bullets:", error);
+      console.error("Error fetching drops:", error);
     } finally {
       window.location.href = route;
     }

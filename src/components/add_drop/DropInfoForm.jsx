@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { ToastAction } from "../global/Toast";
 import { useToast } from "../global/Use-Toast";
 
-const BulletInfoForm = () => {
+const DropInfoForm = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const { user } = useUser();
@@ -15,7 +15,7 @@ const BulletInfoForm = () => {
 
   useEffect(() => {
     if (user) {
-      const fetchBullets = async () => {
+      const fetchDrops = async () => {
         try {
           const response = await fetch(
             "http://127.0.0.1:8000/api/user_details/",
@@ -29,20 +29,19 @@ const BulletInfoForm = () => {
             const data = await response.json();
             setUserDetails(data.user);
           } else {
-            console.error("Failed to fetch bullets");
+            console.error("Failed to fetch drops");
           }
         } catch (error) {
-          console.error("Error fetching bullets:", error);
+          console.error("Error fetching drops:", error);
         }
       };
 
-      fetchBullets();
+      fetchDrops();
     }
   }, [user]);
 
   const handleFileUpload = (file) => {
     setFile(file);
-    console.log(file);
   };
 
   const handleTitleChange = (event) => {
@@ -55,10 +54,10 @@ const BulletInfoForm = () => {
       return;
     }
 
-    if (userDetails?.num_bullets - userDetails?.num_active_bullets <= 0) {
+    if (userDetails?.num_drops - userDetails?.num_active_drops <= 0) {
       toast({
-        title: `Not Enough Bullets`,
-        description: "You have no bullets left",
+        title: `Not Enough Drops`,
+        description: "You have no drops left",
         action: (
           <ToastAction
             onClick={() => {
@@ -79,7 +78,7 @@ const BulletInfoForm = () => {
       formData.append("title", title);
       formData.append("clerk_id", user.id);
 
-      const uploadUrl = "http://127.0.0.1:8000/api/add_bullet/";
+      const uploadUrl = "http://127.0.0.1:8000/api/add_drop/";
 
       const response = await fetch(uploadUrl, {
         method: "POST",
@@ -95,13 +94,12 @@ const BulletInfoForm = () => {
     } finally {
       setLoading(false);
       toast({
-        title: `Bullet Added: ${title}`,
-        description:
-          "Start building your bullet in the builder when your ready",
+        title: `Drop Added: ${title}`,
+        description: "Start building your drop in the builder when your ready",
         action: (
           <ToastAction
             onClick={() => {
-              window.location.href = "/bullet/builder";
+              window.location.href = "/drop/builder";
             }}
             altText="Go to Builder"
           >
@@ -119,7 +117,7 @@ const BulletInfoForm = () => {
       {/* Name Field */}
       <div className="pb-2">
         <div className="text-lg font-medium text-gray-800 mb-2">
-          Bullet Instance Title
+          Drop Instance Title
         </div>
         <input
           type="text"
@@ -134,7 +132,7 @@ const BulletInfoForm = () => {
       {/* Plan Field */}
       <div className="pb-4">
         <div className="w-full max-w-4xl mx-auto min-h-80 border-2 border-dashed bg-white dark:bg-black border-neutral-300 dark:border-neutral-800 rounded-lg">
-          <FileUpload onChange={handleFileUpload} target={"Bullet Thumbnail"} />
+          <FileUpload onChange={handleFileUpload} target={"Drop Thumbnail"} />
         </div>
       </div>
 
@@ -143,10 +141,10 @@ const BulletInfoForm = () => {
         onClick={handleUpload}
         className="w-1/2 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-2xl transition duration-300 font-semibold"
       >
-        Add Bullet
+        Add Drop
       </button>
     </div>
   );
 };
 
-export default BulletInfoForm;
+export default DropInfoForm;

@@ -1,10 +1,6 @@
-import Image from "next/image";
 import { ContainerScroll } from "@/components/landing/ContainerScroll";
 import Navbar from "@/components/landing/Navbar";
-import { MovingCards } from "@/components/landing/MovingClients";
-import { clients, quantities } from "@/lib/constants";
 import { TooltipReviews } from "@/components/landing/TooltipReviews";
-import { HeroParallax } from "@/components/landing/HeroParallax";
 import { StickyScroll } from "@/components/landing/StickyScroll";
 import { StickyScroll2 } from "@/components/landing/StickyScroll2";
 import { PopulatedBentoGrid } from "@/components/landing/PopulatedBentoGrid";
@@ -13,14 +9,13 @@ import { FAQs } from "@/components/landing/FAQs";
 import Footer from "@/components/landing/Footer";
 import Hero from "@/components/landing/Hero";
 import { FeaturesSection } from "@/components/landing/FeatureSection";
-import { WorldMapDemo } from "@/components/landing/WorldMapDemo";
 
 export default function Home() {
   return (
     <main className="">
       {/* <div className="flex items-center justify-center bg-black w-full h-6">
         <p className="font-dm text-center text-sm text-white">
-          Get 3 Free Bullets when you sign up today!
+          Get 3 Free Drops when you sign up today!
         </p>
       </div> */}
       <Navbar />
@@ -59,7 +54,7 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-24">
+        <div className="px-20 pt-24 pb-12">
           <StickyScroll />
         </div>
       </section>

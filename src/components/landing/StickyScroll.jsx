@@ -84,7 +84,7 @@ export const StickyScroll = () => {
 
   return (
     <motion.div
-      className="flex justify-center relative space-x-10 rounded-md pt-20 my_grid"
+      className="flex justify-center max-h-[1000px] relative space-x-10 rounded-md pt-20 my_grid"
       ref={ref}
     >
       <div className="relative flex items-start px-4">
@@ -98,7 +98,7 @@ export const StickyScroll = () => {
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-2xl font-bold font-mon text-black"
+                className="text-4xl font-bold font-afc text-black"
               >
                 {item.title}
               </motion.h2>
@@ -119,6 +119,8 @@ export const StickyScroll = () => {
         </div>
       </div>
       <div className="">
+        {" "}
+        {/* Adjust the max height */}
         <div
           style={{ background: backgroundGradient }}
           className={cn(

@@ -47,7 +47,7 @@ const FormBuilder = ({ formData, setFormData }) => {
   };
 
   const onSave = async () => {
-    const bullet = JSON.parse(localStorage.getItem("bullet"));
+    const drop = JSON.parse(localStorage.getItem("drop"));
     try {
       const form_response = await fetch(
         "http://127.0.0.1:8000/api/update_form/",
@@ -55,14 +55,14 @@ const FormBuilder = ({ formData, setFormData }) => {
           method: "POST",
           body: JSON.stringify({
             clerk_id: user.id,
-            bullet_id: bullet.bullet._id,
+            drop_id: drop.drop._id,
             form_data: JSON.parse(localStorage.getItem("formData")),
           }),
         }
       );
 
       if (!form_response.ok) {
-        console.error("Failed to fetch update bullet");
+        console.error("Failed to fetch update drop");
       } else {
         toast({
           title: `Form Saved`,
@@ -75,7 +75,7 @@ const FormBuilder = ({ formData, setFormData }) => {
         });
       }
     } catch (error) {
-      console.error("Error fetching bullets:", error);
+      console.error("Error fetching drops:", error);
     }
   };
 
@@ -220,16 +220,16 @@ const FormComponent = () => {
 };
 
 const Form = ({ id }) => {
-  const [bullet, setBullet] = useState(null);
+  const [drop, setDrop] = useState(null);
 
   useEffect(() => {
-    setBullet(JSON.parse(localStorage.getItem("bullet")));
+    setDrop(JSON.parse(localStorage.getItem("drop")));
   }, []);
 
   return (
     <BuilderLayout
-      title={bullet ? bullet.bullet?.title : ""}
-      subtitle={"Bullet Builder"}
+      title={drop ? drop.drop?.title : ""}
+      subtitle={"Drop Builder"}
       page={"form"}
       id={id}
     >

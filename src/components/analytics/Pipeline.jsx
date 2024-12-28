@@ -2,7 +2,7 @@ import React from "react";
 import ProgressSegments from "./ProgressSegments";
 
 const Pipeline = ({ analytics }) => {
-  const data = analytics?.bullet_data;
+  const data = analytics?.drop_data;
   const segments = [
     {
       value: data?.visitors,

@@ -23,15 +23,15 @@ const GridItem = ({ title, thumbnail }) => (
 );
 
 const DashboardComponent = () => {
-  const [bullets, setBullets] = useState([]);
+  const [drops, setDrops] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
     if (user) {
-      const fetchBullets = async () => {
+      const fetchDrops = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/bullet_options/",
+            "http://127.0.0.1:8000/api/drop_options/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),
@@ -40,30 +40,29 @@ const DashboardComponent = () => {
 
           if (response.ok) {
             const data = await response.json();
-            console.log(data.bullets);
-            setBullets(data.bullets);
+            setDrops(data.drops);
           } else {
-            console.error("Failed to fetch bullets");
+            console.error("Failed to fetch drops");
           }
         } catch (error) {
-          console.error("Error fetching bullets:", error);
+          console.error("Error fetching drops:", error);
         }
       };
 
-      fetchBullets();
+      fetchDrops();
     }
   }, [user]);
 
   return (
     <>
-      {bullets ? (
+      {drops ? (
         <div className="grid grid-cols-3 gap-x-16 gap-y-8 w-full pt-6">
-          {bullets.map((bullet) => (
+          {drops.map((drop) => (
             <>
               <GridItem
-                key={bullet.id}
-                title={bullet.title}
-                thumbnail={bullet.thumbnail}
+                key={drop.id}
+                title={drop.title}
+                thumbnail={drop.thumbnail}
               />
             </>
           ))}
@@ -71,7 +70,7 @@ const DashboardComponent = () => {
       ) : (
         <div className="w-full justify-center items-center text-center">
           <p className="font-dm pt-40">
-            Create Your First Bullet Instance to get started with BlankBullet
+            Create Your First Drop Instance to get started with BlankDrop
           </p>
         </div>
       )}

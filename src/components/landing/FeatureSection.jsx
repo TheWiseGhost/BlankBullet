@@ -30,13 +30,13 @@ export function FeaturesSection() {
     },
     {
       title: "100% Refund guarantee",
-      description: "We're confident no one will hate BlankBullet",
+      description: "We're confident no one will hate BlankDrop",
       icon: <IconCloud />,
     },
     {
       title: "Multi Test",
       description:
-        "Launch Multiple Bullets at once to quickly test all products on your winner list",
+        "Launch Multiple Drops at once to quickly test all products on your winner list",
       icon: <IconRouteAltLeft />,
     },
     {
@@ -53,7 +53,7 @@ export function FeaturesSection() {
     {
       title: "You will succeed",
       description:
-        "Volume is all that matters and BlankBullet lets you pump enough products so a winner is inevitable",
+        "Volume is all that matters and BlankDrop lets you pump enough products so a winner is inevitable",
       icon: <IconHeart />,
     },
   ];

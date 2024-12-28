@@ -10,16 +10,16 @@ const LandingPage = ({ id }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchBulletDetails = async () => {
+    const fetchDropDetails = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/bullet_details/",
+          "http://127.0.0.1:8000/api/drop_details/",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ bullet_id: id }),
+            body: JSON.stringify({ drop_id: id }),
           }
         );
 
@@ -28,22 +28,22 @@ const LandingPage = ({ id }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ bullet_id: id, page: "landing" }),
+          body: JSON.stringify({ drop_id: id, page: "landing" }),
         });
 
         if (response.ok) {
           const data = await response.json();
           setProduct(data.landing);
         } else {
-          console.error("Failed to fetch bullets");
+          console.error("Failed to fetch drops");
         }
       } catch (error) {
-        console.error("Error fetching bullets:", error);
+        console.error("Error fetching drops:", error);
       }
     };
 
     if (id) {
-      fetchBulletDetails();
+      fetchDropDetails();
     }
   }, [id]);
 

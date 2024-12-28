@@ -311,7 +311,7 @@ const items = [
     title: "Multi Testing",
     description: (
       <span className="text-sm">
-        Launch multiple "bullets" at once to test all your ideas quickly
+        Launch multiple "drops" at once to test all your ideas quickly
       </span>
     ),
     header: <SkeletonOne />,

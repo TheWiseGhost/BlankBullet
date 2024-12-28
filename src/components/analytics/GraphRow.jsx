@@ -2,7 +2,7 @@ import React from "react";
 import GraphComponent from "./GraphComponent";
 
 function GraphRow({ analytics }) {
-  const data = analytics?.bullet_data;
+  const data = analytics?.drop_data;
 
   // Helper function to calculate conversion rate and round it to two decimal places
   const calculateConversionRate = (numerator, denominator) => {

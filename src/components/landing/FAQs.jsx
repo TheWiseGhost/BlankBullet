@@ -9,24 +9,35 @@ export function FAQs() {
   return (
     <Accordion type="single" collapsible className="w-3/5 mx-auto font-dm h-80">
       <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionTrigger>But why can't I get revenue?</AccordionTrigger>
         <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
+          Trust us, going through the headaches of fufillment, chargebacks,
+          refunds, and more are not worth it for a few sales. Make sure the
+          product's a winner before accepting money. Plus, emailing those who
+          completed checkout to buy again later has above an 85% conversion rate
+          for our current users.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
+        <AccordionTrigger>Can I get a refund?</AccordionTrigger>
         <AccordionContent>
-          Yes. It comes with default styles that matches the other
-          components&apos; aesthetic.
+          Yes. We offer refunds and no questions asked.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionTrigger>
+          How long does it take to launch a drop?
+        </AccordionTrigger>
         <AccordionContent>
-          Yes. It&apos;s animated by default, but you can disable it if you
-          prefer.
+          Building the drop can take about 10 minutes if you have all the
+          product images ready to go. Launching it takes no effort or time
+          either, just depends on how long your domain provider takes to connect
+          your domain.
         </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-4">
+        <AccordionTrigger>How do I contact you?</AccordionTrigger>
+        <AccordionContent>Contact us at ---</AccordionContent>
       </AccordionItem>
     </Accordion>
   );

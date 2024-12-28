@@ -10,7 +10,6 @@ const AnalyticsComponent = () => {
 
   useEffect(() => {
     setAnalytics(JSON.parse(localStorage.getItem("analytics")));
-    console.log(localStorage.getItem("analytics"));
   }, []);
   return (
     <div className="flex flex-col space-y-12 w-full justify-start pt-2">
@@ -23,16 +22,13 @@ const AnalyticsComponent = () => {
 };
 
 const Analytics = () => {
-  const [bullet, setBullet] = useState(null);
+  const [drop, setDrop] = useState(null);
 
   useEffect(() => {
-    setBullet(JSON.parse(localStorage.getItem("bullet")));
+    setDrop(JSON.parse(localStorage.getItem("drop")));
   }, []);
   return (
-    <MainLayout
-      title={bullet ? bullet.bullet.title : ""}
-      subtitle={"Analytics"}
-    >
+    <MainLayout title={drop ? drop.drop.title : ""} subtitle={"Analytics"}>
       <AnalyticsComponent />
     </MainLayout>
   );

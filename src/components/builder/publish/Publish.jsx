@@ -25,17 +25,17 @@ const PublishComponent = ({ id, prevDomain }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          bullet_id: id,
+          drop_id: id,
           clerk_id: user.id,
           domain: domain,
         }),
       });
       const data = await response.json();
       if (response.ok) {
-        const storedBullet = JSON.parse(localStorage.getItem("bullet"));
-        if (storedBullet) {
-          storedBullet.bullet.domain = domain;
-          localStorage.setItem("bullet", JSON.stringify(storedBullet));
+        const storedDrop = JSON.parse(localStorage.getItem("drop"));
+        if (storedDrop) {
+          storedDrop.drop.domain = domain;
+          localStorage.setItem("drop", JSON.stringify(storedDrop));
         }
         // Update status and show toast notification
         setStatus("");
@@ -92,7 +92,7 @@ const PublishComponent = ({ id, prevDomain }) => {
               </label>
               <div className="w-full font-dm flex flex-row items-center border border-gray-300 rounded-lg p-2 mt-1">
                 <div className="w-4 h-4 mx-3 bg-gray-700 rounded-full" />
-                <p className="text-gray-700">2 remaining bullets</p>
+                <p className="text-gray-700">2 remaining drops</p>
               </div>
             </div>
             <div className="flex items-center space-x-4 pt-4">
@@ -105,7 +105,7 @@ const PublishComponent = ({ id, prevDomain }) => {
               />
               <label htmlFor="permissionsGranted" className="text-gray-700">
                 By checking the box, you are responsible for the content of your
-                bullet and its repercussions.
+                drop and its repercussions.
               </label>
             </div>
             <div className="flex justify-center">
@@ -179,7 +179,7 @@ const PublishComponent = ({ id, prevDomain }) => {
                   access your content hosted on{" "}
                   <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
                     {" "}
-                    blankbullet.com/live/${"id"}/
+                    blankdrop.com/live/${"id"}/
                   </code>{" "}
                   under{" "}
                   <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
@@ -202,23 +202,20 @@ const PublishComponent = ({ id, prevDomain }) => {
 };
 
 const Publish = ({ id }) => {
-  const [bullet, setBullet] = useState(null);
+  const [drop, setDrop] = useState(null);
 
   useEffect(() => {
-    setBullet(JSON.parse(localStorage.getItem("bullet")));
+    setDrop(JSON.parse(localStorage.getItem("drop")));
   }, []);
 
   return (
     <BuilderLayout
-      title={bullet ? bullet.bullet?.title : ""}
-      subtitle={"Bullet Builder"}
+      title={drop ? drop.drop?.title : ""}
+      subtitle={"Drop Builder"}
       page={"publish"}
       id={id}
     >
-      <PublishComponent
-        id={id}
-        prevDomain={bullet ? bullet.bullet?.domain : ""}
-      />
+      <PublishComponent id={id} prevDomain={drop ? drop.drop?.domain : ""} />
     </BuilderLayout>
   );
 };

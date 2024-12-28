@@ -1,13 +1,7 @@
 import { DM_Sans, Inter, Montserrat, Afacad } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/global/Toaster";
 
 const font = DM_Sans({ subsets: ["latin"], variable: "--font-dm" });

@@ -28,16 +28,16 @@ const FinishedPage = ({ id }) => {
   const [finishedText, setFinishedText] = useState("");
 
   useEffect(() => {
-    const fetchBulletDetails = async () => {
+    const fetchDropDetails = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/bullet_details/",
+          "http://127.0.0.1:8000/api/drop_details/",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ bullet_id: id }),
+            body: JSON.stringify({ drop_id: id }),
           }
         );
 
@@ -46,7 +46,7 @@ const FinishedPage = ({ id }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ bullet_id: id, page: "finished" }),
+          body: JSON.stringify({ drop_id: id, page: "finished" }),
         });
 
         if (response.ok) {
@@ -54,15 +54,15 @@ const FinishedPage = ({ id }) => {
           setFinishedImg(data.checkout.finished_img);
           setFinishedText(data.checkout.finished_text);
         } else {
-          console.error("Failed to fetch bullets");
+          console.error("Failed to fetch drops");
         }
       } catch (error) {
-        console.error("Error fetching bullets:", error);
+        console.error("Error fetching drops:", error);
       }
     };
 
     if (id) {
-      fetchBulletDetails();
+      fetchDropDetails();
     }
   }, [id]);
 

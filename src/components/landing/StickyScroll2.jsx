@@ -36,7 +36,7 @@ export const StickyScroll2 = () => {
     {
       title: "Fufill Later using Email",
       description:
-        "Export your email data and other checkout data. Then email your users about the product if you think that it's a winner and want to go through fully setting it up. Previous data from BlankBullet stores show that over 85% of customers buy off the email list after being stonewalled with the out of stock earlier",
+        "Export your email data and other checkout data. Then email your users about the product if you think that it's a winner and want to go through fully setting it up. Previous data from BlankDrop stores show that over 85% of customers buy off the email list after being stonewalled with the out of stock earlier",
       content: (
         <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
           Version control
@@ -84,7 +84,7 @@ export const StickyScroll2 = () => {
 
   return (
     <motion.div
-      className="flex justify-center relative space-x-10 rounded-md pt-20 my_grid"
+      className="flex justify-center max-h-[1050px] relative space-x-10 rounded-md pt-20 my_grid"
       ref={ref}
     >
       <div className="relative flex items-start px-4">
@@ -98,7 +98,7 @@ export const StickyScroll2 = () => {
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-2xl font-bold font-mon text-black"
+                className="text-4xl font-bold font-afc text-black"
               >
                 {item.title}
               </motion.h2>
