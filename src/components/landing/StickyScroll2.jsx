@@ -5,12 +5,12 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export const StickyScroll = () => {
+export const StickyScroll2 = () => {
   const content = [
     {
-      title: "Create Multiple Drops",
+      title: "Don't Deal with Fufillment",
       description:
-        "Testing products one by one is old fashioned. Take charge and test every product on list faster than your competition by creating numerous simple stores.",
+        "It might be tempting to want to make money off the frist few customers, but setting up fufillment and refunds and payment processing and all the headaches just for a few sales on a loser product isn't worth it",
       content: (
         <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
           Collaborative Editing
@@ -18,9 +18,9 @@ export const StickyScroll = () => {
       ),
     },
     {
-      title: "Build Quickly",
+      title: "Strengthen the Brand",
       description:
-        "Don't worry about payment processing or every little optimization. Just build a simple stores and test your product to see what works and what doesn't",
+        "By refusing to take a customer's money and saying your product is out of stock, you spark even more desire for your product and increase your brand reputation. Plus, you've gotten their email so ...",
       content: (
         <div className="h-full w-full  flex items-center justify-center text-white">
           <Image
@@ -34,9 +34,9 @@ export const StickyScroll = () => {
       ),
     },
     {
-      title: "Figure out the Winners",
+      title: "Fufill Later using Email",
       description:
-        "Understand data about your users and the product. Then you can confidently decide when to go in on a product without worrying if you are just wasting time because you've already validated it",
+        "Export your email data and other checkout data. Then email your users about the product if you think that it's a winner and want to go through fully setting it up. Previous data from BlankBullet stores show that over 85% of customers buy off the email list after being stonewalled with the out of stock earlier",
       content: (
         <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
           Version control
@@ -115,7 +115,7 @@ export const StickyScroll = () => {
               </motion.p>
             </div>
           ))}
-          <div className="h-40" />
+          <div className="h-20" />
         </div>
       </div>
       <div className="">

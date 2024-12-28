@@ -22,6 +22,15 @@ const nextConfig = {
       },
     ],
   },
+
+  async rewrites() {
+    return [
+      {
+        source: "/live/:path*", // Matches any path under /live/
+        destination: "http://localhost:3000/live/:path*", // Proxies to your domain
+      },
+    ];
+  },
 };
 
 export default nextConfig;

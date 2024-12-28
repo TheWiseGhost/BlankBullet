@@ -14,8 +14,7 @@ export function FeaturesSection() {
   const features = [
     {
       title: "Built for anyone",
-      description:
-        "Ability to go into the code as much or as little as you want",
+      description: "Create a simple store in minutes no matter the product",
       icon: <IconTerminal2 />,
     },
     {
@@ -26,36 +25,35 @@ export function FeaturesSection() {
     },
     {
       title: "Pricing like no other",
-      description:
-        "Our prices are best in the market. No cap, no lock, no credit card required.",
+      description: "You will find a winner at a fraction of the cost",
       icon: <IconCurrencyDollar />,
     },
     {
-      title: "100% Uptime guarantee",
-      description: "We just cannot be taken down by anyone.",
+      title: "100% Refund guarantee",
+      description: "We're confident no one will hate BlankBullet",
       icon: <IconCloud />,
     },
     {
-      title: "Flexible Architecture",
+      title: "Multi Test",
       description:
-        "You simply choose everything about your new bullet instance: time, reach, data collected, etc",
+        "Launch Multiple Bullets at once to quickly test all products on your winner list",
       icon: <IconRouteAltLeft />,
     },
     {
       title: "24/7 Customer Support",
-      description:
-        "We are available 100% of the time. At least our AI Agents are.",
+      description: "We are available 100% of the time with quick responses",
       icon: <IconHelp />,
     },
     {
-      title: "Money back guarantee",
+      title: "Actual Data",
       description:
-        "If you aren't pleased with our product, we will give it to you for free",
+        "Learn more about your product and customers, turning you from a dropshipper into a brand builder",
       icon: <IconAdjustmentsBolt />,
     },
     {
-      title: "And everything else",
-      description: "Enjoy using BlankBullet =)",
+      title: "You will succeed",
+      description:
+        "Volume is all that matters and BlankBullet lets you pump enough products so a winner is inevitable",
       icon: <IconHeart />,
     },
   ];

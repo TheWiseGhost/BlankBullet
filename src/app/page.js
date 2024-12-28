@@ -6,6 +6,7 @@ import { clients, quantities } from "@/lib/constants";
 import { TooltipReviews } from "@/components/landing/TooltipReviews";
 import { HeroParallax } from "@/components/landing/HeroParallax";
 import { StickyScroll } from "@/components/landing/StickyScroll";
+import { StickyScroll2 } from "@/components/landing/StickyScroll2";
 import { PopulatedBentoGrid } from "@/components/landing/PopulatedBentoGrid";
 import PricingCards from "@/components/landing/PricingCards";
 import { FAQs } from "@/components/landing/FAQs";
@@ -17,14 +18,18 @@ import { WorldMapDemo } from "@/components/landing/WorldMapDemo";
 export default function Home() {
   return (
     <main className="">
+      {/* <div className="flex items-center justify-center bg-black w-full h-6">
+        <p className="font-dm text-center text-sm text-white">
+          Get 3 Free Bullets when you sign up today!
+        </p>
+      </div> */}
       <Navbar />
       <section className="my_grid antialiased w-full bg-none rounded-md !overflow-visible relative flex flex-col items-center">
-        <div className="absolute inset-0 h-full w-full items-center px-5 py-24"></div>
         <Hero />
       </section>
 
       <section className="my_grid antialiased !overflow-visible relative flex flex-col">
-        <div className="w-full pt-16">
+        <div className="w-full pt-8">
           <TooltipReviews />
         </div>
       </section>
@@ -42,7 +47,13 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-4">
+        <div className="px-20 pt-0">
+          <StickyScroll2 />
+        </div>
+      </section>
+
+      <section className="my_grid antialiased">
+        <div className="px-20 pt-24">
           <FeaturesSection />
         </div>
       </section>

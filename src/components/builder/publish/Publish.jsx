@@ -63,7 +63,13 @@ const PublishComponent = ({ id, prevDomain }) => {
           <div className="flex flex-row text-xl items-center font-dm">
             <h2 className="text-black">Publish</h2>
             <div className="size-4 rounded-full mx-4 bg-gray-400" />
-            <h2 className="text-gray-400">Custom Domain</h2>
+            <a
+              target="_blank"
+              href={`http://localhost:3000/live/${id}/landing/`}
+              className="text-xl underline text-gray-600 hover:text-black transition duration-200 "
+            >
+              Preview
+            </a>
           </div>
           <div className="h-0.5 w-full bg-gray-200 mt-4 mb-6 mx-auto" />
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -103,7 +109,7 @@ const PublishComponent = ({ id, prevDomain }) => {
               </label>
             </div>
             <div className="flex justify-center">
-              <button className="w-1/3 mt-4 bg-black border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-2xl transition duration-300 font-semibold">
+              <button className="w-1/3 mt-4 bg-black font-semibold border-black border-2 text-white hover:bg-white hover:text-black py-3 rounded-2xl transition duration-300">
                 Publish
               </button>
             </div>
@@ -111,16 +117,84 @@ const PublishComponent = ({ id, prevDomain }) => {
           {status && <p className="text-center text-red-500 mt-4">{status}</p>}
         </div>
         <div className="w-full pl-20 flex flex-col space-y-4">
-          <div className="justify-center flex flex-row font-medium items-center text-gray-800">
-            <a
-              target="_blank"
-              href={`http://localhost:3000/live/${id}/landing/`}
-              className="text-xl underline hover:text-blue-400 transition duration-200 "
-            >
-              Preview
-            </a>
+          <div className="flex flex-col rounded-xl w-full p-4">
+            <h1 className="font-dm text-2xl text-center">Instructions</h1>
+            <div className="h-0.5 w-3/5 mx-auto bg-gray-200 rounded-xl mt-3" />
+
+            <div className="flex flex-col space-y-8 pt-4">
+              <div className="space-y-2">
+                <h2 className="font-semibold">Step 1: Upload Your Domain</h2>
+                <ul className="list-disc pl-6 text-sm">
+                  <li>Input your domain on the left</li>
+                  <li>
+                    Once submitted, we’ll configure everything for you on our
+                    end!
+                  </li>
+                </ul>
+              </div>
+
+              <div className="space-y-2">
+                <h2 className="font-semibold">
+                  Step 2: Update Your DNS Records
+                </h2>
+                <ul className="list-disc pl-6 text-sm">
+                  <li>
+                    Log in to your domain registrar (e.g., GoDaddy, Namecheap,
+                    etc.) and go to the DNS management section.
+                  </li>
+                  <li>
+                    Add the following DNS record:
+                    <ul className="list-inside list-disc pl-4">
+                      <li>
+                        <span className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
+                          A
+                        </span>{" "}
+                        record for root domains (e.g.,{" "}
+                        <code>userdomain.com</code>):
+                      </li>
+                      <li>
+                        <code>userdomain.com</code> -&gt;{" "}
+                        <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
+                          104.72.96.21
+                        </code>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <p className="text-sm">
+                  <strong>Note:</strong> DNS changes may take up to 24 hours to
+                  propagate globally.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <h2 className="font-semibold">Step 3: Verify Your Domain</h2>
+                <p className="text-sm">
+                  After updating your DNS settings, visit your domain (e.g.,{" "}
+                  <code>userdomain.com</code>) to check if everything is
+                  working.
+                </p>
+                <p className="text-sm">
+                  If the domain is correctly configured, you’ll be able to
+                  access your content hosted on{" "}
+                  <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
+                    {" "}
+                    blankbullet.com/live/${"id"}/
+                  </code>{" "}
+                  under{" "}
+                  <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
+                    userdomain.com/live/${"id"}/
+                  </code>
+                  .
+                </p>
+              </div>
+
+              <p className="text-sm text-gray-500">
+                If you encounter any issues during the setup process, feel free
+                to reach out to our support team for assistance.
+              </p>
+            </div>
           </div>
-          <div className="h-[500px] w-full bg-gray-200"></div>
         </div>
       </div>
     </div>

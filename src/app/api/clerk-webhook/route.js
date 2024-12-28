@@ -25,7 +25,7 @@ export async function POST(req) {
       email: email_addresses[0]?.email_address,
       created_at: new Date(),
       profile_picture: image_url || "", // Profile picture URL from the request body
-      num_bullets: 0,
+      num_bullets: 3,
       num_active_bullets: 0,
     };
 

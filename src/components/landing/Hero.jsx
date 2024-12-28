@@ -4,24 +4,27 @@ import { Cover } from "../global/Cover";
 const Hero = () => {
   return (
     <>
-      <div className="flex flex-col mt-40">
+      <div className="flex flex-col mt-32">
         <div className="flex items-center flex-col space-y-4">
-          <h1 className="text-center font-afc font-medium text-5xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-700 to-neutral-900">
-            The <Cover>Fastest Way</Cover> to Go from <br /> Idea to Market
+          <h1 className="text-center font-afc font-medium text-5xl md:text-7xl [word-spacing:10px] bg-clip-text text-transparent bg-gradient-to-b from-neutral-700 to-neutral-900 pb-2">
+            The <Cover>Fastest Way</Cover> to Find a <br /> Winning Product
           </h1>
           <p className="font-dm text-lg pt-3">
-            Without spending hundreds of hours and thousands of dollars on
-            development, research, planning, breaks ...{" "}
+            Without spending{" "}
+            <span className="font-bold text-red-800">
+              Hundreds of Hours and Dollars
+            </span>{" "}
+            on Stores, Fufillment Contracts, Subscriptions, Add-ons, and more
           </p>
         </div>
       </div>
       <div className="wrapper pt-8">
-        <a className="cta font-dm  font-semibold" href="#">
+        <a className="cta font-dm font-semibold" href="#">
           <span>Launch</span>
           <span className="pt-2">
             <svg
-              width="40px"
-              height="20px"
+              width="30px"
+              height="15px"
               viewBox="0 0 66 43"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +56,7 @@ const Hero = () => {
           </span>
         </a>
       </div>
-      <p className="font-dm text-sm text-gray-700 pt-5">
+      <p className="font-dm text-sm text-gray-700 pt-3">
         No Credit Card required
       </p>
     </>

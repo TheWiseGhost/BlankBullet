@@ -212,7 +212,7 @@ const SkeletonFour = () => {
           className="rounded-full h-10 w-10"
         />
         <p className="sm:text-sm text-xs text-center font-semibold text-neutral-500 mt-4">
-          Everyone's going to love my idea for sure
+          This product is going viral for sure!
         </p>
         <p className="border border-red-500 bg-red-100 dark:bg-red-900/20 text-red-600 text-xs rounded-full px-2 py-0.5 mt-4">
           Delusional
@@ -227,7 +227,8 @@ const SkeletonFour = () => {
           className="rounded-full h-10 w-10"
         />
         <p className="sm:text-sm text-xs text-center font-semibold text-neutral-500 mt-4">
-          Maybe we should validate the idea first?
+          Maybe we shouldn't jump to invest so much in this product and test
+          others?
         </p>
         <p className="border border-green-500 bg-green-100 dark:bg-green-900/20 text-green-600 text-xs rounded-full px-2 py-0.5 mt-4">
           Sensible
@@ -245,7 +246,8 @@ const SkeletonFour = () => {
           className="rounded-full h-10 w-10"
         />
         <p className="sm:text-sm text-xs text-center font-semibold text-neutral-500 mt-4">
-          Just code the entire product!!!
+          I'm spending $100s on all the best Shopify add-ons and fufillments
+          methods
         </p>
         <p className="border border-orange-500 bg-orange-100 dark:bg-orange-900/20 text-orange-600 text-xs rounded-full px-2 py-0.5 mt-4">
           Helpless
@@ -320,7 +322,7 @@ const items = [
     title: "Easy website builder",
     description: (
       <span className="text-sm">
-        Use our premade templates or custom code whatever site you want.
+        Use our premade templates to make any site you want in minutes.
       </span>
     ),
     header: <SkeletonTwo />,
@@ -330,9 +332,7 @@ const items = [
   {
     title: "Custom Domains",
     description: (
-      <span className="text-sm">
-        Launch your instance on your own domain to host our public link
-      </span>
+      <span className="text-sm">Launch your instance on your own domain</span>
     ),
     header: <SkeletonThree />,
     className: "md:col-span-1",
@@ -342,7 +342,7 @@ const items = [
     title: "Interest Analysis",
     description: (
       <span className="text-sm">
-        Understand everything about your early adopters with key tracked data.
+        Understand everything about your products with key tracked data.
       </span>
     ),
     header: <SkeletonFour />,
@@ -354,7 +354,7 @@ const items = [
     title: "Questionare Forms",
     description: (
       <span className="text-sm">
-        Understand why your vistiors care and what features matter to them.
+        Understand your visitors and what matters to them.
       </span>
     ),
     header: <SkeletonFive />,
