@@ -12,9 +12,10 @@ export const StickyScroll = () => {
       description:
         "Testing products one by one is old fashioned. Take charge and test every product on list faster than your competition by creating numerous simple stores.",
       content: (
-        <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
-          Collaborative Editing
-        </div>
+        <img
+          src="Dashboard.png"
+          className="w-full object-fit rounded-lg border-2 border-gray-400"
+        />
       ),
     },
     {
@@ -22,15 +23,10 @@ export const StickyScroll = () => {
       description:
         "Don't worry about payment processing or every little optimization. Just build a simple stores and test your product to see what works and what doesn't",
       content: (
-        <div className="h-full w-full  flex items-center justify-center text-white">
-          <Image
-            src="/temp-banner.png"
-            width={300}
-            height={300}
-            className="h-full w-full object-cover"
-            alt="linear board demo"
-          />
-        </div>
+        <img
+          src="Landing.png"
+          className="w-full object-cover rounded-lg border-2 border-gray-400"
+        />
       ),
     },
     {
@@ -38,9 +34,10 @@ export const StickyScroll = () => {
       description:
         "Understand data about your users and the product. Then you can confidently decide when to go in on a product without worrying if you are just wasting time because you've already validated it",
       content: (
-        <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
-          Version control
-        </div>
+        <img
+          src="Analytics.png"
+          className="w-full object-cover rounded-lg border-2 border-gray-400"
+        />
       ),
     },
   ];
@@ -67,20 +64,6 @@ export const StickyScroll = () => {
     );
     setActiveCard(closestBreakpointIndex);
   });
-
-  const linearGradients = [
-    "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
-    "linear-gradient(to bottom right, var(--pink-500), var(--indigo-500))",
-    "linear-gradient(to bottom right, var(--orange-500), var(--yellow-500))",
-  ];
-
-  const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients[0]
-  );
-
-  useEffect(() => {
-    setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
-  }, [activeCard]);
 
   return (
     <motion.div
@@ -122,9 +105,8 @@ export const StickyScroll = () => {
         {" "}
         {/* Adjust the max height */}
         <div
-          style={{ background: backgroundGradient }}
           className={cn(
-            "hidden lg:block h-80 w-96 rounded-md bg-white sticky top-40 overflow-hidden"
+            "hidden lg:block h-60 w-96 rounded-md bg-none sticky top-40 overflow-hidden"
           )}
         >
           {content[activeCard].content ?? null}

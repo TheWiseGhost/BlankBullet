@@ -389,7 +389,7 @@ const LandingComponent = () => {
           />
           <h1
             style={{ fontFamily: brandName?.font }}
-            className="text-lg font-semibold text-gray-700"
+            className="text-xl text-gray-900"
           >
             {brandName?.text}
           </h1>

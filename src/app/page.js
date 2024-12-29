@@ -37,7 +37,14 @@ export default function Home() {
 
       <section className="my_grid antialiased">
         <div className="px-20">
-          <ContainerScroll />
+          <ContainerScroll>
+            <img src="FullApp.png" className="mt-6" />
+            {/* <div className="w-full bg-white h-full">
+              <p className="font-afc font-bold text-gray-800 text-4xl text-center pt-8">
+                - Make Stores for Every Possible Winner -
+              </p>
+            </div> */}
+          </ContainerScroll>
         </div>
       </section>
 
@@ -54,7 +61,7 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-24 pb-12">
+        <div className="px-20 pt-24 pb-16">
           <StickyScroll />
         </div>
       </section>

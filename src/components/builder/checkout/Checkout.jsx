@@ -228,7 +228,7 @@ const PostCheckoutComponent = ({ image, text }) => {
       <img
         src={image || "https://via.placeholder.com/400x200"}
         alt="Checkout Banner"
-        className="w-3/5 mx-auto rounded-md mb-4"
+        className="w-2/5 mx-auto rounded-md mb-4"
       />
       {text ? (
         <p className="mt-4 w-2/3 mx-auto text-sm text-black">{text}</p>

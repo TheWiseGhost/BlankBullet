@@ -33,7 +33,11 @@ export default clerkMiddleware((auth, request) => {
   }
 
   // If the request is for any path other than /live/*, ensure it's from your main domain
-  if (host === "blankdrop.vercel.app" || host === "www.blankdrop.vercel.app") {
+  if (
+    host === "blankdrop.vercel.app" ||
+    host === "www.blankdrop.vercel.app" ||
+    host === "localhost:3000"
+  ) {
     return NextResponse.next(); // Allow access for your main domain
   } else {
     // Redirect to your main domain if the request is not for /live/*
