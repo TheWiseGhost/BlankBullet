@@ -7,9 +7,10 @@ const Hero = () => {
       <div className="flex flex-col mt-32">
         <div className="flex items-center flex-col space-y-4">
           <h1 className="text-center font-afc font-medium text-5xl md:text-7xl [word-spacing:10px] bg-clip-text text-transparent bg-gradient-to-b from-neutral-700 to-neutral-900 pb-2">
-            The <Cover>Fastest Way</Cover> to Find a <br /> Winning Product
+            The <Cover>Fastest Way</Cover> to Find a <br />{" "}
+            <span className="text-black">Winning Product</span>
           </h1>
-          <p className="font-dm text-lg pt-3">
+          <p className="font-dm text-center px-8 text-lg pt-3">
             Without spending{" "}
             <span className="font-bold text-red-800">
               Hundreds of Hours and Dollars

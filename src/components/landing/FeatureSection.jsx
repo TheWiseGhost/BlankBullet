@@ -30,7 +30,7 @@ export function FeaturesSection() {
     },
     {
       title: "100% Refund guarantee",
-      description: "We're confident no one will hate BlankDrop",
+      description: "We're confident no one will hate DropFast",
       icon: <IconCloud />,
     },
     {
@@ -53,7 +53,7 @@ export function FeaturesSection() {
     {
       title: "You will succeed",
       description:
-        "Volume is all that matters and BlankDrop lets you pump enough products so a winner is inevitable",
+        "Volume is all that matters and DropFast lets you pump enough products so a winner is inevitable",
       icon: <IconHeart />,
     },
   ];

@@ -70,7 +70,7 @@ const DashboardComponent = () => {
       ) : (
         <div className="w-full justify-center items-center text-center">
           <p className="font-dm pt-40">
-            Create Your First Drop Instance to get started with BlankDrop
+            Create Your First Drop Instance to get started with DropFast
           </p>
         </div>
       )}

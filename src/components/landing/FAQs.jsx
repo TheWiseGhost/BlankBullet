@@ -7,7 +7,11 @@ import {
 
 export function FAQs() {
   return (
-    <Accordion type="single" collapsible className="w-3/5 mx-auto font-dm h-80">
+    <Accordion
+      type="single"
+      collapsible
+      className="w-5/6 md:w-1/2 mx-auto font-dm h-80"
+    >
       <AccordionItem value="item-1">
         <AccordionTrigger>But why can't I get revenue?</AccordionTrigger>
         <AccordionContent>

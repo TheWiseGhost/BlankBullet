@@ -14,7 +14,7 @@ export const StickyScroll = () => {
       content: (
         <img
           src="Dashboard.png"
-          className="w-full object-fit rounded-lg border-2 border-gray-400"
+          className="w-full object-fit rounded-lg border-2 border-[#D5BEF1]"
         />
       ),
     },
@@ -25,7 +25,7 @@ export const StickyScroll = () => {
       content: (
         <img
           src="Landing.png"
-          className="w-full object-cover rounded-lg border-2 border-gray-400"
+          className="w-full object-cover rounded-lg border-2 border-[#D5BEF1]"
         />
       ),
     },
@@ -36,7 +36,7 @@ export const StickyScroll = () => {
       content: (
         <img
           src="Analytics.png"
-          className="w-full object-cover rounded-lg border-2 border-gray-400"
+          className="w-full object-cover rounded-lg border-2 border-[#D5BEF1]"
         />
       ),
     },

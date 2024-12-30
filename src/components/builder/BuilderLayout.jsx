@@ -14,7 +14,7 @@ const CircleText = ({ text }) => (
 const Header = ({ title, subtitle }) => (
   <div className="flex flex-col space-y-6">
     <div className="flex items-center gap-2">
-      <CircleText text="BlankDrop" />
+      <CircleText text="DropFast" />
       <span>/</span>
       <span className="text-black">{subtitle}</span>
     </div>

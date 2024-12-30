@@ -14,7 +14,7 @@ export const StickyScroll2 = () => {
       content: (
         <img
           src="Publish.png"
-          className="w-full object-cover rounded-lg border-2 border-gray-400"
+          className="w-full object-cover rounded-lg border-2 border-[#D5BEF1]"
         />
       ),
     },
@@ -26,7 +26,7 @@ export const StickyScroll2 = () => {
         <div className="h-full w-full  flex items-center justify-center text-white">
           <img
             src="OutOfStock.png"
-            className="h-full w-full object-cover rounded-lg border-2 border-gray-400"
+            className="h-full w-full object-cover rounded-lg border-2 border-[#D5BEF1]"
           />
         </div>
       ),
@@ -34,12 +34,12 @@ export const StickyScroll2 = () => {
     {
       title: "Fufill Later using Email",
       description:
-        "Export your email data and other checkout data. Then email your users about the product if you think that it's a winner and want to go through fully setting it up. Previous data from BlankDrop stores show that over 85% of customers buy off the email list after being stonewalled with the out of stock earlier",
+        "Export your email data and other checkout data. Then email your users about the product if you think that it's a winner and want to go through fully setting it up. Previous data from DropFast stores show that over 85% of customers buy off the email list after being stonewalled with the out of stock earlier",
       content: (
         <div className="h-full w-full  flex items-center justify-center text-white">
           <img
             src="ExportData.png"
-            className="h-full w-full object-cover rounded-lg border-2 border-gray-400"
+            className="h-full w-full object-cover rounded-lg border-2 border-[#D5BEF1]"
           />
         </div>
       ),

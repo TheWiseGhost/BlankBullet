@@ -104,7 +104,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black text-xl dark:text-white whitespace-pre"
       >
-        BlankDrop
+        DropFast
       </motion.span>
     </Link>
   );

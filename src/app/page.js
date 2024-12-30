@@ -36,7 +36,7 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20">
+        <div className="hidden md:flex px-20">
           <ContainerScroll>
             <img src="FullApp.png" className="mt-6" />
             {/* <div className="w-full bg-white h-full">
@@ -55,13 +55,13 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-24">
+        <div className="px-20 pt-48 md:pt-24">
           <FeaturesSection />
         </div>
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-24 pb-16">
+        <div className="px-20 pt-0 md:pt-24 pb-16">
           <StickyScroll />
         </div>
       </section>

@@ -13,7 +13,7 @@ const CircleText = ({ text }) => (
 const Header = ({ title, subtitle }) => (
   <div className="flex flex-col space-y-6">
     <div className="flex items-center gap-2">
-      <CircleText text="BlankDrop" />
+      <CircleText text="DropFast" />
       <span>/</span>
       <span className="text-black">{subtitle}</span>
     </div>
@@ -69,9 +69,9 @@ const TimeDisplay = () => {
 const FooterLogo = () => (
   <div className="flex items-center justify-center">
     <div className="bg-white rounded-full">
-      <Image src="/BlankDropLogo.png" width={20} height={20} />
+      <Image src="/DropFastLogo.png" width={30} height={30} />
     </div>
-    <span className="ml-2 font-dm font-medium">BlankDrop</span>
+    <span className="ml-2 font-dm text-lg font-medium">DropFast</span>
   </div>
 );
 
