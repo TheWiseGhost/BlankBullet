@@ -179,7 +179,7 @@ const PublishComponent = ({ id, prevDomain }) => {
                   access your content hosted on{" "}
                   <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
                     {" "}
-                    blankdrop.com/live/{"Preview_id"}/
+                    dropfast.com/live/{"Preview_id"}/
                   </code>{" "}
                   under{" "}
                   <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
