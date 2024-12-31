@@ -36,13 +36,15 @@ export default clerkMiddleware((auth, request) => {
   if (
     host === "trydropfast.vercel.app" ||
     host === "www.trydropfast.vercel.app" ||
+    host === "trydropfast.com" ||
+    host === "www.trydropfast.com" ||
     host === "localhost:3000"
   ) {
     return NextResponse.next(); // Allow access for your main domain
   } else {
     // Redirect to your main domain if the request is not for /live/*
     return NextResponse.redirect(
-      new URL("https://trydropfast.vercel.app", request.url)
+      new URL("https://trydropfast.com", request.url)
     );
   }
 });
