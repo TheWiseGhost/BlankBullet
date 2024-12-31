@@ -34,15 +34,15 @@ export default clerkMiddleware((auth, request) => {
 
   // If the request is for any path other than /live/*, ensure it's from your main domain
   if (
-    host === "dropfast.vercel.app" ||
-    host === "www.dropfast.vercel.app" ||
+    host === "trydropfast.vercel.app" ||
+    host === "www.trydropfast.vercel.app" ||
     host === "localhost:3000"
   ) {
     return NextResponse.next(); // Allow access for your main domain
   } else {
     // Redirect to your main domain if the request is not for /live/*
     return NextResponse.redirect(
-      new URL("https://dropfast.vercel.app", request.url)
+      new URL("https://trydropfast.vercel.app", request.url)
     );
   }
 });
