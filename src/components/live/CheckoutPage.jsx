@@ -225,9 +225,6 @@ const CheckoutPage = ({ id }) => {
     variant: "",
     fullName: "",
     email: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
     country: "",
   });
 

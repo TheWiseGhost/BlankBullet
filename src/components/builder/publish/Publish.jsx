@@ -153,6 +153,12 @@ const PublishComponent = ({ id, prevDomain }) => {
                         <code>userdomain.com</code>):
                       </li>
                       <li>
+                        <span className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
+                          Name
+                        </span>{" "}
+                        =<code>@</code>:
+                      </li>
+                      <li>
                         <code>userdomain.com</code> -&gt;{" "}
                         <code className="bg-gray-200 font-dm font-semibold rounded-md px-2 py-1">
                           76.76.21.21

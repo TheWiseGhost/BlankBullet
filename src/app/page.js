@@ -30,26 +30,53 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="pt-28">
+        <div className="pt-28 pb-32">
           <PopulatedBentoGrid />
         </div>
       </section>
 
-      <section className="my_grid antialiased">
+      {/* <section className="my_grid antialiased">
         <div className="hidden md:flex px-20">
           <ContainerScroll>
             <img src="FullApp.png" className="mt-6" />
-            {/* <div className="w-full bg-white h-full">
-              <p className="font-afc font-bold text-gray-800 text-4xl text-center pt-8">
-                - Make Stores for Every Possible Winner -
-              </p>
-            </div> */}
           </ContainerScroll>
+        </div>
+      </section> */}
+
+      <section className="my_grid antialiased">
+        <div
+          style={{
+            position: "relative",
+            boxSizing: "content-box",
+            maxHeight: "80vh",
+            maxHeight: "80svh",
+            width: "100%",
+            aspectRatio: "2.280534351145038",
+            padding: "40px 0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <iframe
+            src="https://app.supademo.com/embed/cm5ed156f4bypvlryts7a98w5?embed_v=2"
+            loading="lazy"
+            title="DropFast Demo"
+            allow="clipboard-write"
+            webkitallowfullscreen="true"
+            mozallowfullscreen="true"
+            allowFullScreen
+            style={{
+              position: "absolute",
+              width: "90%",
+              height: "90%",
+            }}
+          />
         </div>
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-0">
+        <div className="px-20 pt-28">
           <StickyScroll2 />
         </div>
       </section>
