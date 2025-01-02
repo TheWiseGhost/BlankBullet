@@ -10,12 +10,10 @@ const Hero = () => {
             The <Cover>Fastest Way</Cover> to Find a <br />{" "}
             <span className="text-black">Winning Product</span>
           </h1>
-          <p className="font-dm text-center px-8 text-lg pt-3">
-            Without spending{" "}
-            <span className="font-bold text-red-800">
-              Hundreds of Hours and Dollars
-            </span>{" "}
-            on Stores, Fufillment Contracts, Subscriptions, Add-ons, and more
+          <p className="text-base md:text-lg font-dm text-center px-8 pt-3">
+            <span className="font-bold text-purple-800">The New Method</span>{" "}
+            allowing Dropshippers to find <span className="">Winners</span> in a
+            Fraction of the Effort, Time, and Money
           </p>
         </div>
       </div>
