@@ -76,7 +76,7 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-28">
+        <div className="px-20 pt-8 md:pt-28">
           <StickyScroll2 />
         </div>
       </section>

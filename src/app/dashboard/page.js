@@ -68,29 +68,40 @@ export default function SidebarDemo() {
   ];
   const [open, setOpen] = useState(false);
   return (
-    <div
-      className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "h-screen"
-      )}
-    >
-      <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 pl-3 pt-3 overflow-y-auto overflow-x-hidden">
-            {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-8 flex flex-col gap-2">
-              {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
-              ))}
+    <>
+      <div
+        className={cn(
+          "rounded-md hidden md:flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 border border-neutral-200 dark:border-neutral-700 overflow-hidden",
+          "h-screen"
+        )}
+      >
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
+            <div className="flex flex-col flex-1 pl-3 pt-3 overflow-y-auto overflow-x-hidden">
+              {open ? <Logo /> : <LogoIcon />}
+              <div className="mt-8 flex flex-col gap-2">
+                {links.map((link, idx) => (
+                  <SidebarLink key={idx} link={link} />
+                ))}
+              </div>
             </div>
-          </div>
-          <div className={`flex flex-row items-center pb-4 pl-3`}>
-            <UserButton />
-          </div>
-        </SidebarBody>
-      </Sidebar>
-      <Dashboard />
-    </div>
+            <div className={`flex flex-row items-center pb-4 pl-3`}>
+              <UserButton />
+            </div>
+          </SidebarBody>
+        </Sidebar>
+        <Dashboard />
+      </div>
+      <div className="flex flex-col md:hidden bg-gray-100 min-h-screen items-center justify-center text-center">
+        <img src="DropFastLogo.png" className="w-1/3" />
+        <h1 className="font-dm font-semibold text-3xl pt-6 pb-2">
+          Mobile not supported
+        </h1>
+        <p className="text-gray-700 text-base">
+          Try DropFast on a bigger device
+        </p>
+      </div>
+    </>
   );
 }
 export const Logo = () => {
