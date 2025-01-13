@@ -84,7 +84,7 @@ const MainLayout = ({ children, title, subtitle }) => {
       const fetchDrops = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/user_details/",
+            "https://dropfastbackend.onrender.com/api/user_details/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),

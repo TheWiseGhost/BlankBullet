@@ -18,7 +18,7 @@ const DropInfoForm = () => {
       const fetchDrops = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/user_details/",
+            "https://dropfastbackend.onrender.com/api/user_details/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),
@@ -78,7 +78,7 @@ const DropInfoForm = () => {
       formData.append("title", title);
       formData.append("clerk_id", user.id);
 
-      const uploadUrl = "http://127.0.0.1:8000/api/add_drop/";
+      const uploadUrl = "https://dropfastbackend.onrender.com/api/add_drop/";
 
       const response = await fetch(uploadUrl, {
         method: "POST",

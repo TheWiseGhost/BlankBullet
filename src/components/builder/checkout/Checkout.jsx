@@ -482,7 +482,7 @@ const CheckoutComponent = () => {
       }
 
       const checkout_response = await fetch(
-        "http://127.0.0.1:8000/api/update_checkout/",
+        "https://dropfastbackend.onrender.com/api/update_checkout/",
         {
           method: "POST",
           body: formData,

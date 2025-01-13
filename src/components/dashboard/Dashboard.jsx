@@ -31,7 +31,7 @@ const DashboardComponent = () => {
       const fetchDrops = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/drop_options/",
+            "https://dropfastbackend.onrender.com/api/drop_options/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),

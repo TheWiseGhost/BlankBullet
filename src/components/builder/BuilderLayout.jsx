@@ -77,7 +77,7 @@ const NavRow = ({ page, id }) => {
   //   const updateDrop = async () => {
   //     try {
   //       const landing_response = await fetch(
-  //         "http://127.0.0.1:8000/api/update_landing/",
+  //         "https://dropfastbackend.onrender.com/api/update_landing/",
   //         {
   //           method: "POST",
   //           body: JSON.stringify({
@@ -89,7 +89,7 @@ const NavRow = ({ page, id }) => {
   //       );
 
   //       const form_response = await fetch(
-  //         "http://127.0.0.1:8000/api/update_form/",
+  //         "https://dropfastbackend.onrender.com/api/update_form/",
   //         {
   //           method: "POST",
   //           body: JSON.stringify({

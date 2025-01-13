@@ -14,7 +14,7 @@ const FormPage = ({ id }) => {
     const fetchDropDetails = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/drop_details/",
+          "https://dropfastbackend.onrender.com/api/drop_details/",
           {
             method: "POST",
             headers: {
@@ -24,13 +24,16 @@ const FormPage = ({ id }) => {
           }
         );
 
-        const update = await fetch("http://127.0.0.1:8000/api/update_data/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ drop_id: id, page: "form" }),
-        });
+        const update = await fetch(
+          "https://dropfastbackend.onrender.com/api/update_data/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ drop_id: id, page: "form" }),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -66,7 +69,7 @@ const FormPage = ({ id }) => {
     } else {
       try {
         const form_response = await fetch(
-          "http://127.0.0.1:8000/api/add_form_response/",
+          "https://dropfastbackend.onrender.com/api/add_form_response/",
           {
             method: "POST",
             body: JSON.stringify({

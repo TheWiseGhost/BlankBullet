@@ -237,7 +237,7 @@ const CheckoutPage = ({ id }) => {
     const fetchDropDetails = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/drop_details/",
+          "https://dropfastbackend.onrender.com/api/drop_details/",
           {
             method: "POST",
             headers: {
@@ -247,13 +247,16 @@ const CheckoutPage = ({ id }) => {
           }
         );
 
-        const update = await fetch("http://127.0.0.1:8000/api/update_data/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ drop_id: id, page: "checkout" }),
-        });
+        const update = await fetch(
+          "https://dropfastbackend.onrender.com/api/update_data/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ drop_id: id, page: "checkout" }),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -279,7 +282,7 @@ const CheckoutPage = ({ id }) => {
     e.preventDefault(); // Prevent default form submission
     try {
       const add_checkout_data = await fetch(
-        "http://127.0.0.1:8000/api/add_checkout_data/",
+        "https://dropfastbackend.onrender.com/api/add_checkout_data/",
         {
           method: "POST",
           body: JSON.stringify({

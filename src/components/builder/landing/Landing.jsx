@@ -32,6 +32,22 @@ const FontDropdown = ({ base, handleChange }) => {
     { name: "Lato", style: "'Lato', sans-serif" },
     { name: "Montserrat", style: "'Montserrat', sans-serif" },
     { name: "Poppins", style: "'Poppins', sans-serif" },
+    { name: "Oswald", style: "'Oswald', sans-serif" },
+    { name: "Quicksand", style: "'Quicksand', sans-serif" },
+    { name: "Raleway", style: "'Raleway', sans-serif" },
+    { name: "Ubuntu", style: "'Ubuntu', sans-serif" },
+    { name: "Merriweather", style: "'Merriweather', serif" },
+    { name: "Playfair Display", style: "'Playfair Display', serif" },
+    { name: "Baskerville", style: "'Baskerville', serif" },
+    { name: "Fira Sans", style: "'Fira Sans', sans-serif" },
+    { name: "Source Sans Pro", style: "'Source Sans Pro', sans-serif" },
+    { name: "Slabo 27px", style: "'Slabo 27px', serif" },
+    { name: "Droid Serif", style: "'Droid Serif', serif" },
+    { name: "Verdana", style: "'Verdana', sans-serif" },
+    { name: "Tahoma", style: "'Tahoma', sans-serif" },
+    { name: "Trebuchet MS", style: "'Trebuchet MS', sans-serif" },
+    { name: "Comic Sans MS", style: "'Comic Sans MS', sans-serif" },
+    { name: "Impact", style: "'Impact', sans-serif" },
   ];
 
   const handleFontChange = (event) => {
@@ -309,7 +325,7 @@ const LandingComponent = () => {
       }
 
       const landing_response = await fetch(
-        "http://127.0.0.1:8000/api/update_landing/",
+        "https://dropfastbackend.onrender.com/api/update_landing/",
         {
           method: "POST",
           body: formData,
@@ -329,10 +345,13 @@ const LandingComponent = () => {
           ),
         });
       }
-      const response = await fetch("http://127.0.0.1:8000/api/drop_details/", {
-        method: "POST",
-        body: JSON.stringify({ drop_id: drop.drop._id }),
-      });
+      const response = await fetch(
+        "https://dropfastbackend.onrender.com/api/drop_details/",
+        {
+          method: "POST",
+          body: JSON.stringify({ drop_id: drop.drop._id }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();

@@ -14,7 +14,7 @@ const Dropdown = ({ page }) => {
       const fetchDrops = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/drop_options/",
+            "https://dropfastbackend.onrender.com/api/drop_options/",
             {
               method: "POST",
               body: JSON.stringify({ clerk_id: user.id }),
@@ -87,7 +87,7 @@ const Option = ({ text, page, id }) => {
   const handleClick = async () => {
     try {
       const main_response = await fetch(
-        "http://127.0.0.1:8000/api/drop_details/",
+        "https://dropfastbackend.onrender.com/api/drop_details/",
         {
           method: "POST",
           body: JSON.stringify({ drop_id: id }),
@@ -101,7 +101,7 @@ const Option = ({ text, page, id }) => {
           localStorage.setItem("checkout", JSON.stringify(data.checkout));
         } else if (page === "analytics") {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/get_analytics/",
+            "https://dropfastbackend.onrender.com/api/get_analytics/",
             {
               method: "POST",
               body: JSON.stringify({ drop_id: id, clerk_id: user.id }),

@@ -50,7 +50,7 @@ const FormBuilder = ({ formData, setFormData }) => {
     const drop = JSON.parse(localStorage.getItem("drop"));
     try {
       const form_response = await fetch(
-        "http://127.0.0.1:8000/api/update_form/",
+        "https://dropfastbackend.onrender.com/api/update_form/",
         {
           method: "POST",
           body: JSON.stringify({

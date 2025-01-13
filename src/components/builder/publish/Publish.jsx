@@ -19,17 +19,20 @@ const PublishComponent = ({ id, prevDomain }) => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/add_domain/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          drop_id: id,
-          clerk_id: user.id,
-          domain: domain,
-        }),
-      });
+      const response = await fetch(
+        "https://dropfastbackend.onrender.com/api/add_domain/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            drop_id: id,
+            clerk_id: user.id,
+            domain: domain,
+          }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         const storedDrop = JSON.parse(localStorage.getItem("drop"));
