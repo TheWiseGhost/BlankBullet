@@ -15,7 +15,7 @@ export async function POST(req) {
 
     // Connect to MongoDB
     await client.connect();
-    const db = client.db("DropFast");
+    const db = client.db("BlankBullet");
     const usersCollection = db.collection("Users");
 
     // Prepare the data to insert
