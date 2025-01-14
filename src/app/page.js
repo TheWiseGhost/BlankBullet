@@ -76,19 +76,19 @@ export default function Home() {
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-8 md:pt-28">
+        <div className="px-4 md:px-20 pt-8 md:pt-28">
           <StickyScroll2 />
         </div>
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-48 md:pt-24">
+        <div className="px-6 md:px-20 pt-48 md:pt-24">
           <FeaturesSection />
         </div>
       </section>
 
       <section className="my_grid antialiased">
-        <div className="px-20 pt-0 md:pt-24 pb-16">
+        <div className="px-4 md:px-20 pt-0 md:pt-24 pb-16">
           <StickyScroll />
         </div>
       </section>
