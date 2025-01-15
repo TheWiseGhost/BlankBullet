@@ -27,6 +27,10 @@ export default clerkMiddleware((auth, request) => {
     return NextResponse.next();
   }
 
+  if (nextUrl.pathname.startsWith("/api/")) {
+    return NextResponse.next(); // Allow the webhook to proceed
+  }
+
   // Apply Clerk authentication protection for non-public routes on any domain
   if (!isPublicRoute(request)) {
     auth().protect();
