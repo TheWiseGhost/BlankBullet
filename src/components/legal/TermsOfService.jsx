@@ -21,10 +21,9 @@ const TermsOfService = () => {
             1. Introduction
           </h2>
           <p>
-            DropFast ("we," "our," or "us") provides a platform to [brief
-            description of services]. These Terms govern your use of our
-            website, applications, and any other services we offer
-            (collectively, the "Services").
+            DropFast provides a platform to create Mini Stores to test
+            dropshipping products. These Terms govern your use of our website,
+            applications, and any other services we offer.
           </p>
         </section>
 
@@ -189,8 +188,8 @@ const TermsOfService = () => {
             13. Governing Law
           </h2>
           <p>
-            These Terms are governed by the laws of [Insert Jurisdiction],
-            without regard to its conflict of laws principles.
+            These Terms are governed by the laws of the United States of
+            America, without regard to its conflict of laws principles.
           </p>
         </section>
 
