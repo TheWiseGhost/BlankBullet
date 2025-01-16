@@ -21,7 +21,7 @@ const TermsOfService = () => {
             1. Introduction
           </h2>
           <p>
-            DropFast provides a platform to create Mini Stores to test
+            DropFast provides a platform to create mini-stores to test
             dropshipping products. These Terms govern your use of our website,
             applications, and any other services we offer.
           </p>
