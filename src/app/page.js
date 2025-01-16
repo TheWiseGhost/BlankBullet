@@ -9,6 +9,7 @@ import { FAQs } from "@/components/landing/FAQs";
 import Footer from "@/components/landing/Footer";
 import Hero from "@/components/landing/Hero";
 import { FeaturesSection } from "@/components/landing/FeatureSection";
+import PricingComparison from "@/components/landing/PricingComparison";
 
 export default function Home() {
   return (
@@ -84,6 +85,12 @@ export default function Home() {
       <section className="my_grid antialiased">
         <div className="px-6 md:px-20 pt-48 md:pt-24">
           <FeaturesSection />
+        </div>
+      </section>
+
+      <section className="my_grid antialiased">
+        <div className="px-6 md:px-20 pt-48 md:pt-24 pb-12">
+          <PricingComparison />
         </div>
       </section>
 
