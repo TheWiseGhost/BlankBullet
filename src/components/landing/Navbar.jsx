@@ -1,9 +1,11 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 
-const Navbar = async () => {
+const Navbar = () => {
   return (
     <header className="fixed bg-opacity-95 font-dm right-0 left-0 top-0 pb-4 pt-6 px-8 bg-[#fbfbfd]  z-[100] flex items-center border-b-[2px] border-[#F1F1F1] justify-between">
       <aside className="flex items-center gap-[2px]">
@@ -12,7 +14,7 @@ const Navbar = async () => {
       </aside>
       <nav className="absolute left-[50%] top-[60%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block">
         <ul className="flex items-center gap-8 list-none">
-          {["Product", "Pricing", "Clients", "Demo", "Contact"].map((text) => (
+          {["Pricing", "Clients", "Demo"].map((text) => (
             <li key={text}>
               <Link href={`#${text}`}>
                 <span className="text_button">
@@ -30,6 +32,38 @@ const Navbar = async () => {
               </Link>
             </li>
           ))}
+          <li>
+            <a onClick={() => window.open("/terms")}>
+              <span className="text_button">
+                <span className="span-mother">
+                  {"Terms".split("").map((char, index) => (
+                    <span key={index}>{char}</span>
+                  ))}
+                </span>
+                <span className="span-mother2">
+                  {"Terms".split("").map((char, index) => (
+                    <span key={index}>{char}</span>
+                  ))}
+                </span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a onClick={() => window.open("/privacy")}>
+              <span className="text_button">
+                <span className="span-mother">
+                  {"Privacy".split("").map((char, index) => (
+                    <span key={index}>{char}</span>
+                  ))}
+                </span>
+                <span className="span-mother2">
+                  {"Privacy".split("").map((char, index) => (
+                    <span key={index}>{char}</span>
+                  ))}
+                </span>
+              </span>
+            </a>
+          </li>
         </ul>
       </nav>
       <aside className="flex justify-end items-center gap-4">
