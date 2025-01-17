@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   CardBody,
@@ -6,8 +7,48 @@ import {
 } from "@/components/landing/3d-card";
 import { CheckIcon } from "lucide-react";
 import { LampComponent } from "@/components/landing/LampComponent";
+import { useUser } from "@clerk/nextjs";
 
 const PricingCards = () => {
+  const { user } = useUser();
+  const createCheckout = (prod_id) => {
+    try {
+      if (!user) {
+        window.open(
+          "/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fcheckout"
+        );
+      }
+      const create = async () => {
+        try {
+          const response = await fetch(
+            "http://127.0.0.1:8000/api/create_checkout_session/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                product_id: prod_id,
+                user_id: user?.id, // Pass the user ID from localStorage or state
+              }),
+            }
+          );
+
+          const data = await response.json();
+          if (data.url) {
+            window.location.href = data.url; // Redirect to Stripe checkout
+          }
+        } catch (error) {
+          console.error("Error creating checkout session:", error);
+        }
+      };
+
+      create();
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+    }
+  };
+
   return (
     <>
       <LampComponent />
@@ -104,13 +145,14 @@ const PricingCards = () => {
                 translateZ={20}
                 as="button"
                 className="px-4 py-3 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold font-dm"
+                onClick={() => createCheckout("prod_RbKH6n0xMLncqe")}
               >
                 Get Started Now
               </CardItem>
             </div>
           </CardBody>
         </CardContainer>
-        <CardContainer className="inter-var ">
+        <CardContainer className="inter-var">
           <CardBody className="relative group/card  dark:hover:shadow-2xl border-black/[1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
             <CardItem
               translateZ="50"
@@ -151,6 +193,7 @@ const PricingCards = () => {
                 translateZ={20}
                 as="button"
                 className="px-4 py-3 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold font-dm"
+                onClick={() => createCheckout("prod_RbKIjVji5glZrB")}
               >
                 Get Started Now
               </CardItem>

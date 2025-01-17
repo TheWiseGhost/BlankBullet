@@ -24,7 +24,13 @@ const Header = ({ title, subtitle }) => (
 );
 
 const SideInfoBox = ({ content, value, width = 170 }) => (
-  <div className="relative h-20 -mt-6" style={{ width: `${width}px` }}>
+  <div
+    onClick={() => {
+      window.open("/checkout");
+    }}
+    className="relative h-20 -mt-6 cursor-pointer"
+    style={{ width: `${width}px` }}
+  >
     <div className="absolute bg-gray-300 w-full h-full rounded-2xl top-2"></div>
     <motion.div
       initial={{ top: "0px" }}

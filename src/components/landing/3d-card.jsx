@@ -80,6 +80,7 @@ export const CardItem = ({
   as: Tag = "div",
   children,
   className,
+  onClick,
   translateX = 0,
   translateY = 0,
   translateZ = 0,
@@ -108,6 +109,7 @@ export const CardItem = ({
     <Tag
       ref={ref}
       className={cn("w-fit transition duration-200 ease-linear", className)}
+      onClick={onClick}
       {...rest}
     >
       {children}
