@@ -1,14 +1,13 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
 
-let cachedClient = null;
-
 async function connectToDatabase() {
-  if (!cachedClient) {
-    cachedClient = new MongoClient(process.env.MONGO_URI);
-    await cachedClient.connect();
-  }
-  return cachedClient.db("BlankBullet");
+  const client = new MongoClient(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  await client.connect();
+  return client.db("BlankBullet");
 }
 
 export async function POST(req) {
@@ -18,14 +17,26 @@ export async function POST(req) {
     const { id, email_addresses, first_name, last_name, image_url } =
       body?.data;
 
-    // Validate the request body
+    // Validate the request body early
     if (!id || !email_addresses || email_addresses.length === 0) {
-      return NextResponse.json({ message: "Invalid payload" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Invalid payload: Missing id or email address" },
+        { status: 400 }
+      );
     }
 
     // Connect to MongoDB
     const db = await connectToDatabase();
     const usersCollection = db.collection("Users");
+
+    // Check if the user already exists
+    const existingUser = await usersCollection.findOne({ clerk_id: id });
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "User already exists", userId: existingUser._id },
+        { status: 200 }
+      );
+    }
 
     // Prepare the data to insert
     const userData = {
