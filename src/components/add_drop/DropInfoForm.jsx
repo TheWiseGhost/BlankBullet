@@ -92,7 +92,6 @@ const DropInfoForm = () => {
       // console.error("Error uploading file:", error);
       // alert("Error uploading file. Please try again.");
     } finally {
-      setLoading(false);
       toast({
         title: `Drop Added: ${title}`,
         description: "Start building your drop in the builder when your ready",

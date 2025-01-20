@@ -21,7 +21,7 @@ const PricingCards = () => {
       const create = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/api/create_checkout_session/",
+            "https://dropfastbackend.onrender.com/api/create_checkout_session/",
             {
               method: "POST",
               headers: {
