@@ -15,7 +15,7 @@ const PricingCards = () => {
     try {
       if (!user) {
         window.open(
-          "/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fcheckout"
+          "/sign-in?redirect_url=http%3A%2F%2Ftrydropfast.com%3A3000%2Fcheckout"
         );
       }
       const create = async () => {

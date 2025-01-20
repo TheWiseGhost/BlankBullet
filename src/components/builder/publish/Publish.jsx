@@ -68,7 +68,7 @@ const PublishComponent = ({ id, prevDomain }) => {
             <div className="size-4 rounded-full mx-4 bg-gray-400" />
             <a
               target="_blank"
-              href={`http://localhost:3000/live/${id}/landing/`}
+              href={`https://trydropfast.com/live/${id}/landing/`}
               className="text-xl underline text-gray-600 hover:text-black transition duration-200 "
             >
               Preview
