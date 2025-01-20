@@ -10,6 +10,7 @@ import Footer from "@/components/landing/Footer";
 import Hero from "@/components/landing/Hero";
 import { FeaturesSection } from "@/components/landing/FeatureSection";
 import PricingComparison from "@/components/landing/PricingComparison";
+import Explaination from "@/components/landing/Explaination";
 
 export default function Home() {
   return (
@@ -27,6 +28,12 @@ export default function Home() {
       <section className="my_grid antialiased !overflow-visible relative flex flex-col">
         <div className="w-full pt-8">
           <TooltipReviews />
+        </div>
+      </section>
+
+      <section className="my_grid antialiased">
+        <div className="pt-28 pb-12">
+          <Explaination />
         </div>
       </section>
 
