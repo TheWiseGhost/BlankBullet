@@ -41,7 +41,9 @@ export function FAQs() {
       </AccordionItem>
       <AccordionItem value="item-4">
         <AccordionTrigger>How do I contact you?</AccordionTrigger>
-        <AccordionContent>Contact us at ---</AccordionContent>
+        <AccordionContent>
+          Contact us with founder's email: byjuaditya@gmail.com
+        </AccordionContent>
       </AccordionItem>
     </Accordion>
   );
