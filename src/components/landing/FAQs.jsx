@@ -42,7 +42,7 @@ export function FAQs() {
       <AccordionItem value="item-4">
         <AccordionTrigger>How do I contact you?</AccordionTrigger>
         <AccordionContent>
-          Contact us with founder's email: byjuaditya@gmail.com
+          Contact us at founder's email: byjuaditya@gmail.com
         </AccordionContent>
       </AccordionItem>
     </Accordion>
