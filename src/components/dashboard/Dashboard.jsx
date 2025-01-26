@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import MainLayout from "../global/MainLayout";
 import { useUser } from "@clerk/nextjs";
+import Loading from "../global/Loading";
 
 const GridItem = ({ title, thumbnail }) => (
   <div className="flex flex-col space-y-2 px-4">
     <div className="bg-gray-100 rounded-lg overflow-hidden flex justify-center items-center h-52 w-full">
       {thumbnail ? (
-        <>
-          <img
-            src={thumbnail}
-            className="w-full self-center rounded-2xl"
-            alt="thumbnail"
-          />
-        </>
-      ) : (
-        <></>
-      )}
+        <img
+          src={thumbnail}
+          className="w-full self-center rounded-2xl"
+          alt="thumbnail"
+        />
+      ) : null}
     </div>
     <div className="text-xl text-center pr-2">{title}</div>
   </div>
 );
 
 const DashboardComponent = () => {
-  const [drops, setDrops] = useState([]);
+  const [drops, setDrops] = useState(null); // Initialize as null to check loading state
   const { user } = useUser();
 
   useEffect(() => {
@@ -34,6 +30,7 @@ const DashboardComponent = () => {
             "https://dropfastbackend.onrender.com/api/drop_options/",
             {
               method: "POST",
+              headers: { "Content-Type": "application/json" }, // Added header for JSON content
               body: JSON.stringify({ clerk_id: user.id }),
             }
           );
@@ -53,18 +50,24 @@ const DashboardComponent = () => {
     }
   }, [user]);
 
+  if (drops === null) {
+    return (
+      <div className="w-full flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <>
-      {drops ? (
+      {drops.length > 0 ? (
         <div className="grid grid-cols-3 gap-x-16 gap-y-8 w-full pt-6">
           {drops.map((drop) => (
-            <>
-              <GridItem
-                key={drop.id}
-                title={drop.title}
-                thumbnail={drop.thumbnail}
-              />
-            </>
+            <GridItem
+              key={drop.id}
+              title={drop.title}
+              thumbnail={drop.thumbnail}
+            />
           ))}
         </div>
       ) : (
