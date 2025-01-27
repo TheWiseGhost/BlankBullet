@@ -1,19 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Lottie from "react-lottie";
-import { useState, useEffect } from "react";
 
 const Loading = () => {
   const [animationData, setAnimationData] = useState(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Ensure this runs only on the client
+    setIsClient(true);
+
     // Fetch the JSON file from the public folder
     fetch("/DropFastLoading.json")
       .then((response) => response.json())
       .then((data) => setAnimationData(data))
       .catch((error) => console.error("Error loading animation:", error));
   }, []);
+
+  if (!isClient) {
+    return null; // Don't render on the server
+  }
 
   if (!animationData) {
     return <div>Loading...</div>; // Show a loading state until the JSON is loaded
