@@ -1,35 +1,36 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Lottie from "react-lottie";
+import dynamic from "next/dynamic";
+
+// Dynamically import the Lottie component to ensure it only loads on the client
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 
 const Loading = () => {
   const [animationData, setAnimationData] = useState(null);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Ensure this runs only on the client
-    setIsClient(true);
+    const fetchAnimation = async () => {
+      try {
+        const response = await fetch("/DropFastLoading.json");
+        const data = await response.json();
+        setAnimationData(data);
+      } catch (error) {
+        console.error("Error loading animation:", error);
+      }
+    };
 
-    // Fetch the JSON file from the public folder
-    fetch("/DropFastLoading.json")
-      .then((response) => response.json())
-      .then((data) => setAnimationData(data))
-      .catch((error) => console.error("Error loading animation:", error));
+    fetchAnimation();
   }, []);
 
-  if (!isClient) {
-    return <div></div>; // Don't render on the server
-  }
-
   if (!animationData) {
-    return <div>Loading...</div>; // Show a loading state until the JSON is loaded
+    return <div>Loading...</div>; // Fallback loading state
   }
 
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: animationData,
+    animationData,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
