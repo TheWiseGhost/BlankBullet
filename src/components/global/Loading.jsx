@@ -19,7 +19,7 @@ const Loading = () => {
   }, []);
 
   if (!isClient) {
-    return null; // Don't render on the server
+    return <div></div>; // Don't render on the server
   }
 
   if (!animationData) {
