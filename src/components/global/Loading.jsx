@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Lottie from "react-lottie";
 import { useState, useEffect } from "react";
