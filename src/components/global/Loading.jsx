@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
-
-// Dynamically import the Lottie component to ensure it only loads on the client
-const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const Loading = () => {
   const [animationData, setAnimationData] = useState(null);
@@ -27,19 +24,15 @@ const Loading = () => {
     return <div>Loading...</div>; // Fallback loading state
   }
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   return (
     <div className="flex flex-col items-center justify-center space-y-6">
       <div style={{ width: 100, height: 100 }}>
-        <Lottie options={defaultOptions} height={100} width={100} />
+        <Player
+          autoplay
+          loop
+          src={animationData}
+          style={{ height: "100px", width: "100px" }}
+        />
       </div>
       <p className="font-dm text-gray-700 text-sm">
         It will take 60 seconds to load your stores

@@ -3,15 +3,18 @@ import { FiChevronDown } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
+import Loading from "./Loading";
 
 const Dropdown = ({ page }) => {
   const [drops, setDrops] = useState([]);
+  const [loading, setLoading] = useState(false); // State for loading
   const [open, setOpen] = useState(false);
   const { user } = useUser();
 
   useEffect(() => {
     if (user) {
       const fetchDrops = async () => {
+        setLoading(true); // Start loading
         try {
           const response = await fetch(
             "https://dropfastbackend.onrender.com/api/drop_options/",
@@ -29,6 +32,8 @@ const Dropdown = ({ page }) => {
           }
         } catch (error) {
           console.error("Error fetching drops:", error);
+        } finally {
+          setLoading(false); // Stop loading
         }
       };
 
@@ -55,19 +60,19 @@ const Dropdown = ({ page }) => {
           style={{ originY: "top", translateX: "-50%" }}
           className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-2xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
         >
-          {drops ? (
-            <>
-              {drops.map((drop) => (
-                <Option
-                  key={drop.id}
-                  text={drop.title}
-                  page={page}
-                  id={drop.id}
-                />
-              ))}
-            </>
+          {loading ? (
+            <Loading /> // Show the loading indicator when fetching
+          ) : drops.length > 0 ? (
+            drops.map((drop) => (
+              <Option
+                key={drop.id}
+                text={drop.title}
+                page={page}
+                id={drop.id}
+              />
+            ))
           ) : (
-            <></>
+            <li className="text-sm text-gray-500 p-2">No drops available</li>
           )}
         </motion.ul>
       </motion.div>
